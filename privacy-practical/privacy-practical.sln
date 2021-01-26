@@ -1,0 +1,45 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "privacypractical.lib", "privacy-practical/privacypractical.lib/privacypractical.lib.csproj", "{9bd51595-e91c-426e-a5cb-3b0103211d93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "privacypractical.tv", "privacy-practical/privacypractical.tv/privacypractical.tv.csproj", "{62860115-a116-46aa-af0f-6d129f988007}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "privacypractical.mobile", "privacy-practical/privacypractical.mobile/privacypractical.mobile.csproj", "{28dd57cb-d244-4a1d-96cb-d9c17cb1de67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "privacypractical.wearable", "privacy-practical/privacypractical.wearable/privacypractical.wearable.csproj", "{1a8a2ad4-bef9-4205-a866-4e36ab034e62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "privacypractical.common", "privacy-practical/privacypractical.common/privacypractical.common.csproj", "{a5be304d-42e1-4111-b602-85952c5e70c1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9bd51595-e91c-426e-a5cb-3b0103211d93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9bd51595-e91c-426e-a5cb-3b0103211d93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9bd51595-e91c-426e-a5cb-3b0103211d93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9bd51595-e91c-426e-a5cb-3b0103211d93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62860115-a116-46aa-af0f-6d129f988007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62860115-a116-46aa-af0f-6d129f988007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62860115-a116-46aa-af0f-6d129f988007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62860115-a116-46aa-af0f-6d129f988007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28dd57cb-d244-4a1d-96cb-d9c17cb1de67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28dd57cb-d244-4a1d-96cb-d9c17cb1de67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28dd57cb-d244-4a1d-96cb-d9c17cb1de67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28dd57cb-d244-4a1d-96cb-d9c17cb1de67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1a8a2ad4-bef9-4205-a866-4e36ab034e62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1a8a2ad4-bef9-4205-a866-4e36ab034e62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1a8a2ad4-bef9-4205-a866-4e36ab034e62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1a8a2ad4-bef9-4205-a866-4e36ab034e62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{a5be304d-42e1-4111-b602-85952c5e70c1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{a5be304d-42e1-4111-b602-85952c5e70c1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{a5be304d-42e1-4111-b602-85952c5e70c1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{a5be304d-42e1-4111-b602-85952c5e70c1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

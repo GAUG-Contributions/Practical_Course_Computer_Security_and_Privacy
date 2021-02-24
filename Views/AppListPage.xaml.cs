@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Tizen.Applications;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace WatchOut.Views
 {
@@ -46,10 +47,15 @@ namespace WatchOut.Views
 
         private async void GetAppList()
         {
-            ApplicationInfoFilter appInfoFilter = new ApplicationInfoFilter();
-            appInfoFilter.Filter.Add(ApplicationInfoFilter.Keys.Type, "dotnet");
-            IEnumerable<ApplicationInfo> appInfoList = await ApplicationManager.GetInstalledApplicationsAsync(appInfoFilter);
-            listView.ItemsSource = appInfoList;
+            ApplicationInfoFilter appInfoFilterWebapp = new ApplicationInfoFilter();
+            appInfoFilterWebapp.Filter.Add(ApplicationInfoFilter.Keys.Type, "webapp");
+            IEnumerable<ApplicationInfo> appInfoListWebApp = await ApplicationManager.GetInstalledApplicationsAsync(appInfoFilterWebapp);
+
+            ApplicationInfoFilter appInfoFilterDotnet = new ApplicationInfoFilter();
+            appInfoFilterDotnet.Filter.Add(ApplicationInfoFilter.Keys.Type, "dotnet");
+            IEnumerable<ApplicationInfo> appInfoListDotnet = await ApplicationManager.GetInstalledApplicationsAsync();
+
+            listView.ItemsSource = appInfoListWebApp.Union(appInfoListDotnet);
         }
     }
 }

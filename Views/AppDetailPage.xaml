@@ -20,7 +20,19 @@
             <Label
                 x:Name="appType"
                 Text="Label"
-                FontSize="Large"
+                FontSize="Medium"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="CenterAndExpand" />
+            <Label
+                x:Name="appCategory"
+                Text="Label"
+                FontSize="Medium"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="CenterAndExpand" />
+            <Label
+                x:Name="appPID"
+                Text="Label"
+                FontSize="Medium"
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

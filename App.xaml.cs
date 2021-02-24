@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
-
 namespace WatchOut
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class App : Application
     {
         public App()
@@ -30,3 +33,4 @@ namespace WatchOut
         }
     }
 }
+

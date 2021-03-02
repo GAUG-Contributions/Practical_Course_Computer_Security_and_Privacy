@@ -8,6 +8,10 @@
         <splash-screens />
     </ui-application>
     <shortcut-list />
+    <privileges>
+        <privilege>http://tizen.org/privilege/externalstorage</privilege>
+        <privilege>http://tizen.org/privilege/filesystem.read</privilege>
+    </privileges>
     <dependencies />
     <provides-appdefined-privileges />
 </manifest>

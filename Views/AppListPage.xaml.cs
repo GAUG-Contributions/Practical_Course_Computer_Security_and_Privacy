@@ -3,6 +3,7 @@ using Tizen.Wearable.CircularUI.Forms;
 using WatchOut.Services;
 using Xamarin.Forms;
 using Tizen.Applications;
+using Tizen.Sensor;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
@@ -14,9 +15,6 @@ namespace WatchOut.Views
         public AppListPage()
         {
             InitializeComponent();
-
-            // Initialize sample data and set ItemsSource in ListView.
-            // TODO: Change ItemsSource with your own data.
             GetAppList();
         }
 
@@ -30,7 +28,6 @@ namespace WatchOut.Views
             // Logger.Info($"Item : {switchCell.BindingContext}");
             // Logger.Info($"Switch set : {e.Value});
         }
-
         // Called once when an item is selected.
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -47,15 +44,16 @@ namespace WatchOut.Views
 
         private async void GetAppList()
         {
-            ApplicationInfoFilter appInfoFilterWebapp = new ApplicationInfoFilter();
-            appInfoFilterWebapp.Filter.Add(ApplicationInfoFilter.Keys.Type, "webapp");
-            IEnumerable<ApplicationInfo> appInfoListWebApp = await ApplicationManager.GetInstalledApplicationsAsync(appInfoFilterWebapp);
+            IEnumerable <ApplicationInfo> appInfoList = await ApplicationManager.GetInstalledApplicationsAsync();
+            List<ApplicationInfo> list = new List<ApplicationInfo>();
+            foreach (ApplicationInfo applicationInfo in appInfoList)
+            {
+                // Filter out apps that aren't displayed on the menu
+                if (!applicationInfo.IsNoDisplay)
+                    list.Add(applicationInfo);
+            }
 
-            ApplicationInfoFilter appInfoFilterDotnet = new ApplicationInfoFilter();
-            appInfoFilterDotnet.Filter.Add(ApplicationInfoFilter.Keys.Type, "dotnet");
-            IEnumerable<ApplicationInfo> appInfoListDotnet = await ApplicationManager.GetInstalledApplicationsAsync();
-
-            listView.ItemsSource = appInfoListWebApp.Union(appInfoListDotnet);
+            listView.ItemsSource = list;
         }
     }
 }

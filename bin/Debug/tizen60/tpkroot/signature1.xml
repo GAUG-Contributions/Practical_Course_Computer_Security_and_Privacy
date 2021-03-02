@@ -8,7 +8,7 @@
     </Reference>
     <Reference URI="tizen-manifest.xml">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>zWutpMbQ3hd920zT1A1/p23dArlii0PUSnyVZyOeOmyB1wfbXlFCk07tiNjWH6i77ZlFtJsPMab7aCQiirfxgw==</DigestValue>
+      <DigestValue>7U0SpMltrBZ9dTRBpn+ml8S9pJ/DNjJKTHVNFbKC6fCniCIw+/VgWGv/GGagD1rcOmcDT6l0HulQD0OXb3oOZQ==</DigestValue>
     </Reference>
     <Reference URI="shared%2Fres%2FWatchOut.png">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
@@ -52,11 +52,11 @@
     </Reference>
     <Reference URI="bin%2FWatchOut.pdb">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>OXI4bqAk9GysqarPS/F/ODxFPko9H08E1RnqFudyJ+FdYX98zhuncW/5ehXHr7Z+qVKixzOee/Ce1PlHqKuPAg==</DigestValue>
+      <DigestValue>2atBzfQXUSuvjX9IDTPik8FPWo87L0ncS+tn8WPfuZrVg4Wokney7KtGO6SygfRih6Hgwq+QGGFWoR+cFwKkBQ==</DigestValue>
     </Reference>
     <Reference URI="bin%2FWatchOut.dll">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>0oyvw4uXzw9VLzAE+xFrbLzn866wmTVi9B5RpTs2tqdxNshrCjuSNhyiaXxTVrBnAMt9M5YdVDwQSM7iXHkNhg==</DigestValue>
+      <DigestValue>QaqVhK3IBi5p2qMafsYUN4eMaicWe9Y/cF//6yUxsZs1apIKJL0nLdR4lteoJQrg9CzTBDdZwEJJGUSbbLfrTw==</DigestValue>
     </Reference>
     <Reference URI="bin%2Ftr%2FMicrosoft.CodeAnalysis.resources.dll">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
@@ -168,7 +168,7 @@
     </Reference>
     <Reference URI="author-signature.xml">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>J67pCciHV1mSpG6cz4+EqC/EZ+rH5cMjKXbWtRe2+7A3tp1i0qf1GbzBlqUvJGhw2wS3V8d+3d3Zwx1XkG5+ow==</DigestValue>
+      <DigestValue>7csVSYw9T1hlzgoAOFX8RuSyOdxfUoS1fTB3jEaRqDEHuR+iRHSSozZpDs6SJ7dpHDVyXHQ6UNzFiHyzkCZbKw==</DigestValue>
     </Reference>
     <Reference URI="#prop">
       <Transforms>
@@ -179,11 +179,11 @@
     </Reference>
   </SignedInfo>
   <SignatureValue>
-VgbQRQ1unsDvRz3pPzvcdWpIrMYFHkT1txPPjmeAejarcxyOR6YkQ5ELstvxT/1TfRYWX60qc8Rs
-RfjPgFVicPpEEo5qo2IrmTKog7rgc4e1Jv5Xn+6FlSVHAkiqjU+wxyzmPzAz/EtyFbT6Br7WICj7
-pV9yF9+ZovKiK/sVnnzGAEwmeEHtha/SCp8m6wa7nHOFyTFrWBx8efI1yC13zlpRFHfKPU5YMAVN
-hUaBkrU4mIXuIwqzlxrpDtDJpHbycpdwe/siXBLtT8VvLjwQsgtVOpQipRKZIkqnM36ViEkuarUD
-14VWYeheN2UtbT3sRajJ6mOjCLv+dhsMiTls9Q==
+lZMQhd8btm1WxMpLIBy/EFfMFS1n5RAVUOQ8O+ltoOFdmj8RkyIuELOCbGif85V8GdsvU1KHsWk7
+fvLw/gCnWpzEp+z/ua+9ne8Hez4EX7qlxmwkWu4iHTtgwMnwzCQ5RI6+RAlCR7LnJIlAI/2vfPMd
+WkmrCNXx+CGZq0PhTYPxrO8q4jX1PUydxnirqBlxb9QJ11kQOBTvqB9/WoROIuH2XcRQDxtyVJRI
+CiqFuVRv1upay4UOAOIqRAjuCByxrRmHhb3lz/iO4wap9iT2NF/vCH0KPEELNpqSp3eDHCMQCQyZ
+NM06bWFvq1lGGOFNJCXFbrd1XmXZi2y7CGNfCQ==
 </SignatureValue>
   <KeyInfo>
     <X509Data>

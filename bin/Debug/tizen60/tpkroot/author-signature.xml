@@ -8,7 +8,7 @@
     </Reference>
     <Reference URI="tizen-manifest.xml">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>zWutpMbQ3hd920zT1A1/p23dArlii0PUSnyVZyOeOmyB1wfbXlFCk07tiNjWH6i77ZlFtJsPMab7aCQiirfxgw==</DigestValue>
+      <DigestValue>7U0SpMltrBZ9dTRBpn+ml8S9pJ/DNjJKTHVNFbKC6fCniCIw+/VgWGv/GGagD1rcOmcDT6l0HulQD0OXb3oOZQ==</DigestValue>
     </Reference>
     <Reference URI="shared%2Fres%2FWatchOut.png">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
@@ -52,11 +52,11 @@
     </Reference>
     <Reference URI="bin%2FWatchOut.pdb">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>OXI4bqAk9GysqarPS/F/ODxFPko9H08E1RnqFudyJ+FdYX98zhuncW/5ehXHr7Z+qVKixzOee/Ce1PlHqKuPAg==</DigestValue>
+      <DigestValue>2atBzfQXUSuvjX9IDTPik8FPWo87L0ncS+tn8WPfuZrVg4Wokney7KtGO6SygfRih6Hgwq+QGGFWoR+cFwKkBQ==</DigestValue>
     </Reference>
     <Reference URI="bin%2FWatchOut.dll">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
-      <DigestValue>0oyvw4uXzw9VLzAE+xFrbLzn866wmTVi9B5RpTs2tqdxNshrCjuSNhyiaXxTVrBnAMt9M5YdVDwQSM7iXHkNhg==</DigestValue>
+      <DigestValue>QaqVhK3IBi5p2qMafsYUN4eMaicWe9Y/cF//6yUxsZs1apIKJL0nLdR4lteoJQrg9CzTBDdZwEJJGUSbbLfrTw==</DigestValue>
     </Reference>
     <Reference URI="bin%2Ftr%2FMicrosoft.CodeAnalysis.resources.dll">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha512" />
@@ -175,11 +175,11 @@
     </Reference>
   </SignedInfo>
   <SignatureValue>
-PIqEBlNBfYhXgBMq2wbYNfqTiymI3k1MLtBypsLBoCjZLFuZszLAmxG3JUukt8Ae1o45NMeczyfE
-6tE6Dft0Cb+QX1hIIRkMTiNuVk+7EPBdKEcF/G5YJgwc1Z6Arw6QIYFupm84FnB5cehMpFILjlGO
-iVfajR0tzha3kn5QtMrM5vd0ZP9CQfkenjx1eJxxrI4C+UQzTGYzapAvX8m9hg+rn1Sf5uYsXVcR
-BXAjdOO0BHd810x1ND5c1TWYSUCVesaP2gb7Vyz6WuRxbSbV4d9/gtC/TFFQSCZ7rMpzof/EnVgM
-eZU1M6MJ86pzf4iaWk8PHyJlQLhNtPSYxqK/HA==
+Ra9iuGbM9wXL0N2Fpj3cI5cnreVHQtQx5IfZU3/C2PKhZ9xHRBkOPY9oZTZFeCVpzUfIZXrwUkgX
+DoQqzzhm7oZjpUyE8IfNDa+eqzXgKlKVauWdhNx95OsbjV9yo63mjbVUpeLC+NTtZO3xO4WKXmn4
+2zHKNmIZ0gfq5/yt/EcBz7MRKwzwswxmgvbCV7Oc344A+ekXUeR6ggKVk2RWKskDhDe2iYe+GZhI
+lAw7jh/vP9h2yoAgsWMb4P7uqf5cCX/0O4jPlNKtXiOLVj5VaiFcdYof4RyZWDMkYKHQS+dVCqZA
++H4IfhvIMmUFm+Xb/5l2s43cR7wtqni/dAa1mg==
 </SignatureValue>
   <KeyInfo>
     <X509Data>

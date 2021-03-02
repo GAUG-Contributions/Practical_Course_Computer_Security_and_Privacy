@@ -1,7 +1,9 @@
 ﻿using System;
 using Tizen.Applications;
+using Tizen.Sensor;
+using Tizen.Security;
 using Tizen.Wearable.CircularUI.Forms;
-
+using WatchOut.Services;
 using Xamarin.Forms;
 
 namespace WatchOut.Views
@@ -19,12 +21,38 @@ namespace WatchOut.Views
             }
             catch (Exception e)
             {
-                Tizen.Log.Error("Tizen.Applications", e.Message, "", "", 0);
+                Logger.Error(e.Message);
             }
+
+            bool isSensing = false;
+            try
+            {
+                const string hrPrivilege = "http://tizen.org/privilege/healthinfo";
+                CheckResult result = PrivacyPrivilegeManager.CheckPermission(hrPrivilege);
+                switch (result)
+                {
+                    case CheckResult.Allow:
+                        var sensor = new HeartRateMonitor();
+                        isSensing = sensor.IsSensing;
+                        break;
+                    case CheckResult.Deny:
+                        break;
+                    case CheckResult.Ask:
+                        PrivacyPrivilegeManager.RequestPermission(hrPrivilege);
+                        break;
+                }
+                
+            }
+            catch (Exception)
+            {
+                /// Accelerometer is not supported in the current device.
+                /// You can also check whether the accelerometer is supported with the following property:
+                /// var supported = Accelerometer.IsSupported;
+            }
+
             appLabel.Text = appInfo.Label;
-            //appCategory.Text = appInfo.Categories.ToString();
-            appType.Text = appInfo.ApplicationType;
             appPID.Text = "PID: " + (appContext == null ? "Not running" : appContext.ProcessId.ToString());
+            appSensors.Text = isSensing ? "Reads HR Sensors" : "Not reading HR Sensors";
         }
     }
 }

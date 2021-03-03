@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SensorFeedbackWF.Views.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:c="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms">
+    <ContentPage.Content>
+        <AbsoluteLayout BackgroundColor="Black">
+            <Label
+                x:Name="TimeLabel"
+                AbsoluteLayout.LayoutBounds="0, 150, 360, 60"
+                AbsoluteLayout.LayoutFlags="None"
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                Text="{Binding TimeString}"
+                TextColor="White" />
+            <c:CircleSurfaceView
+                AbsoluteLayout.LayoutBounds="0,0,1,1"
+                AbsoluteLayout.LayoutFlags="All"
+                InputTransparent="True">
+                <c:CircleSurfaceView.CircleSurfaceItems>
+                    <c:CircleProgressBarSurfaceItem
+                        x:Name="progressBar"
+                        BarColor="#FF0000"
+                        BarRadius="170"
+                        BarLineWidth="15"
+                        BackgroundRadius="170"
+                        BackgroundLineWidth="15"
+                        BarAngleOffset = "90"
+                        Value="1"
+                        BackgroundColor="#00FFFFFF"
+                        IsVisible="true"/>
+                </c:CircleSurfaceView.CircleSurfaceItems>
+            </c:CircleSurfaceView>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

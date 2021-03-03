@@ -4,6 +4,8 @@ using TApplication = Tizen.Applications.Application;
 using Tizen.Applications;
 using Xamarin.Forms;
 using Tizen.NUI.BaseComponents;
+using SensorFeedbackWF.Services;
+using System.Threading.Tasks;
 
 namespace SensorFeedbackWF.Views
 {
@@ -14,7 +16,7 @@ namespace SensorFeedbackWF.Views
         private double animTimer = 1;
         private double timerDirection = 0.01;
 
-        private enum FeedBackType
+        public enum FeedbackType
         {
             Health = 1,
             Location = 2,
@@ -25,10 +27,21 @@ namespace SensorFeedbackWF.Views
         {
             InitializeComponent();
             BindingContext = this;
-            ShowRingFeedback(FeedBackType.Location);
 
             // Subscribe to the TimeTick event
             (TApplication.Current as WatchApplication).TimeTick += OnTimeChanged;
+
+            // Subcribe to FeedbackService to trigger feedbacks when appropriate
+            MessagingCenter.Subscribe<FeedbackService, FeedbackType>(this, "ShowRingFeedback", async (sender, arg) =>
+            {
+                await ShowRingFeedback(arg);
+            });
+
+            // Subcribe to FeedbackService to stop feedbacks when appropriate
+            MessagingCenter.Subscribe<FeedbackService>(this, "StopRingFeedback", async (sender) =>
+            {
+                await StopRingFeedback();
+            });
         }
 
         // Get or set time to be displayed.
@@ -65,22 +78,22 @@ namespace SensorFeedbackWF.Views
         }
 
         // Called when the plus button is clicked.
-        private void ShowRingFeedback(FeedBackType feedbackType)
+        private Task ShowRingFeedback(FeedbackType feedbackType)
         {
             progressBar.IsVisible = true;
             switch (feedbackType)
             {
-                case FeedBackType.Health:
+                case FeedbackType.Health:
                     progressBar.Value = 1;
                     progressBar.BarColor = Color.Red;
                     progressBar.BackgroundColor = Color.Transparent;
                     break;
-                case FeedBackType.Location:
+                case FeedbackType.Location:
                     progressBar.Value = 1;
                     progressBar.BarColor = Color.Yellow;
                     progressBar.BackgroundColor = Color.Transparent;
                     break;
-                case FeedBackType.HealthAndLocation:
+                case FeedbackType.HealthAndLocation:
                     // Halve the bar to show both the health related bar and the location bar
                     progressBar.Value = 0.5;
                     progressBar.BarColor = Color.Yellow;
@@ -89,11 +102,14 @@ namespace SensorFeedbackWF.Views
             }
             //Subscribe to the tick event -> triggered every second
             (TApplication.Current as WatchApplication).TimeTick += AnimateRing;
+            return Task.CompletedTask;
         }
 
-        private void StopRingFeedback()
+        private Task StopRingFeedback()
         {
             progressBar.IsVisible = false;
+            (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
+            return Task.CompletedTask;
         }
 
         private void AnimateRing(object sender, TimeEventArgs e)

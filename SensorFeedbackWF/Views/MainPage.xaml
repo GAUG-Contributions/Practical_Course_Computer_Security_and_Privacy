@@ -27,10 +27,10 @@
                         BarLineWidth="15"
                         BackgroundRadius="170"
                         BackgroundLineWidth="15"
-                        BarAngleOffset = "90"
+                        BarAngleOffset="90"
                         Value="1"
                         BackgroundColor="#00FFFFFF"
-                        IsVisible="true"/>
+                        IsVisible="false"/>
                 </c:CircleSurfaceView.CircleSurfaceItems>
             </c:CircleSurfaceView>
         </AbsoluteLayout>

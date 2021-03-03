@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wkdHBfRiVfhHh8hBqVT2Xn5DVBb4FcUjn0Y7L5hylYumE8bTPQgVGOjenkJm90mxDKmwqpDTIU1OExVwWRCXjA==",
+  "dgSpecHash": "y5RYLw9M9me6H6mHX/PFwdUKu0Yx7SE7Yvsme7/0dUAQYGoe7PJDp/h8eVAtcKKVvxYZqAnI3Oj9FMqlv9LXMg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vm\\source\\repos\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
+  "projectFilePath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vm\\.nuget\\packages\\microsoft.codeanalysis.fxcopanalyzers\\2.9.8\\microsoft.codeanalysis.fxcopanalyzers.2.9.8.nupkg.sha512",
     "C:\\Users\\vm\\.nuget\\packages\\microsoft.codeanalysis.versioncheckanalyzer\\2.9.8\\microsoft.codeanalysis.versioncheckanalyzer.2.9.8.nupkg.sha512",

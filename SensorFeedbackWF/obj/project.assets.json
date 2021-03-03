@@ -1404,11 +1404,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vm\\source\\repos\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
+      "projectUniqueName": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
       "projectName": "SensorFeedbackWF",
-      "projectPath": "C:\\Users\\vm\\source\\repos\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
+      "projectPath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
       "packagesPath": "C:\\Users\\vm\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vm\\source\\repos\\SensorFeedbackWF\\obj\\",
+      "outputPath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vm\\AppData\\Roaming\\NuGet\\NuGet.Config",

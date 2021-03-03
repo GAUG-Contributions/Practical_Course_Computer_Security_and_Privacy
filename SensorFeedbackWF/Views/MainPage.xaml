@@ -22,7 +22,7 @@
                 <c:CircleSurfaceView.CircleSurfaceItems>
                     <c:CircleProgressBarSurfaceItem
                         x:Name="progressBar"
-                        BarColor="#FF0000"
+                        BarColor="Transparent"
                         BarRadius="170"
                         BarLineWidth="15"
                         BackgroundRadius="170"

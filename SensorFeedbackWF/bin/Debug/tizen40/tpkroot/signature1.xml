@@ -48,11 +48,11 @@
     </Reference>
     <Reference URI="bin%2FSensorFeedbackWF.pdb">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-      <DigestValue>J1RLsFehzs2xxlnGyFOahW7O0nbYlutcz5HZTsX4O0I=</DigestValue>
+      <DigestValue>kqMTbWN7baGhrHDRlyvVV9ABoaJ9j0i9TqotTVXJwAE=</DigestValue>
     </Reference>
     <Reference URI="bin%2FSensorFeedbackWF.dll">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-      <DigestValue>wCAGx/FrcFheAGL6mOOm52iirqHqaRHhABHPiN/KoZ8=</DigestValue>
+      <DigestValue>q9NmLMjLqe8PHHF8z0ZEEvtjhk20fj39w+1OX6cMWsY=</DigestValue>
     </Reference>
     <Reference URI="bin%2FSensorFeedbackWF.deps.json">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
@@ -60,7 +60,7 @@
     </Reference>
     <Reference URI="author-signature.xml">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-      <DigestValue>e8qPGFXxgXrpPLmi358MCyekzxZSxuzZloZKk1uvUTQ=</DigestValue>
+      <DigestValue>TVHLArO4D9kfeRWULuJWk5w1e1DrFBqVO75FvNCqwec=</DigestValue>
     </Reference>
     <Reference URI="#prop">
       <Transforms>
@@ -71,11 +71,11 @@
     </Reference>
   </SignedInfo>
   <SignatureValue>
-pwh/FCz+M9+gmzLcEysuIJORKoys8Mw9GdWK30A0mNlJQg3q2X+Wj6BfOZ7wbDItEq09d3V1aNjS
-+w5heAZSApGkHiuFBuNu7uMqXOOga5rwTtszsYhgkwIcMpxeaz1sZo4na7Ru4kGIEidDfCIq2EZd
-pjgBXsa5jj06p4lR04qlEBwOPc5lHi8OLVH2p8yFQfJ4Hkp7P9DRK09ilZkOiApAqLQcMp6bXoG7
-qP/SfDDVmGs8WqBnxDYxaPKJEdrbSffYUea5mTQyBE1UocmZ4UWoPyOCSpMabcQNCJJS3BQd523q
-dHe1yrsOAScd0p91iKNzrxus84qcDRaDNSQUSA==
+R9LKyQOqhlLHSdJ+2mfngWbIqRnbMk8ME6Yu3UZaGB3bGttOOcsac52dU3Dt0xf6w6t+wRtMsi0k
+1/JndtSUkcBbdY5kn5z5i53VQdtouHUihRh11I+ILIIPQBj/iM+Pk/s4B7L4ois8giiuXmupzuu7
+kC/n9NFj/ageP4WEaIRG7fgP5XcXgQMC0xpTyA58S72d3ivcgqtDFs+mtbmEiVY+uCdvbPft4C5B
+kmsKgHB4SQyiRac/v5gjISiasCjMLwsvuohsqm+pSAPv2PYlb5ahZLDuE+qpvKCzxMwSalDS/7iv
+rxP8MJMaSKsqC3EdDcgIx6SlJUe08j0NkT2VnA==
 </SignatureValue>
   <KeyInfo>
     <X509Data>

@@ -15,7 +15,7 @@ namespace SensorFeedbackWF.Services
             MessagingCenter.Send(this, "ShowRingFeedback", feedback);
         }
 
-        private void StopRingFeedback()
+        public void StopRingFeedback()
         {
             MessagingCenter.Send(this, "StopRingFeedback");
         }

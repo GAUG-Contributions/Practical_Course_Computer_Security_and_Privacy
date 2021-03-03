@@ -33,6 +33,21 @@
                         IsVisible="false"/>
                 </c:CircleSurfaceView.CircleSurfaceItems>
             </c:CircleSurfaceView>
+            <Button Text="HR"
+                    FontSize="Micro"
+                    AbsoluteLayout.LayoutBounds="0.2,0.7,0.35,0.15"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Clicked="OnHealthButtonClicked" />
+            <Button Text="Location"
+                    FontSize="Micro"
+                    AbsoluteLayout.LayoutBounds="0.8,0.7,0.35,0.15"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Clicked="OnLocationButtonClicked" />
+            <Button Text="Both"
+                    FontSize="Micro"
+                    AbsoluteLayout.LayoutBounds="0.5,0.9,0.3,0.15"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Clicked="OnHealthAndLocationButtonClicked" />
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

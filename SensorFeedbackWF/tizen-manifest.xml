@@ -1,26 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.example.SensorFeedbackWF"
-    version="1.0.0"
-    api-version="4"
-    xmlns="http://tizen.org/ns/packages">
+<manifest package="com.example.SensorFeedbackWF" version="1.0.0" api-version="4" xmlns="http://tizen.org/ns/packages">
     <profile name="wearable" />
-    <watch-application
-        appid="com.example.SensorFeedbackWF"
-        exec="SensorFeedbackWF.dll"
-        type="dotnet"
-        ambient-support="true">
+    <watch-application appid="com.example.SensorFeedbackWF" exec="SensorFeedbackWF.dll" type="dotnet" hw-acceleration="on" ambient-support="true">
         <label>SensorFeedbackWF</label>
         <icon>SensorFeedbackWF.png</icon>
-        <metadata
-            key="http://tizen.org/metadata/prefer_dotnet_aot"
-            value="true" />
+        <metadata key="http://tizen.org/metadata/prefer_dotnet_aot" value="true" />
         <splash-screens />
     </watch-application>
+    <shortcut-list />
     <privileges>
         <privilege>http://tizen.org/privilege/alarm.set</privilege>
         <privilege>http://tizen.org/privilege/location</privilege>
         <privilege>http://tizen.org/privilege/haptic</privilege>
         <privilege>http://tizen.org/privilege/healthinfo</privilege>
     </privileges>
+    <dependencies />
+    <provides-appdefined-privileges />
 </manifest>

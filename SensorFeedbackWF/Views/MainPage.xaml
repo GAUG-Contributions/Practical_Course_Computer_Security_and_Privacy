@@ -5,7 +5,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:c="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms">
     <ContentPage.Content>
-        <AbsoluteLayout BackgroundColor="Black">
+        <AbsoluteLayout x:Name="layout" BackgroundColor="Transparent">
+            <ImageButton Source="gear.png"
+               WidthRequest="50"
+               HeightRequest="50"
+               BackgroundColor="Transparent"
+               AbsoluteLayout.LayoutBounds="0.5,0.2,0.1,0.1"
+               AbsoluteLayout.LayoutFlags="All"
+               CornerRadius="50"
+               Aspect="AspectFit">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="1.2"/>
+                                <Setter Property="BackgroundColor" Value="#40FFFFFF"/>
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </ImageButton>
             <Label
                 x:Name="TimeLabel"
                 AbsoluteLayout.LayoutBounds="0, 150, 360, 60"
@@ -15,7 +39,7 @@
                 HorizontalTextAlignment="Center"
                 Text="{Binding TimeString}"
                 TextColor="White" />
-            <c:CircleSurfaceView
+            <c:CircleSurfaceView BackgroundColor="Transparent"
                 AbsoluteLayout.LayoutBounds="0,0,1,1"
                 AbsoluteLayout.LayoutFlags="All"
                 InputTransparent="True">
@@ -24,9 +48,9 @@
                         x:Name="progressBar"
                         BarColor="Transparent"
                         BarRadius="170"
-                        BarLineWidth="15"
+                        BarLineWidth="4"
                         BackgroundRadius="170"
-                        BackgroundLineWidth="15"
+                        BackgroundLineWidth="4"
                         BarAngleOffset="90"
                         Value="1"
                         BackgroundColor="#00FFFFFF"

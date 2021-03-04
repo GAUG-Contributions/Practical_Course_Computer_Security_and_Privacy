@@ -10,7 +10,8 @@
 
 namespace SensorFeedbackWF.Resources {
     using System;
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +23,15 @@ namespace SensorFeedbackWF.Resources {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AppResources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal AppResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +45,7 @@ namespace SensorFeedbackWF.Resources {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,16 +59,7 @@ namespace SensorFeedbackWF.Resources {
                 resourceCulture = value;
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to SensorFeedbackWF.
-        /// </summary>
-        public static string AppDisplayName {
-            get {
-                return ResourceManager.GetString("AppDisplayName", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to SensorFeedbackWF.
         /// </summary>
@@ -76,25 +68,16 @@ namespace SensorFeedbackWF.Resources {
                 return ResourceManager.GetString("AppDescription", resourceCulture);
             }
         }
-    
+        
         /// <summary>
-        ///   Looks up a localized string similar to Main.
+        ///   Looks up a localized string similar to Sensors Feedback.
         /// </summary>
-        public static string MainPageTitle {
+        public static string AppDisplayName {
             get {
-                return ResourceManager.GetString("MainPageTitle", resourceCulture);
+                return ResourceManager.GetString("AppDisplayName", resourceCulture);
             }
         }
-    
-        /// <summary>
-        ///   Looks up a localized string similar to ProgressBar.
-        /// </summary>
-        public static string ProgressBarPageTitle {
-            get {
-                return ResourceManager.GetString("ProgressBarPageTitle", resourceCulture);
-            }
-        }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Updating is already started.
         /// </summary>
@@ -103,7 +86,7 @@ namespace SensorFeedbackWF.Resources {
                 return ResourceManager.GetString("ExceptionLocationServiceAlreadyStarted", resourceCulture);
             }
         }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Vibration is not supported.
         /// </summary>
@@ -112,13 +95,22 @@ namespace SensorFeedbackWF.Resources {
                 return ResourceManager.GetString("ExceptionVibrationServiceNotSupported", resourceCulture);
             }
         }
-    
+        
         /// <summary>
         ///   Looks up a localized string similar to Predefined vibration is not supported.
         /// </summary>
         public static string ExceptionVibrationServicePredefinedNotSupported {
             get {
                 return ResourceManager.GetString("ExceptionVibrationServicePredefinedNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main.
+        /// </summary>
+        public static string MainPageTitle {
+            get {
+                return ResourceManager.GetString("MainPageTitle", resourceCulture);
             }
         }
     }

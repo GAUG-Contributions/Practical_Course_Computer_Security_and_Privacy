@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using TApplication = Tizen.Applications.Application;
 using Tizen.Applications;
 using Xamarin.Forms;
-using Tizen.NUI.BaseComponents;
 using SensorFeedbackWF.Services;
 using System.Threading.Tasks;
 
 namespace SensorFeedbackWF.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, IDisposable
     {
         private DateTime _time;
         private string _timeString;
-        private double animTimer = 1;
-        private double timerDirection = 0.1;
+
+        // Ring blinking animation variables
+        private double animTimer = 1; // Should last one second
+        private double timerDirection = 0.1; // Is added to animTimer 10x per second so that the timer reaches 0 or 1 every second
 
         private bool isAnimateRingActive = false;
         private int randomValue;
@@ -137,10 +137,8 @@ namespace SensorFeedbackWF.Views
         {
             // If both health and location are turned off
             if(!hrmStatus && !locStatus){
-                progressBar.IsVisible = false;
                 (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
-                progressBar.BarColor = Color.Black;
-                progressBar.BackgroundColor = Color.Black;
+                progressBar.IsVisible = false;
                 isAnimateRingActive = false;
             }
 
@@ -161,7 +159,6 @@ namespace SensorFeedbackWF.Views
 
         private void AnimateRing(object sender, TimeEventArgs e)
         {
-            int counter = 0;
             // Continues firing every 100ms until it looped 10 times for a full second
             Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
@@ -169,10 +166,9 @@ namespace SensorFeedbackWF.Views
                 progressBar.BackgroundColor = new Color(progressBar.BackgroundColor.R, progressBar.BackgroundColor.G, progressBar.BackgroundColor.B, this.animTimer);
 
                 if (this.animTimer >= 1 || this.animTimer <= 0)
-                    timerDirection *= -1;
+                    this.timerDirection *= -1;
                 this.animTimer += timerDirection;
-                counter++;
-                return counter != 10;
+                return this.animTimer != 0 && this.animTimer != 1;
             });
         }
 
@@ -267,5 +263,9 @@ namespace SensorFeedbackWF.Views
             return (randomValue % max) + min;
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

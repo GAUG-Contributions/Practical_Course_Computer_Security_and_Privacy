@@ -10,9 +10,9 @@ namespace SensorFeedbackWF.Services
 {
     public class FeedbackService
     {
-        public void ShowRingFeedback(MainPage.FeedbackType feedback)
+        public void ShowRingFeedback()
         {
-            MessagingCenter.Send(this, "ShowRingFeedback", feedback);
+            MessagingCenter.Send(this, "ShowRingFeedback");
         }
 
         public void StopRingFeedback()

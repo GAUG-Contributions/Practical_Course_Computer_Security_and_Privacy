@@ -13,6 +13,8 @@ namespace SensorFeedbackWF.Services
         public void ShowRingFeedback()
         {
             MessagingCenter.Send(this, "ShowRingFeedback");
+            Tizen.System.Feedback fb = new Tizen.System.Feedback();
+            fb.Play(Tizen.System.FeedbackType.Sound, "Hold");
         }
 
         public void StopRingFeedback()

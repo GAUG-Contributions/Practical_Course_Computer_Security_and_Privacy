@@ -6,13 +6,16 @@
     xmlns:c="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms">
     <ContentPage.Content>
         <AbsoluteLayout x:Name="layout" BackgroundColor="Transparent">
-            <ImageButton Source="gear.png"
+            <ImageButton
+               x:Name="buttonParam"
+               Source="gear.png"
                WidthRequest="50"
                HeightRequest="50"
                BackgroundColor="Transparent"
                AbsoluteLayout.LayoutBounds="0.5,0.2,0.1,0.1"
                AbsoluteLayout.LayoutFlags="All"
                CornerRadius="50"
+               Clicked="OnParametersButtonClicked"
                Aspect="AspectFit">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">

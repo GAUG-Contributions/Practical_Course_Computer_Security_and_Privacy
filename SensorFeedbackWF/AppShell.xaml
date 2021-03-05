@@ -11,9 +11,11 @@
     xmlns:res="clr-namespace:SensorFeedbackWF.Resources"
     xmlns:views="clr-namespace:SensorFeedbackWF.Views"
     FlyoutBehavior="Disabled">
-    <FlyoutItem Route="Main" Title="{x:Static res:AppResources.MainPageTitle}">
-        <ShellSection>
-            <ShellContent ContentTemplate="{DataTemplate views:MainPage}"/>
-        </ShellSection>
-    </FlyoutItem>
+
+    <ShellContent Route="Main" Title="{x:Static res:AppResources.MainPageTitle}">
+        <views:MainPage />
+    </ShellContent>
+    <ShellContent Route="Settings" Title="Settings">
+        <views:SettingsPage />
+    </ShellContent>
 </Shell>

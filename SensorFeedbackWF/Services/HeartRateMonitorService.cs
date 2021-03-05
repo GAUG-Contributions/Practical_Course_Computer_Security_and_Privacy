@@ -36,7 +36,6 @@ namespace SensorFeedbackWF.Services
                 // For details see https://docs.tizen.org/application/dotnet/guides/location-sensors/device-sensors
                 // _sensor.PausePolicy = SensorPausePolicy.All;
 
-                // TODO: Set the update interval in milliseconds
                 _sensor.Interval = 1000;
             }
             catch (NotSupportedException)
@@ -107,7 +106,7 @@ namespace SensorFeedbackWF.Services
         /// </summary>
         private void OnSensorDataUpdated(object sender, HeartRateMonitorDataUpdatedEventArgs e)
         {
-            // TODO: Handle sensor data
+            
             // More details at https://docs.tizen.org/application/dotnet/guides/location-sensors/device-sensors#heart-rate-monitor-sensor
             Logger.Info($"Heart rate: {e.HeartRate}");
         }

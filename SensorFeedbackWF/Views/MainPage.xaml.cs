@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using TApplication = Tizen.Applications.Application;
 using Tizen.Applications;
 using Xamarin.Forms;
@@ -14,11 +15,18 @@ namespace SensorFeedbackWF.Views
         private string _timeString;
 
         // Ring blinking animation variables
-        private double animTimer = 1; // Should last one second
+        private double animTimer = 1.0; // Should last one second
         private double timerDirection = 0.1; // Is added to animTimer 10x per second so that the timer reaches 0 or 1 every second
-
         private bool isAnimateRingActive = false;
-        private int randomValue;
+
+        // Randomizer Functionality
+        private Random randomizer;
+        // The number of random actions that the Rand button performs
+        private const int randomActionsToBePerformed = 10;
+        private bool isRandomActive = false;
+
+        // Set this to true to get extra execution info of the random
+        private const bool printRandomRun = false;
 
         // Sensors/Location Services
         private HeartRateMonitorService hrmService;
@@ -27,7 +35,9 @@ namespace SensorFeedbackWF.Views
         // Sensors/Location Activity Status
         private bool hrmStatus = false;
         private bool locStatus = false;
-        private bool randStatus = false;
+
+        // Used to deallocate resources for the services
+        private bool disposedValue = false;
 
         public enum FeedbackType
         {
@@ -41,10 +51,10 @@ namespace SensorFeedbackWF.Views
             InitializeComponent();
             BindingContext = this;
 
-            initializeServices();
-
             // Subscribe to the TimeTick event
             (TApplication.Current as WatchApplication).TimeTick += OnTimeChanged;
+
+            initializeServices();
 
             // Subcribe to FeedbackService to trigger feedbacks when appropriate
             MessagingCenter.Subscribe<FeedbackService>(this, "ShowRingFeedback", async (sender) =>
@@ -63,6 +73,7 @@ namespace SensorFeedbackWF.Views
         private void initializeServices(){
             hrmService = new HeartRateMonitorService();
             locService = new LocationService(Tizen.Location.LocationType.Hybrid);
+            randomizer = new Random();
         }
 
         // Get or set time to be displayed.
@@ -76,7 +87,6 @@ namespace SensorFeedbackWF.Views
         private void UpdateTime()
         {
             TimeString = _time.ToString("HH:mm:ss");
-            randomValue = _time.Second * _time.Second * 11;
         }
 
         // Called at least once per second.
@@ -109,25 +119,35 @@ namespace SensorFeedbackWF.Views
             progressBar.IsVisible = true;
 
             // If both active
-            if(hrmStatus && locStatus){
+            if (hrmStatus && locStatus){
                 // Halve the bar to show both the health related bar and the location bar
                 progressBar.Value = 0.5;
                 progressBar.BarColor = Color.Yellow;
                 progressBar.BackgroundColor = Color.Red;
-            } else {
+
+            } 
+            else { // only one active
+
                 progressBar.Value = 1;
 
-                if (hrmStatus) progressBar.BarColor = Color.Red;
-                if (locStatus) progressBar.BarColor = Color.Yellow;
-
+                if (hrmStatus){
+                    progressBar.BarColor = Color.Red;
+                }
+                if (locStatus){
+                    progressBar.BarColor = Color.Yellow;
+                }
+                
                 progressBar.BackgroundColor = Color.Transparent;
             }
 
-            if(!isAnimateRingActive)
+            // This check is performed to make sure that the AnimateRing won't get activated 
+            // more than once. Activating more than once leads to faster blinking.
+            if (!isAnimateRingActive)
             {
+                isAnimateRingActive = true;
                 //Subscribe to the tick event -> triggered every second
                 (TApplication.Current as WatchApplication).TimeTick += AnimateRing;
-                isAnimateRingActive = true;
+
             }
 
             return Task.CompletedTask;
@@ -137,16 +157,23 @@ namespace SensorFeedbackWF.Views
         {
             // If both health and location are turned off
             if(!hrmStatus && !locStatus){
-                (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
                 progressBar.IsVisible = false;
+                (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
                 isAnimateRingActive = false;
+
+                // Don't remove, important for 'fast synchronization' aka 'shadowing desynchronization' :)
+                // Just making the progressBar invisible doesn't remove
+                // the color when there is no active service, at least on the emulator
+                progressBar.BarColor = Color.Black;
+                progressBar.BackgroundColor = Color.Black;
+                
             }
 
             if (hrmStatus){
                 progressBar.Value = 1;
                 progressBar.BarColor = Color.Red;
                 progressBar.BackgroundColor = Color.Transparent;
-            }
+            } 
 
             if (locStatus){
                 progressBar.Value = 1;
@@ -176,96 +203,166 @@ namespace SensorFeedbackWF.Views
         /*=============================== BUTTON LISTENERS ===============================*/
         /*================================================================================*/
 
-        private void OnHealthButtonClicked(object sender, EventArgs args)
-        {
-            if (hrmStatus)
-            {
-                hrmStatus = false;
-                hrmService.Stop();
-                buttonHR.TextColor = Color.White;
-            } else {
-                hrmStatus = true;
-                hrmService.Start();
-                buttonHR.TextColor = Color.Red;
-            }
+        private void OnHealthButtonClicked(object sender, EventArgs args){
+            switchStateHR();
         }
 
-        private void OnLocationButtonClicked(object sender, EventArgs args)
-        {
-            if (locStatus)
-            {
-                locStatus = false;
-                locService.Stop();
-                buttonLocation.TextColor = Color.White;
-            }
-            else
-            {
-                locStatus = true;
-                locService.Start();
-                buttonLocation.TextColor = Color.Yellow;
-            }
+        private void OnLocationButtonClicked(object sender, EventArgs args){
+            switchStateLoc();
         }
 
         private void OnRandButtonClicked(object sender, EventArgs e)
         {
-            // Starts with false and changes with every click
-            randStatus = !randStatus;
+            // Switch random activity state
+            // The user should be able to stop the random run before it's end
+            isRandomActive = !isRandomActive;
 
-            // Random turned off
-            if (!randStatus){
-                buttonRand.TextColor = Color.White;
+            // If the user stops random mode before it ends
+            if (!isRandomActive){
+                stopRandomFunction();
                 return;
             }
 
+            int previousAction = -1;
+            int timeCounter = 10; // Used for faster responses to user interaction
+            int randomActionsLeft = randomActionsToBePerformed;
             buttonRand.TextColor = Color.Green;
 
-            // Random action
-            int randomAction = random(0, 100);
-            //buttonRand.Text = randomAction.ToString();
+            // Random action duration is 5 secs before changing to another action
+            Device.StartTimer(TimeSpan.FromMilliseconds(500), () => {  
+                if (randomActionsLeft >= 0 && timeCounter == 10)
+                {
+                    previousAction = performOneRandomAction(previousAction);
 
-            if(randomAction < 20){
-                // Deactivate HRM sensor if active
-                if (hrmStatus)
-                {
-                    hrmStatus = false;
-                    hrmService.Stop();
-                    buttonHR.TextColor = Color.White;
+                    // Set printRandomRun to true to run debug mode
+                    if(printRandomRun)
+                        buttonRand.Text = randomActionsLeft.ToString() + " " + previousAction.ToString();
+
+                    --randomActionsLeft;
+                    timeCounter = 0;
+                    if (randomActionsLeft < 0)
+                    {
+                        stopRandomFunction();
+                        return false;
+                    }
                 }
-            } else if (randomAction < 50){
-                // Activate HRM sensor if not active
-                if (!hrmStatus)
-                {
-                    hrmStatus = true;
-                    hrmService.Start();
-                    buttonHR.TextColor = Color.Red;
-                }
-            } else if (randomAction < 80){
-                // Activate location tracking if not active
-                if (!locStatus)
-                {
-                    locStatus = true;
-                    locService.Start();
-                    buttonLocation.TextColor = Color.Yellow;
-                }
-            } else {
-                // Deactivate location tracking if active
-                if (locStatus)
-                {
-                    locStatus = false;
-                    locService.Stop();
-                    buttonLocation.TextColor = Color.White;
-                }
-            }  
+
+                ++timeCounter;
+
+                return true;
+            });
+        }
+        
+        private int performOneRandomAction(int previousAction)
+        {
+            // Random action
+            int randomAction = randomizer.Next(0, 4);
+
+            // Makes sure two actions of the same kind won't occur back to back
+            while(previousAction == randomAction){
+                randomAction = randomizer.Next(0, 4);
+            }
+
+            switch (randomAction) {
+                case 0: switchStateHR(); break; // Change HR State (on/of)
+                case 1: switchStateLoc(); break; // Change Loc State (on/off)
+                case 2: startAllActions(); break; // Both turned on
+                case 3: stopAllActions(); break; // Both turned off
+                default: randomAction = -1; break;
+            }
+
+            return randomAction;
+        }
+        
+        private void startAllActions(){
+            if (!hrmStatus){
+                hrmStatus = true;
+                buttonHR.TextColor = Color.Red;
+                hrmService.Start();
+            }
+
+            if (!locStatus){
+                locStatus = true;
+                buttonLocation.TextColor = Color.Yellow;
+                locService.Start();
+            }
+        }
+        private void stopAllActions(){
+            if (hrmStatus){
+                hrmStatus = false;
+                buttonHR.TextColor = Color.White;
+                hrmService.Stop();
+            }
+
+            if (locStatus){
+                locStatus = false;
+                buttonLocation.TextColor = Color.White;
+                locService.Stop();
+            }
+
+            progressBar.BarColor = Color.Black;
+            progressBar.BackgroundColor = Color.Black;
+
+        }
+        private void switchStateHR(){
+            if (hrmStatus){
+                hrmStatus = false;
+                buttonHR.TextColor = Color.White;
+                hrmService.Stop();
+            }
+            else{
+                hrmStatus = true;
+                buttonHR.TextColor = Color.Red;
+                hrmService.Start();
+            }
+        }
+        private void switchStateLoc(){
+            if (locStatus){
+                locStatus = false;
+                buttonLocation.TextColor = Color.White;
+                locService.Stop();
+            }
+            else{
+                locStatus = true;
+                buttonLocation.TextColor = Color.Yellow;
+                locService.Start();
+            }
+        }
+        private void stopRandomFunction(){
+            buttonRand.TextColor = Color.White;
+            // Set printRandomRun to true to run debug mode
+            if (printRandomRun) buttonRand.Text = "Rand";
+            stopAllActions();
         }
 
-        // Creating random number between min and max
-        private int random(int min, int max){
-            return (randomValue % max) + min;
+        /*================================================================================*/
+        /*=============================== DISPOSING RESOURCES ============================*/
+        /*================================================================================*/
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    hrmService.Dispose();
+                    locService.Dispose();
+                }
+
+                hrmService = null;
+                locService = null;
+                disposedValue = true;
+            }
+        }
+
+        ~MainPage()
+        {
+            Dispose(disposing: false);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

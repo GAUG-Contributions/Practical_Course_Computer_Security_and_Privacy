@@ -52,6 +52,7 @@ namespace SensorFeedbackWF.Views
 
             // Subscribe to the TimeTick event
             (TApplication.Current as WatchApplication).TimeTick += OnTimeChanged;
+            (TApplication.Current as WatchApplication).AmbientTick += OnTimeChangedAmbiant;
             (TApplication.Current as WatchApplication).AmbientChanged += ToggleButtonsVisibility;
 
             InitializeServices();
@@ -72,7 +73,6 @@ namespace SensorFeedbackWF.Views
 
         private void ToggleButtonsVisibility(object sender, AmbientEventArgs e)
         {
-            buttonParam.IsVisible = !e.Enabled;
             buttonHR.IsVisible = !e.Enabled;
             buttonLocation.IsVisible = !e.Enabled;
             buttonRand.IsVisible = !e.Enabled;
@@ -92,8 +92,9 @@ namespace SensorFeedbackWF.Views
         }
 
         // Update time to be displayed.
-        private void UpdateTime()
+        private void OnTimeChangedAmbiant(object sender, TimeEventArgs e)
         {
+            _time = e.Time.UtcTimestamp;
             TimeString = _time.ToString("HH:mm");
         }
 
@@ -101,7 +102,7 @@ namespace SensorFeedbackWF.Views
         private void OnTimeChanged(object sender, TimeEventArgs e)
         {
             _time = e.Time.UtcTimestamp;
-            UpdateTime();
+            TimeString = _time.ToString("HH:mm:ss");
         }
 
         private bool Set<T>(ref T property, T value, [CallerMemberName]string propertyName = null)
@@ -211,9 +212,10 @@ namespace SensorFeedbackWF.Views
         /*=============================== BUTTON LISTENERS ===============================*/
         /*================================================================================*/
 
-        async void OnParametersButtonClicked(object sender, EventArgs e)
+        protected override bool OnBackButtonPressed()
         {
-            await Shell.Current.GoToAsync("//Settings");
+            Shell.Current.GoToAsync("//Main");
+            return base.OnBackButtonPressed();
         }
 
         private void OnHealthButtonClicked(object sender, EventArgs args){

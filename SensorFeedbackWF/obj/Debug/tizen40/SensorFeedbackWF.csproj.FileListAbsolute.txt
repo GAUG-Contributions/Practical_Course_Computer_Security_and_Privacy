@@ -43,4 +43,5 @@ D:\Users\Administrator\Desktop\privacy-practical\SensorFeedbackWF\bin\Debug\tize
 D:\Users\Administrator\Desktop\privacy-practical\SensorFeedbackWF\bin\Debug\tizen40\SensorFeedbackWF.pdb
 D:\Users\Administrator\Desktop\privacy-practical\SensorFeedbackWF\obj\Debug\tizen40\XamlC.stamp
 D:\Users\Administrator\Desktop\privacy-practical\SensorFeedbackWF\obj\Debug\tizen40\SensorFeedbackWF.csprojAssemblyReference.cache
-C:\Users\vm\source\repos\privacy-practical\SensorFeedbackWF\obj\Debug\tizen40\Views\SettingsPage.xaml.g.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedbackWF\obj\Debug\tizen40\Views\FeedbackSettings.xaml.g.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedbackWF\obj\Debug\tizen40\Views\MonitoringSettings.xaml.g.cs

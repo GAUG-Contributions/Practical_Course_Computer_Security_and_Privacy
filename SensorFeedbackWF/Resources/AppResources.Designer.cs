@@ -106,11 +106,29 @@ namespace SensorFeedbackWF.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main.
+        ///   Looks up a localized string similar to Feedback Settings.
+        /// </summary>
+        public static string FeedbackSettings {
+            get {
+                return ResourceManager.GetString("FeedbackSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Watch Face.
         /// </summary>
         public static string MainPageTitle {
             get {
                 return ResourceManager.GetString("MainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monitoring Settings.
+        /// </summary>
+        public static string MonitoringSettings {
+            get {
+                return ResourceManager.GetString("MonitoringSettings", resourceCulture);
             }
         }
     }

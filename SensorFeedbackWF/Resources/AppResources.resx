@@ -124,7 +124,7 @@
     <value>SensorFeedbackWF</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>Main</value>
+    <value>Watch Face</value>
   </data>
   <data name="ExceptionLocationServiceAlreadyStarted" xml:space="preserve">
     <value>Updating is already started</value>
@@ -134,5 +134,11 @@
   </data>
   <data name="ExceptionVibrationServicePredefinedNotSupported" xml:space="preserve">
     <value>Predefined vibration is not supported</value>
+  </data>
+  <data name="FeedbackSettings" xml:space="preserve">
+    <value>Feedback Settings</value>
+  </data>
+  <data name="MonitoringSettings" xml:space="preserve">
+    <value>Monitoring Settings</value>
   </data>
 </root>

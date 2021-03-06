@@ -35,6 +35,7 @@ namespace SensorFeedback.Views
 
         public enum FeedbackType
         {
+            NoFeedback = 0,
             Health = 1,
             Location = 2,
             HealthAndLocation = 3,
@@ -43,9 +44,11 @@ namespace SensorFeedback.Views
         public MainPage()
         {
             InitializeComponent();
+
+            InitializeServices();
         }
 
-         private void InitializeServices(){
+        private void InitializeServices(){
             _hrmService = new HeartRateMonitorService();
             _locService = new LocationService(Tizen.Location.LocationType.Hybrid);
             _randomizer = new Random();
@@ -53,7 +56,7 @@ namespace SensorFeedback.Views
 
         protected override bool OnBackButtonPressed()
         {
-            Shell.Current.GoToAsync("//Main");
+            //Shell.Current.GoToAsync("//Main");
             return base.OnBackButtonPressed();
         }
 

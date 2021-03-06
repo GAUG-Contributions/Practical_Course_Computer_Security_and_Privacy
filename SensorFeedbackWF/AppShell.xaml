@@ -11,11 +11,6 @@
         <ShellContent Route="content" Title="Main" ContentTemplate="{DataTemplate views:MainPage}"/>
     </ShellItem>
     <ShellItem Route="Settings" FlyoutDisplayOptions="AsMultipleItems">
-        <ShellSection Route="FeedbackSettings" Title="{x:Static res:AppResources.FeedbackSettings}">
-            <ShellContent ContentTemplate="{DataTemplate views:FeedbackSettings}"/>
-        </ShellSection>
-        <ShellSection Route="MonitoringSettings" Title="{x:Static res:AppResources.MonitoringSettings}">
-            <ShellContent ContentTemplate="{DataTemplate views:MonitoringSettings}"/>
-        </ShellSection>
+
     </ShellItem>
 </Shell>

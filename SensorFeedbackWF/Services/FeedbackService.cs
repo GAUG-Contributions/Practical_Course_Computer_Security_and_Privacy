@@ -52,17 +52,10 @@ namespace SensorFeedbackWF.Services
             }
         }
 
-        public void ShowRingFeedback()
+        public void UpdateRingFeedback(FeedbackType feedback)
         {
-            MessagingCenter.Send(this, "ShowRingFeedback");
-           
+            MessagingCenter.Send(this, "UpdateRingFeedback", feedback);
         }
-
-        public void StopRingFeedback()
-        {
-            MessagingCenter.Send(this, "StopRingFeedback");
-        }
-
 
         /// <summary>
         /// Gives sonic, haptic, or both types of feedback.

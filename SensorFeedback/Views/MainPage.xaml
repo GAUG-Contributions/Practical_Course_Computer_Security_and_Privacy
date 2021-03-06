@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SensorFeedback.Views.MainPage">
     <ContentPage.Content>
-        <StackLayout>
+        <AbsoluteLayout>
             <Label Text="Overview"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                    AbsoluteLayout.LayoutBounds="0, 150, 360, 60"
+                    AbsoluteLayout.LayoutFlags="None"
+                    HorizontalTextAlignment="Center"
+                    FontAttributes="Bold"/>
             <Button x:Name="buttonHR"
                     Text="HR"
                     FontSize="Micro"
@@ -28,6 +30,6 @@
                     AbsoluteLayout.LayoutFlags="All"
                     Clicked="OnRandButtonClicked" 
                     TextColor="White"/>
-        </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

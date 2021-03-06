@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using SensorFeedbackWF.Services;
+using SensorFeedback.Services;
 
-namespace SensorFeedbackWF.Services
+namespace SensorFeedback.Services
 {
     public static partial class PrivacyPermissionService
     {

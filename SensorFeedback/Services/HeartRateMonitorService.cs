@@ -13,7 +13,6 @@ namespace SensorFeedbackWF.Services
     public class HeartRateMonitorService : IDisposable
     {
         private HeartRateMonitor _sensor;
-        private FeedbackService _feedback;
 
         private bool _disposed = false;
 
@@ -28,7 +27,6 @@ namespace SensorFeedbackWF.Services
             {
                 // A NotSupportedException will be thrown if the sensor is not available on the device
                 _sensor = new HeartRateMonitor();
-                _feedback = new FeedbackService();
 
                 // Add an event handler to the sensor
                 _sensor.DataUpdated += OnSensorDataUpdated;
@@ -60,7 +58,6 @@ namespace SensorFeedbackWF.Services
         public void Start()
         {
             _sensor.Start();
-            _feedback.ShowRingFeedback();
         }
 
         /// <summary>
@@ -72,7 +69,6 @@ namespace SensorFeedbackWF.Services
         public void Stop()
         {
             _sensor.Stop();
-            _feedback.StopRingFeedback();
         }
 
         /// <summary>

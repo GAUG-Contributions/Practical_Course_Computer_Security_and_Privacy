@@ -1,7 +1,6 @@
 ﻿using System;
-
+using SensorFeedback.Services;
 using SensorFeedbackWF.Services;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

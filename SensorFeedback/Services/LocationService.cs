@@ -16,7 +16,6 @@ namespace SensorFeedbackWF.Services
         // For more details, see https://docs.tizen.org/application/dotnet/guides/security/requesting-permissions.
 
         private Locator _locator = null;
-        private FeedbackService _feedback;
 
         private bool _started = false;
 
@@ -31,7 +30,6 @@ namespace SensorFeedbackWF.Services
             // NotSupportedException will be thrown if the given type is not supported
             _locator = new Locator(type);
             State = ServiceState.Disabled;
-            _feedback = new FeedbackService();
         }
 
         /// <summary>
@@ -136,7 +134,6 @@ namespace SensorFeedbackWF.Services
                 _locator.Stop();
                 State = ServiceState.Disabled;
                 _started = false;
-                _feedback.StopRingFeedback();
             }
         }
 
@@ -147,7 +144,6 @@ namespace SensorFeedbackWF.Services
                 _locator.ServiceStateChanged += OnServiceStateChanged;
                 _locator.Start();
                 _started = true;
-                _feedback.ShowRingFeedback();
             }
         }
 

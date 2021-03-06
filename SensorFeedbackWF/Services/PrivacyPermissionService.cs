@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Tizen.Security;
 
-namespace SensorFeedbackWF.Services
+namespace SensorFeedback.Services
 {
     /// <summary>
     ///  Specifies the status of the permission

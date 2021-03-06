@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SensorFeedbackWF.Services
+namespace SensorFeedback.Services
 {
     /// <summary>
     /// For details see https://docs.tizen.org/application/dotnet/tutorials/sec-privileges

@@ -1,0 +1,17 @@
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\bin\Debug\tizen40\SensorFeedback.deps.json
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\bin\Debug\tizen40\SensorFeedback.dll
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\bin\Debug\tizen40\SensorFeedback.pdb
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.csprojAssemblyReference.cache
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.Resources.AppResources.resources
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.csproj.GenerateResource.cache
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\App.xaml.g.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\AppShell.xaml.g.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\Views\FeedbackSettingsPage.xaml.g.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\Views\MonitoringSettingsPage.xaml.g.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.AssemblyInfoInputs.cache
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.AssemblyInfo.cs
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.csproj.CoreCompileInputs.cache
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\XamlC.stamp
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.dll
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\SensorFeedback.pdb
+C:\Users\vm\source\repos\privacy-practical\SensorFeedback\obj\Debug\tizen40\Views\MainPage.xaml.g.cs

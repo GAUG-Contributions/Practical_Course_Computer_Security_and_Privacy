@@ -16,5 +16,10 @@ namespace SensorFeedbackWF.Views
         {
             InitializeComponent();
         }
+
+        private void OnSwitchChanged(object sender, CheckedChangedEventArgs e)
+        {
+
+        }
     }
 }

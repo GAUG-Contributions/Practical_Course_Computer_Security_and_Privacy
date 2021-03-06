@@ -1,0 +1,224 @@
+<Signature Id="DistributorSignature" xmlns="http://www.w3.org/2000/09/xmldsig#">
+  <SignedInfo>
+    <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+    <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" />
+    <Reference URI="tizen-manifest.xml">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>Bm6IpLHQqTFMN3mRLi/74fB10wXaWEaLjjUgpJT3f2Q=</DigestValue>
+    </Reference>
+    <Reference URI="shared%2Fres%2FSplashScreen.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>ukTtDn5sKoFzCamEoE7WmAAOEIyVvk197gjdyJCyugE=</DigestValue>
+    </Reference>
+    <Reference URI="shared%2Fres%2FSensorFeedback.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>NLJBAqbWaz+EQDYIKgiRctcRxnwepNCzmVzDgM/dORY=</DigestValue>
+    </Reference>
+    <Reference URI="SensorFeedback.deps.json">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>R2h1aIINNowctCr6/FrJvJf1FWB9lj9iDcD2EqpZO60=</DigestValue>
+    </Reference>
+    <Reference URI="res%2Ftizen-circular-ui-theme.edj">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>wz3BtEhfwzDSLF7c67YstbHHnt1B6FEvrUpB3TBeEP0=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FYellow.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>81KUY2El7XiIFgu+PWNBuFipnBNu5vOM1HJARNWFAkw=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FTeal.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>rtF7PH4I4oqCJHdk5jKECKq51k2CcN18Ng2Y65pZ/Zw=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FRed.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>mk07f3WLt76drALVTrUSDyEmFFY/qo0cUfFllcvNwIA=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FPurple.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>6mS7zCd4dGA+KMUK9/90m2+xzpQbY2EnBy6l0vasw4M=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FPink.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>GPvrzAmfnYxtaFoL+DP5DEHhlgAQ3+ry1oEtoWhpMcg=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FOrange.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>pMewWw5Dac+tJkcdl8dWnLOoy1UCKCeL9u51jmRJcDc=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FLime.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>Lngc2cJLalHgYrNf4RgmPilRAs0kw94FH5wCyUkafMo=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FLightGreen.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>uofokOa0EXmbjgxTiYlXGeWbOAHBPBEKOyQwVyUXE64=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FLightBlue.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>il/1dqjDZDWyyMJEgfGAirH3m7nxJFA6YnLh3urn9Kc=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FIndigo.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>Ri3Pg4G/nO8uPX5XayhykUlV41WywtqpnHsuSldtKW0=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FGrey.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>SbPnfdLbriQlUIFkFSfwvlyydan4HDGyn+TxkOlEoaA=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FGreen.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>KRNsUnxZJBZZPh5T25Y9AHCloZJIDZ+CvTJHvr74+VU=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FDeepPurple.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>XeYtOnOmsipwfUHTePoHlWZ2sKGqDARzXFh1Ea/z45s=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FDeepOrange.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>KUbM/C5RfIgALg4NpDYNeDNxx2YGc89ZZt9KvNWyrxc=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FCyan.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>0jNzMn/XDUnXDp2UBzXeOSTsvuveW0DqL6BkFTLQDXM=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FBrown.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>z3qq6TX1nTHc5Ewo8xH17/iLUCtAiklfKC/ZrX5IOjU=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FBlueGrey.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>Tb85O/jdrEJx2NnxAZaMBIufcX8DLFTRXkPX9SWLpZw=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FBlue.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>oTPpJTQjNYu5AaaN7KmfenZT5f26jbPiBvwSOFF9E2U=</DigestValue>
+    </Reference>
+    <Reference URI="res%2FSampleData%2FAmber.png">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>oAwu0KQsK6c5eDIh6komAUUm8BRhzXc0Yq6O+SqccD0=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FXamarin.Forms.Xaml.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>m5gf0sky7/dBqk5GAfOZgIgSDwXLW/5C342OjwbGJBU=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FXamarin.Forms.Platform.Tizen.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>FP0BPqRspfSiAbgLauPuiVKy9+/IOK+YuKvLL6OV1Zo=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FXamarin.Forms.Platform.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>jbzOrtvcjRKfZSZE0fL0P5aobSctm6aKFruqjHYiSpY=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FXamarin.Forms.Core.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>zEJooS57lFvT/Ht38EprAWARLSgAEnl7NbGSnsBQ3IM=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FTizen.Wearable.CircularUI.Forms.Renderer.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>wZsk7u+9dYBcm8o/q0q0c3xFAU+Kcw5cj/ePqM+UWfQ=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FTizen.Wearable.CircularUI.Forms.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>KZ8vOuiWMnvJV8OxmB45eHl6J3qX+w/Ozs1LngdALZs=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FSQLitePCLRaw.provider.sqlite3.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>3OJcUEtLBh8P+Un4fzT/aVncKNhBwfTjETRnAZ/UBdQ=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FSQLitePCLRaw.core.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>XNM8OO1wyATh+Qr5ITJgaFe0Xf4JbuV59mmOYpD71/A=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FSQLite-net.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>cs9eyDGAFCEe0m0pS3X+HKJXfMmr/8Xx4XpmL+0nT1A=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FSensorFeedback.pdb">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>rZUn1dC+1rzI845JvNJA+OZqnERqmZwXZdXuFbnuKEo=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FSensorFeedback.dll">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>hOtuNSb2kWqC6n88/yYfe5Qf9SMxRlNnex0lvmPqAuc=</DigestValue>
+    </Reference>
+    <Reference URI="bin%2FSensorFeedback.deps.json">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>R2h1aIINNowctCr6/FrJvJf1FWB9lj9iDcD2EqpZO60=</DigestValue>
+    </Reference>
+    <Reference URI="author-signature.xml">
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>ODndI/jB8/c2a7pjPFRlR64cAIJBgIPLS1Sq3lxEleY=</DigestValue>
+    </Reference>
+    <Reference URI="#prop">
+      <Transforms>
+        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      </Transforms>
+      <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+      <DigestValue>abSCdQC03ZcPoEN8T0eWSILDIhDi2uNziivgdw1gmmQ=</DigestValue>
+    </Reference>
+  </SignedInfo>
+  <SignatureValue>
+LqXhYZbD81HYkmc/rYXVTWdHxJI/AGmhajbxY40XRlnTAin6EoMr3I2ovqxbr++ucXn3rR8sGqyL
+CTNR+jLrKaMIuD4SDIcgySpxAcJ3cHkXNNQd5+IIDuszfINz7bQTPRx2tU5IguYY9bXxy1LQxoH2
+C2D+TA+adWb20RI1nigMuKYSz8HZKT8xDKzu/+7YAcy93qibwQd5svuSOhV+3TTh0DYls5dDBP0u
+/NKBk7Mfpc8kWDZYbJJWNVzbmzAvNNhZ4HEJofd7pSpOKn5NLnazQJJflr2ldejqls7rMRCtXTSi
+OLVBAQB+sdK3deJCWSai4SBBahaJv+HZoQluOw==
+</SignatureValue>
+  <KeyInfo>
+    <X509Data>
+      <X509Certificate>
+MIID4zCCAsugAwIBAgIBZTANBgkqhkiG9w0BAQ0FADCBnjELMAkGA1UEBhMCS1IxFDASBgNVBAgM
+C1NvdXRoIEtvcmVhMQ4wDAYDVQQHDAVTdXdvbjEmMCQGA1UECgwdU2Ftc3VuZyBFbGVjdHJvbmlj
+cyBDby4sIEx0ZC4xDzANBgNVBAsMBk1vYmlsZTEwMC4GA1UEAwwnU2Ftc3VuZyBUaXplbiBERVZF
+TE9QRVIgUHVibGljIENBIENsYXNzMB4XDTIxMDIyMjEyMTQ1M1oXDTIyMDIyMjEyMTQ1M1owcTER
+MA8GA1UEAwwIVGl6ZW5TREsxCTAHBgNVBAsMADEJMAcGA1UECgwAMQkwBwYDVQQHDAAxCTAHBgNV
+BAgMADEJMAcGA1UEBhMAMSUwIwYJKoZIhvcNAQkBFhZjaHJpcy53YXJpbjFAZ21haWwuY29tMIIB
+IjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzDo0KeI8NVw7DhXall9wyyhF20VW6jLNenad
+Ftl8KJuSEuEwHi7N5eTmt3gfMyrFHMR6J9+uTLpGyHEUhQuZzDH+oi+zmaIzejj6X+ak9ebLhY/t
+Aue+NNyihes5jMeYCFuVt3p3+syC60DmjGgeIrq9xhLIcOqXTleyHwb0Nqd+BbHaxA+2eS+Z7jNS
+s41PK2dHTTPufUz8AvHjBy5zaTdSzfsa3oqvFj93HjmcyjO68vPq+wU+1Sv4xcNj207TtdElg8yc
+PV/ZaLim8YfXD5jKDoOzuKX3NlmBEYQ5nRBleH4h+F46iLoexx9G1FUSnlORH37MOrDYHO864xTl
+IwIDAQABo1gwVjBUBgNVHREETTBLhhRVUk46dGl6ZW46cGFja2FnZWlkPYYzVVJOOnRpemVuOmRl
+dmljZWlkPTIuMCNiS0o0TlY3Mm5oWmt0TDdrd0pDNmhRVWJWZkU9MA0GCSqGSIb3DQEBDQUAA4IB
+AQAQFZ5M92tOqGMrjq/6uCYZ4i746F05sZDJEIXbwxkEw+s6fEbfA4xxGWFCu3iUaSQXnwh6D6xu
+pl9rtw2tWS91Pf4ytecnGqHi9drsVSP2rJDU7ZSzZ2JtS0hJ7hyJ1FfavIQ3T4dc6fHZXXceTgm0
+ntV/O/EisLOzUhbAye+HLljJUxJbODmE7F9++RDWIk3YO/nEJdgeK1tqT6AI5b18t5ciLh2gYImq
+ocddTkSnv1uxERQ/dudqwdh2pG0Dx7HZsV558YAsW9Dt88iim2dIy581gnyid88yeB5izT8FS1kb
+/rmDJzSZp07CM4wDR1pNKuh2FKYtoQDJaOpyfwi6
+</X509Certificate>
+      <X509Certificate>
+MIIDuzCCAqOgAwIBAgICL+cwDQYJKoZIhvcNAQELBQAwgY8xCzAJBgNVBAYTAktSMRQwEgYDVQQI
+DAtTb3V0aCBLb3JlYTEOMAwGA1UEBwwFU3V3b24xJjAkBgNVBAoMHVNhbXN1bmcgRWxlY3Ryb25p
+Y3MgQ28uLCBMdGQuMTIwMAYDVQQDDClTYW1zdW5nIFRpemVuIERFVkVMT1BFUiBQdWJsaWMgUm9v
+dCBDbGFzczAeFw0xMzEyMzAxNTAxNDdaFw0yODEyMjYxNTAxNDdaMIGeMQswCQYDVQQGEwJLUjEU
+MBIGA1UECAwLU291dGggS29yZWExDjAMBgNVBAcMBVN1d29uMSYwJAYDVQQKDB1TYW1zdW5nIEVs
+ZWN0cm9uaWNzIENvLiwgTHRkLjEPMA0GA1UECwwGTW9iaWxlMTAwLgYDVQQDDCdTYW1zdW5nIFRp
+emVuIERFVkVMT1BFUiBQdWJsaWMgQ0EgQ2xhc3MwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+AoIBAQCkqW9d0zO5NFOc7u164DKe9Yx+yEgUnsbhnJasqHaqT71qaMxyCOjyysZi7gGycDcgmLcU
+tr2wSMTGWPibK8SrJ8bV/J1cy9nTpljM3s+lbPIVVxZeufhJkU79tXImHLolERd0vui+rj0Xpd9O
+zlyNTRt0+PWVT1taWcbfHL7pUD25hMkTc8C3bC+dUoT1/RhCkXgmUvIor3EnnU0rBtAl4qNtg5y1
+7RLT8dyicieAHCcW923YC/ngMZxnBjbL2Ht1RBUvrL6K3X5+l0VeF4qC3g7TKm/a/SGjq12ZD4sc
+7rglzjSNlTVSGag6/2WkqxE6HheEBWaloYOdauzwydFNAgMBAAGjEDAOMAwGA1UdEwQFMAMBAf8w
+DQYJKoZIhvcNAQELBQADggEBAG88wKjKeTbj5I6wMEvRihd+gWrESJX3bXUSlHWjUfYKcvg3GzM9
+cdooscqJdYgN8ezQuYiJQRk7BaPHSlPGkchsPUjvSM6WvIn9IT+VsEuVBrZNbZMSv6lM6wNig3TE
+h2OxFTW6Bt8mCZB74EP2wb+39Fr5aJwWvmkxQjct3/O+GYPQhe0Lu1qpbbMhzafYYybSmO+om02V
+cTWyJ/vtLUNyGfN7aHyBm6PFE5piAfpBaO9Az+zWil1HOsnzu1tGGnyV6IzQ/UiIo5P2sD8I5lEO
+Xdf9Eicy9y5z2Ci2zrmDcAGWL8o5wOWrCqML2ijximFzyQ/swlMC9xBIX9RCFws=
+</X509Certificate>
+    </X509Data>
+  </KeyInfo>
+  <Object Id="prop">
+    <SignatureProperties xmlns:dsp="http://www.w3.org/2009/xmldsig-properties">
+      <SignatureProperty Id="profile" Target="#DistributorSignature">
+        <dsp:Profile URI="http://www.w3.org/ns/widgets-digsig#profile" />
+      </SignatureProperty>
+      <SignatureProperty Id="role" Target="#DistributorSignature">
+        <dsp:Role URI="http://www.w3.org/ns/widgets-digsig#role-distributor" />
+      </SignatureProperty>
+      <SignatureProperty Id="identifier" Target="#DistributorSignature">
+        <dsp:Identifier />
+      </SignatureProperty>
+    </SignatureProperties>
+  </Object>
+</Signature>

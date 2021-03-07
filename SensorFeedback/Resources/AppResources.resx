@@ -124,10 +124,10 @@
     <value>SensorFeedback</value>
   </data>
   <data name="FeedbackSettingsPageTitle" xml:space="preserve">
-    <value>FeedbackSettings</value>
+    <value>Feedback Settings</value>
   </data>
   <data name="MonitoringSettingsPageTitle" xml:space="preserve">
-    <value>MonitoringSettings</value>
+    <value>Suspend Sensors</value>
   </data>
   <data name="ExceptionLocationServiceAlreadyStarted" xml:space="preserve">
     <value>Updating is already started</value>

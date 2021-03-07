@@ -88,7 +88,7 @@ namespace SensorFeedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FeedbackSettings.
+        ///   Looks up a localized string similar to Feedback Settings.
         /// </summary>
         public static string FeedbackSettingsPageTitle {
             get {
@@ -106,14 +106,12 @@ namespace SensorFeedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MonitoringSettings.
+        ///   Looks up a localized string similar to Suspend Sensors.
         /// </summary>
         public static string MonitoringSettingsPageTitle {
             get {
                 return ResourceManager.GetString("MonitoringSettingsPageTitle", resourceCulture);
             }
         }
-
-        public static string ExceptionVibrationServicePredefinedNotSupported { get; internal set; }
     }
 }

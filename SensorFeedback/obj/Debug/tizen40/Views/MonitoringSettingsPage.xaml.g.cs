@@ -17,8 +17,16 @@ namespace SensorFeedback.Views {
     public partial class MonitoringSettingsPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Tizen.Wearable.CircularUI.Forms.CircleStepper StepperHr3;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
+        private global::Tizen.Wearable.CircularUI.Forms.CircleStepper StepperMm3;
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(MonitoringSettingsPage));
+            StepperHr3 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Tizen.Wearable.CircularUI.Forms.CircleStepper>(this, "StepperHr3");
+            StepperMm3 = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Tizen.Wearable.CircularUI.Forms.CircleStepper>(this, "StepperMm3");
         }
     }
 }

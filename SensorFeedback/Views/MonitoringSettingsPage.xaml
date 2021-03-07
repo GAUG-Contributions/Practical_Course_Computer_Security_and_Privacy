@@ -3,10 +3,53 @@
     x:Class="SensorFeedback.Views.MonitoringSettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:c="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms">
+    xmlns:w="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms"
+    xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core">
+
     <ContentPage.Content>
-        <StackLayout VerticalOptions="FillAndExpand">
-            <c:CircleDateTimeSelector ValueType="Time" VerticalOptions="CenterAndExpand"/>
+        <StackLayout Padding="0,50,0,0" Orientation="Vertical">
+            <Label
+                FontAttributes="Bold"
+                FontSize="11"
+                HorizontalTextAlignment="Center"
+                Text="Suspend sensors for"
+                TextColor="#0FB4EF" />
+            <StackLayout
+                Padding="0,10,0,0"
+                HorizontalOptions="Center"
+                Orientation="Horizontal">
+                <Label
+                    FontSize="8"
+                    HorizontalTextAlignment="Center"
+                    Text="Hours"
+                    WidthRequest="120" />
+                <Label
+                    FontSize="8"
+                    HorizontalTextAlignment="Center"
+                    Text="Minutes"
+                    WidthRequest="120" />
+            </StackLayout>
+            <StackLayout
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                VerticalOptions="Start">
+                <w:CircleStepper
+                    x:Name="StepperHr3"
+                    HorizontalOptions="Center"
+                    Maximum="23"
+                    Minimum="0"
+                    WidthRequest="120"
+                    Value="{Binding Hour}" />
+                <w:CircleStepper
+                    x:Name="StepperMm3"
+                    HorizontalOptions="Center"
+                    Maximum="59"
+                    Minimum="0"
+                    WidthRequest="120"
+                    Value="{Binding Minute}" />
+            </StackLayout>
+            <Button Clicked="OnButtonSuspendClicked" Text="Suspend" tizen:VisualElement.Style="{x:Static tizen:ButtonStyle.Bottom}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

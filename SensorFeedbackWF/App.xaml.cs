@@ -1,6 +1,5 @@
-﻿using System;
-using SensorFeedback.Services;
-using SensorFeedbackWF.Services;
+﻿using SensorFeedbackWF.Services;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -67,5 +66,6 @@ namespace SensorFeedbackWF
                 // TODO: The user denied the permission
             }
         }
+
     }
 }

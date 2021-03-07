@@ -1,9 +1,7 @@
-﻿using SensorFeedbackWF.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SensorFeedback.Services;
+using Tizen.Applications;
+using Tizen.Applications.Messages;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -16,17 +14,25 @@ namespace SensorFeedback.Views
         // Randomizer Functionality
         private Random _randomizer;
         // The number of random actions that the Rand button performs
-        private const int _randomActionsToBePerformed = 10;
+        private const int _randomActionsToBePerformed = 200;
         private bool _isRandomActive = false;
 
         // Set this to true to get extra execution info of the random
         private const bool _printRandomRun = false;
 
-        // Sensors/Location Services
+        // Services
         private HeartRateMonitorService _hrmService;
         private LocationService _locService;
+        private MessagePortService _mpService;
+        private RemotePort _remotePort = null;
 
-        // Sensors/Location Activity Status
+        // Communication
+        private const string localPort = "27071";
+        private const string remotePort = "27072";
+        private const string remoteAppId = "de.ugoe.SensorFeedbackWF";
+        private bool trustedCommunication = true;
+
+        // Services Activity Status
         private bool _hrmStatus = false;
         private bool _locStatus = false;
 
@@ -39,12 +45,12 @@ namespace SensorFeedback.Views
             Health = 1,
             Location = 2,
             HealthAndLocation = 3,
+            Error = 4 // Should never be the case
         }
 
         public MainPage()
         {
             InitializeComponent();
-
             InitializeServices();
         }
 
@@ -52,7 +58,15 @@ namespace SensorFeedback.Views
             _hrmService = new HeartRateMonitorService();
             _locService = new LocationService(Tizen.Location.LocationType.Hybrid);
             _randomizer = new Random();
+
+            _mpService = new MessagePortService(localPort, trustedCommunication);
+            _mpService.Open();
+            _remotePort = new RemotePort(remoteAppId, remotePort, trustedCommunication);
         }
+
+        /*================================================================================*/
+        /*=============================== BUTTON LISTENERS ===============================*/
+        /*================================================================================*/
 
         protected override bool OnBackButtonPressed()
         {
@@ -147,6 +161,8 @@ namespace SensorFeedback.Views
                 buttonLocation.TextColor = Color.Yellow;
                 _locService.Start();
             }
+
+            SendFeedbackToWF(FeedbackType.HealthAndLocation);
         }
         private void StopAllActions(){
             if (_hrmStatus){
@@ -161,42 +177,77 @@ namespace SensorFeedback.Views
                 _locService.Stop();
             }
 
-            //progressBar.BarColor = Color.Black;
-            //progressBar.BackgroundColor = Color.Black;
-
+            SendFeedbackToWF(FeedbackType.NoFeedback);
         }
-
         private void SwitchStateHR(){
             if (_hrmStatus){
                 _hrmStatus = false;
                 buttonHR.TextColor = Color.White;
                 _hrmService.Stop();
+
+                // The HRM is stopped but in order to not mess up the WF lightning of 
+                // the other service we check if that service is active or not in order 
+                // to send the correct feedback type to the WF
+                if (_locStatus) SendFeedbackToWF(FeedbackType.Location);
+                else SendFeedbackToWF(FeedbackType.NoFeedback);
             }
             else{
                 _hrmStatus = true;
                 buttonHR.TextColor = Color.Red;
                 _hrmService.Start();
+
+                // The HRM is started but in order to not mess up the WF lightning of 
+                // the other service we check if that service is active or not in order 
+                // to send the correct feedback type to the WF
+                if (_locStatus) SendFeedbackToWF(FeedbackType.HealthAndLocation);
+                else SendFeedbackToWF(FeedbackType.Health);
             }
         }
-
         private void SwitchStateLoc(){
             if (_locStatus){
                 _locStatus = false;
                 buttonLocation.TextColor = Color.White;
                 _locService.Stop();
+
+                // The Location is stopped but in order to not mess up the WF lightning of 
+                // the other service we check if that service is active or not in order 
+                // to send the correct feedback type to the WF
+                if (_hrmStatus) SendFeedbackToWF(FeedbackType.Health);
+                else SendFeedbackToWF(FeedbackType.NoFeedback);
+
             }
             else{
                 _locStatus = true;
                 buttonLocation.TextColor = Color.Yellow;
                 _locService.Start();
+
+                // The Location is started but in order to not mess up the WF lightning of 
+                // the other service we check if that service is active or not in order 
+                // to send the correct feedback type to the WF
+                if (_hrmStatus) SendFeedbackToWF(FeedbackType.HealthAndLocation);
+                else SendFeedbackToWF(FeedbackType.Location);
             }
         }
-
+        
         private void StopRandomFunction(){
             buttonRand.TextColor = Color.White;
             // Set printRandomRun to true to run debug mode
             if (_printRandomRun) buttonRand.Text = "Rand";
             StopAllActions();
+        }
+
+        /*================================================================================*/
+        /*============================== PORT COMMUNICATION ==============================*/
+        /*================================================================================*/
+
+        private void SendFeedbackToWF(FeedbackType feedback){
+            // If the remote app's port is listening
+            if (_remotePort != null && _remotePort.IsRunning()){
+                var message = new Bundle();
+                message.AddItem("feedback", feedback.ToString());
+                _mpService.Send(message, _remotePort.AppId, _remotePort.PortName);
+                message.Dispose();
+            }
         }
 
         /*================================================================================*/
@@ -210,10 +261,14 @@ namespace SensorFeedback.Views
                 {
                     _hrmService.Dispose();
                     _locService.Dispose();
+                    _mpService.Dispose();
+                    _remotePort.Dispose();
                 }
 
                 _hrmService = null;
                 _locService = null;
+                _mpService = null;
+                _remotePort = null;
                 _disposedValue = true;
             }
         }

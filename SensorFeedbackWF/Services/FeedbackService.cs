@@ -52,9 +52,9 @@ namespace SensorFeedbackWF.Services
             }
         }
 
-        public void UpdateRingFeedback(FeedbackType feedback)
+        public void ReceiveRingFeedback(string feedback)
         {
-            MessagingCenter.Send(this, "UpdateRingFeedback", feedback);
+            MessagingCenter.Send(this, "ReceiveRingFeedback", feedback);
         }
 
         /// <summary>

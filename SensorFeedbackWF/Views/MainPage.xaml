@@ -7,6 +7,14 @@
     <ContentPage.Content>
         <AbsoluteLayout x:Name="layout" BackgroundColor="Transparent">
             <Label
+                x:Name="DebugLabel"
+                AbsoluteLayout.LayoutBounds="180, 100, 360, 60"
+                AbsoluteLayout.LayoutFlags="None"
+                FontSize="10"
+                FontAttributes="Bold"
+                Text="Debug"
+                TextColor="White" />
+            <Label
                 x:Name="TimeLabel"
                 AbsoluteLayout.LayoutBounds="0, 150, 360, 60"
                 AbsoluteLayout.LayoutFlags="None"

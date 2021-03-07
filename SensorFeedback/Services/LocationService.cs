@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 using Tizen.Location;
 
-namespace SensorFeedbackWF.Services
+namespace SensorFeedback.Services
 {
     /// <summary>
     /// Provides the functionalities for obtaining the geographical information.

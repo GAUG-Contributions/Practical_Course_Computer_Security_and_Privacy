@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Tizen.Sensor;
 
-namespace SensorFeedbackWF.Services
+namespace SensorFeedback.Services
 {
     // For more information about sensors see https://docs.tizen.org/application/dotnet/guides/location-sensors/device-sensors
     public class HeartRateMonitorService : IDisposable

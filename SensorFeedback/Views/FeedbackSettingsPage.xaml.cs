@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using SensorFeedback.Models;
 using SensorFeedback.Services;
+using SQLite;
 using Tizen.System;
 using Tizen.Wearable.CircularUI.Forms;
 
@@ -10,29 +13,61 @@ namespace SensorFeedback.Views
 {
     public partial class FeedbackSettingsPage : ContentPage
     {
+        private DatabaseService _ds;
+        private UserSettings _userSettings;
+        private ObservableCollection<FeedbackSetting> _feedbackSettings = new ObservableCollection<FeedbackSetting>();
+        ObservableCollection<FeedbackSetting> FeedbackSettings { get { return _feedbackSettings; } }
+
         public FeedbackSettingsPage()
         {
             InitializeComponent();
+            listView.ItemsSource = _feedbackSettings;
 
-            // Initialize sample data and set ItemsSource in ListView.
-            // TODO: Change ItemsSource with your own data.
-            List<FeedbackSetting> list = new List<FeedbackSetting>();
-            list.AddRange(new FeedbackSetting[] {
-                new FeedbackSetting("vibration", "Vibration Feedback", FeedbackType.Vibration),
-                new FeedbackSetting("sound", "Sound Feedback", FeedbackType.Sound)
+            _ds = DatabaseService.GetInstance;
+            LoadSettingsFromDB();
+
+            // Populate the list view with different feedback options
+            // The switch value for each entry is read from the db.
+            _feedbackSettings.Add(new FeedbackSetting { 
+                DisplayName = "Vibration Feedback", 
+                Name = "vibration", 
+                IsActive = _userSettings.ActivateVibrationFeedback
             });
-            listView.ItemsSource = list;
+            _feedbackSettings.Add(new FeedbackSetting { 
+                DisplayName = "Sound Feedback", 
+                Name = "sound", 
+                IsActive = _userSettings.ActivateSoundFeedback
+            });
         }
 
         // Called when the switch is changed by a click.
         private void OnSwitchChanged(object sender, ToggledEventArgs e)
         {
-            // TODO: Insert code to handle the item's switch.
+            if (string.Equals(((FeedbackSetting)((SwitchCell)sender).BindingContext).Name, "vibration", StringComparison.OrdinalIgnoreCase))
+                _userSettings.ActivateVibrationFeedback = e.Value;
+            else if (string.Equals(((FeedbackSetting)((SwitchCell)sender).BindingContext).Name, "sound", StringComparison.OrdinalIgnoreCase))
+                _userSettings.ActivateSoundFeedback = e.Value;
+            UpdateDB();
+        }
 
-            // Gets the bound item using switch's BindingContext and the switch state.
-            // var switchCell = (SwitchCell)sender;
-            // Logger.Info($"Item : {switchCell.BindingContext}");
-            // Logger.Info($"Switch set : {e.Value});
+        private void LoadSettingsFromDB()
+        {
+            _userSettings = _ds.LoadUserSettings();
+        }
+
+        private void UpdateDB()
+        {
+            try
+            {
+                if (!_userSettings.Equals(null))
+                    _ds.UpdateUserSettings(_userSettings);
+                else
+                    _ds.InsertUserSettings(_userSettings);
+            }
+            catch (System.Exception e)
+            {
+                Logger.Error(e.Message);
+            }
         }
 
         // Called once when an item is selected.
@@ -51,18 +86,10 @@ namespace SensorFeedback.Views
 
         private class FeedbackSetting
         {
-            private string _name;
-            public string DisplayName;
-            private FeedbackType _type;
-            private bool _isActive;
-
-            public FeedbackSetting(string name, string displayName, FeedbackType type)
-            {
-                _name = name;
-                DisplayName = displayName;
-                _type = type;
-                _isActive = false;
-            }
+            public string Name { get; set; }
+            public string DisplayName { get; set; }
+            public FeedbackType Type { get; set; }
+            public bool IsActive { get; set; }
         }
     }
 }

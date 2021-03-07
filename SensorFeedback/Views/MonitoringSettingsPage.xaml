@@ -6,7 +6,7 @@
     xmlns:c="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms">
     <ContentPage.Content>
         <StackLayout VerticalOptions="FillAndExpand">
-            <c:CircleDateTimeSelector VerticalOptions="CenterAndExpand"/>
+            <c:CircleDateTimeSelector ValueType="Time" VerticalOptions="CenterAndExpand"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

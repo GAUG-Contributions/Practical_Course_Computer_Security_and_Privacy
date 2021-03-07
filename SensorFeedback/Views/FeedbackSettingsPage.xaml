@@ -6,11 +6,13 @@
     <ContentPage.Content>
         <ListView
             x:Name="listView"
+            ItemsSource="{Binding FeedbackSettings}"
             ItemSelected="OnItemSelected"
             ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <SwitchCell
+                        On="{Binding IsActive}"
                         Text="{Binding DisplayName}"
                         OnChanged="OnSwitchChanged"/>
                 </DataTemplate>

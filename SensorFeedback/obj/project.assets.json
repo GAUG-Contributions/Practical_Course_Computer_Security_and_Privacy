@@ -5929,20 +5929,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\vm\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedback\\SensorFeedback.csproj",
+      "projectUniqueName": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedback\\SensorFeedback.csproj",
       "projectName": "SensorFeedback",
-      "projectPath": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedback\\SensorFeedback.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedback\\obj\\",
+      "projectPath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedback\\SensorFeedback.csproj",
+      "packagesPath": "C:\\Users\\vm\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedback\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\vm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "tizen40"

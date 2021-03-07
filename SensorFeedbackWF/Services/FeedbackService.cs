@@ -60,7 +60,9 @@ namespace SensorFeedbackWF.Services
             bool bVibration = false, bSound = false;
             _ = bool.TryParse(vibrationFeedback, out bVibration);
             _ = bool.TryParse(soundFeedback, out bSound);
-            GiveHapticAndSonicFeedback(bVibration, bSound);
+
+            if(visualFeedback != "NoFeedback")
+                GiveHapticAndSonicFeedback(bVibration, bSound);
         }
 
         /// <summary>

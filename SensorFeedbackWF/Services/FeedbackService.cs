@@ -52,9 +52,15 @@ namespace SensorFeedbackWF.Services
             }
         }
 
-        public void ReceiveRingFeedback(string feedback)
+        public void ReceiveRingFeedback(string visualFeedback, string vibrationFeedback, string soundFeedback)
         {
-            MessagingCenter.Send(this, "ReceiveRingFeedback", feedback);
+            // Forward the visual feedback to the Main view
+            MessagingCenter.Send(this, "ReceiveRingFeedback", visualFeedback);
+            // Activate Haptic and/or sonic feedback
+            bool bVibration = false, bSound = false;
+            _ = bool.TryParse(vibrationFeedback, out bVibration);
+            _ = bool.TryParse(soundFeedback, out bSound);
+            GiveHapticAndSonicFeedback(bVibration, bSound);
         }
 
         /// <summary>
@@ -62,14 +68,23 @@ namespace SensorFeedbackWF.Services
         /// </summary>
         /// <param name="feedbackType">
         /// </param>
-        public void GiveHapticAndSonicFeedback(FeedbackType feedbackType)
+        public void GiveHapticAndSonicFeedback(bool vibration, bool sound)
         {
             if (_feedback == null)
                 throw new NotSupportedException(Resources.AppResources.ExceptionVibrationServicePredefinedNotSupported);
 
+            FeedbackType ft = FeedbackType.All;
+            if (vibration && sound)
+                ft = FeedbackType.All;
+            else if (vibration)
+                ft = FeedbackType.Vibration;
+            else if (sound)
+                ft = FeedbackType.Sound;
+
             // If the pattern is not supported, then NotSupportedException will be thrown.
             // Predefined pattern: "SoftInputPanel" or "WakeUp" and so on. Supported patterns can be found on https://samsung.github.io/TizenFX/stable/api/Tizen.System.Feedback.html.
-            _feedback.Play(feedbackType, "SoftInputPanel");
+            if(vibration || sound)
+                _feedback.Play(ft, "SoftInputPanel");
         }
     }
 }

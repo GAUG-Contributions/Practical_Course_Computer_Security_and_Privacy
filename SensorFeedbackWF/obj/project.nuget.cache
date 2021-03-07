@@ -1,19 +1,19 @@
 {
   "version": 2,
-  "dgSpecHash": "iCZg5+l7MBgl3cfDGeEPBWAd3KdV7klvHKNDfHoLYFLXhC59ik8PdTNPGlO51oG8L/SfkddO+Y3tLAUd1Rez8w==",
+  "dgSpecHash": "+NUweEm410wGIlfFNu+7oB/ZHIHfGFa45LzkEUCtiS3Vwrn0EY0z1tY2VCZ48tfjpwOfuqecUGzBOz6t1tmqXw==",
   "success": true,
-  "projectFilePath": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
+  "projectFilePath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.codeanalysis.fxcopanalyzers\\2.9.8\\microsoft.codeanalysis.fxcopanalyzers.2.9.8.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.codeanalysis.versioncheckanalyzer\\2.9.8\\microsoft.codeanalysis.versioncheckanalyzer.2.9.8.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.codequality.analyzers\\2.9.8\\microsoft.codequality.analyzers.2.9.8.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.analyzers\\2.9.8\\microsoft.netcore.analyzers.2.9.8.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netframework.analyzers\\2.9.8\\microsoft.netframework.analyzers.2.9.8.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\tizen.net\\6.0.0.14995\\tizen.net.6.0.0.14995.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\tizen.net.api4\\4.0.1.14164\\tizen.net.api4.4.0.1.14164.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\tizen.wearable.circularui\\1.5.0\\tizen.wearable.circularui.1.5.0.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\xamarin.forms\\4.7.0.968\\xamarin.forms.4.7.0.968.nupkg.sha512"
+    "C:\\Users\\vm\\.nuget\\packages\\microsoft.codeanalysis.fxcopanalyzers\\2.9.8\\microsoft.codeanalysis.fxcopanalyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\microsoft.codeanalysis.versioncheckanalyzer\\2.9.8\\microsoft.codeanalysis.versioncheckanalyzer.2.9.8.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\microsoft.codequality.analyzers\\2.9.8\\microsoft.codequality.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\microsoft.netcore.analyzers\\2.9.8\\microsoft.netcore.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\microsoft.netframework.analyzers\\2.9.8\\microsoft.netframework.analyzers.2.9.8.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\tizen.net\\6.0.0.14995\\tizen.net.6.0.0.14995.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\tizen.net.api4\\4.0.1.14164\\tizen.net.api4.4.0.1.14164.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\tizen.wearable.circularui\\1.5.0\\tizen.wearable.circularui.1.5.0.nupkg.sha512",
+    "C:\\Users\\vm\\.nuget\\packages\\xamarin.forms\\4.7.0.968\\xamarin.forms.4.7.0.968.nupkg.sha512"
   ],
   "logs": []
 }

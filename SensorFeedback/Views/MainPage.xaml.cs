@@ -1,4 +1,5 @@
 ﻿using System;
+using SensorFeedback.Models;
 using SensorFeedback.Services;
 using Tizen.Applications;
 using Tizen.Applications.Messages;
@@ -204,7 +205,7 @@ namespace SensorFeedback.Views
                 if (_locStatus) SendFeedbackToWF(FeedbackType.Location);
                 else SendFeedbackToWF(FeedbackType.NoFeedback);
             }
-            else{
+            else {
                 _hrmStatus = true;
                 buttonHR.TextColor = Color.Red;
                 _hrmService.Start();
@@ -266,10 +267,16 @@ namespace SensorFeedback.Views
                 return;
             }
 
+            // Check for User Settings to decide if there should also be vibration and/or sound
+            DatabaseService ds = DatabaseService.GetInstance;
+            UserSettings us = ds.LoadUserSettings();
+
             // If the remote app's port is listening
             if (_remotePort != null && _remotePortService.IsRunning()){
                 var message = new Bundle();
-                message.AddItem("feedback", feedback.ToString());
+                message.AddItem("visualFeedback", feedback.ToString());
+                message.AddItem("vibrationFeedback", us.ActivateVibrationFeedback.ToString());
+                message.AddItem("soundFeedback", us.ActivateSoundFeedback.ToString());
                 _mpService.Send(message, _remotePortService.AppId, _remotePortService.PortName);
                 message.Dispose();
             }

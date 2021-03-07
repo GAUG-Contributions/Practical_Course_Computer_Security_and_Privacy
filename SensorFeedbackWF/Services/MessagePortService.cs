@@ -139,8 +139,10 @@ namespace SensorFeedbackWF.Services
         private void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             MessageReceived?.Invoke(sender, e);
-            string message = e.Message.GetItem("feedback").ToString();
-            _feedbackService.ReceiveRingFeedback(message);
+            string visualFeedback = e.Message.GetItem("visualFeedback").ToString();
+            string vibrationFeedback = e.Message.GetItem("vibrationFeedback").ToString();
+            string soundFeedback = e.Message.GetItem("soundFeedback").ToString();
+            _feedbackService.ReceiveRingFeedback(visualFeedback, vibrationFeedback, soundFeedback);
             
         }
     }

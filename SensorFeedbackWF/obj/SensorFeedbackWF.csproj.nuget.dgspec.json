@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj": {}
+    "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj": {}
   },
   "projects": {
-    "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj": {
+    "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
+        "projectUniqueName": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
         "projectName": "SensorFeedbackWF",
-        "projectPath": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\Administrator\\Desktop\\privacy-practical\\SensorFeedbackWF\\obj\\",
+        "projectPath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\SensorFeedbackWF.csproj",
+        "packagesPath": "C:\\Users\\vm\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vm\\source\\repos\\privacy-practical\\SensorFeedbackWF\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\vm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "tizen40"

@@ -161,6 +161,7 @@ namespace SensorFeedback.Services
                 _locStatus = false;
                 _locService.Stop();
             }
+            SendFeedbackToWF(FeedbackType.NoFeedback);
         }
 
         public bool SwitchStateHR()

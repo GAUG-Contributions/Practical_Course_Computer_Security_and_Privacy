@@ -35,21 +35,21 @@
                 Orientation="Horizontal"
                 VerticalOptions="Start">
                 <w:CircleStepper
-                    x:Name="StepperHr3"
+                    x:Name="StepperH"
                     HorizontalOptions="Center"
                     Maximum="23"
                     Minimum="0"
                     WidthRequest="120"
                     Value="{Binding Hour}" />
                 <w:CircleStepper
-                    x:Name="StepperMm3"
+                    x:Name="StepperM"
                     HorizontalOptions="Center"
                     Maximum="59"
                     Minimum="0"
                     WidthRequest="120"
                     Value="{Binding Minute}" />
             </StackLayout>
-            <Button Clicked="OnButtonSuspendClicked" Text="Suspend" tizen:VisualElement.Style="{x:Static tizen:ButtonStyle.Bottom}" />
+            <Button Clicked="OnButtonSuspendClickedAsync" Text="Suspend" tizen:VisualElement.Style="{x:Static tizen:ButtonStyle.Bottom}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

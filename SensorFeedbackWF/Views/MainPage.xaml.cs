@@ -24,13 +24,16 @@ namespace SensorFeedbackWF.Views
 
         // Services
         private MessagePortService _mpService;
-        private RemotePort _remotePort = null;
+        private RemotePort _remotePortService = null;
 
         // Communication
-        private const string localPort = "27072";
-        private const string remotePort = "27071";
-        private const string remoteAppId = "de.ugoe.SensorFeedback";
-        private bool trustedCommunication = true;
+        private const string _localPort = "27072";
+        private const string _remotePort = "27071";
+        private const string _remoteAppId = "de.ugoe.SensorFeedback";
+        private bool _trustedCommunication = true;
+
+        // For future use 
+        private bool _areSensorsAllowed = true;
 
         // Used to deallocate resources for the services
         private bool _disposedValue = false;
@@ -65,9 +68,9 @@ namespace SensorFeedbackWF.Views
 
         private void InitializeServices()
         {
-            _mpService = new MessagePortService(localPort, trustedCommunication);
+            _mpService = new MessagePortService(_localPort, _trustedCommunication);
             _mpService.Open();
-            _remotePort = new RemotePort(remoteAppId, remotePort, trustedCommunication);
+            _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
 
         // Get or set time to be displayed.
@@ -112,7 +115,8 @@ namespace SensorFeedbackWF.Views
         private void UpdateRingFeedback(FeedbackType feedback)
         {
             // If an incorrect feedback type is received, do nothing
-            if (feedback == FeedbackType.Error){
+            // Or user doesn't want to be tracked
+            if (feedback == FeedbackType.Error || !_areSensorsAllowed){
                 return;
             }  
 
@@ -223,10 +227,10 @@ namespace SensorFeedbackWF.Views
                 if (disposing)
                 {
                     _mpService.Dispose();
-                    _remotePort.Dispose();
+                    _remotePortService.Dispose();
                 }
                 _mpService = null;
-                _remotePort.Dispose();
+                _remotePortService = null;
                 _disposedValue = true;
             }
         }

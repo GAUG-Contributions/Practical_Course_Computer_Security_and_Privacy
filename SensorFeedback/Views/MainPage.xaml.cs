@@ -24,17 +24,18 @@ namespace SensorFeedback.Views
         private HeartRateMonitorService _hrmService;
         private LocationService _locService;
         private MessagePortService _mpService;
-        private RemotePort _remotePort = null;
+        private RemotePort _remotePortService = null;
 
         // Communication
-        private const string localPort = "27071";
-        private const string remotePort = "27072";
-        private const string remoteAppId = "de.ugoe.SensorFeedbackWF";
-        private bool trustedCommunication = true;
+        private const string _localPort = "27071";
+        private const string _remotePort = "27072";
+        private const string _remoteAppId = "de.ugoe.SensorFeedbackWF";
+        private bool _trustedCommunication = true;
 
         // Services Activity Status
         private bool _hrmStatus = false;
         private bool _locStatus = false;
+        private bool _areSensorsAllowed = true;
 
         // Used to deallocate resources for the services
         private bool _disposedValue = false;
@@ -59,9 +60,9 @@ namespace SensorFeedback.Views
             _locService = new LocationService(Tizen.Location.LocationType.Hybrid);
             _randomizer = new Random();
 
-            _mpService = new MessagePortService(localPort, trustedCommunication);
+            _mpService = new MessagePortService(_localPort, _trustedCommunication);
             _mpService.Open();
-            _remotePort = new RemotePort(remoteAppId, remotePort, trustedCommunication);
+            _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
 
         /*================================================================================*/
@@ -150,6 +151,12 @@ namespace SensorFeedback.Views
         }
         
         private void StartAllActions(){
+            // If the user didn't allow sensors for some time skip
+            if (!_areSensorsAllowed){
+                StopRandomFunction();
+                return;
+            }
+
             if (!_hrmStatus){
                 _hrmStatus = true;
                 buttonHR.TextColor = Color.Red;
@@ -180,6 +187,12 @@ namespace SensorFeedback.Views
             SendFeedbackToWF(FeedbackType.NoFeedback);
         }
         private void SwitchStateHR(){
+            // If the user didn't allow sensors for some time skip
+            if (!_areSensorsAllowed){
+                StopRandomFunction();
+                return;
+            }
+
             if (_hrmStatus){
                 _hrmStatus = false;
                 buttonHR.TextColor = Color.White;
@@ -204,6 +217,13 @@ namespace SensorFeedback.Views
             }
         }
         private void SwitchStateLoc(){
+            // If the user didn't allow sensors for some time skip
+            if (!_areSensorsAllowed)
+            {
+                StopRandomFunction();
+                return;
+            }
+
             if (_locStatus){
                 _locStatus = false;
                 buttonLocation.TextColor = Color.White;
@@ -241,11 +261,16 @@ namespace SensorFeedback.Views
         /*================================================================================*/
 
         private void SendFeedbackToWF(FeedbackType feedback){
+            // If the user didn't allow sensors for some time skip
+            if (!_areSensorsAllowed){
+                return;
+            }
+
             // If the remote app's port is listening
-            if (_remotePort != null && _remotePort.IsRunning()){
+            if (_remotePort != null && _remotePortService.IsRunning()){
                 var message = new Bundle();
                 message.AddItem("feedback", feedback.ToString());
-                _mpService.Send(message, _remotePort.AppId, _remotePort.PortName);
+                _mpService.Send(message, _remotePortService.AppId, _remotePortService.PortName);
                 message.Dispose();
             }
         }
@@ -262,13 +287,13 @@ namespace SensorFeedback.Views
                     _hrmService.Dispose();
                     _locService.Dispose();
                     _mpService.Dispose();
-                    _remotePort.Dispose();
+                    _remotePortService.Dispose();
                 }
 
                 _hrmService = null;
                 _locService = null;
                 _mpService = null;
-                _remotePort = null;
+                _remotePortService = null;
                 _disposedValue = true;
             }
         }

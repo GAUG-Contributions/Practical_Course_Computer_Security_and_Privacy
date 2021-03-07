@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using TApplication = Tizen.Applications.Application;
-using Tizen.Applications;
-using Xamarin.Forms;
-using SensorFeedbackWF.Services;
 using System.Threading.Tasks;
+using SensorFeedbackWF.Services;
+using Tizen.Applications;
+using Tizen.Applications.Messages;
+
+using TApplication = Tizen.Applications.Application;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace SensorFeedbackWF.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPage : ContentPage, IDisposable
     {
         private DateTime _time;
         private string _timeString;
@@ -18,12 +22,26 @@ namespace SensorFeedbackWF.Views
         private double _timerDirection = 0.1; // Is added to animTimer 10x per second so that the timer reaches 0 or 1 every second
         private bool _isAnimateRingActive = false;
 
+        // Services
+        private MessagePortService _mpService;
+        private RemotePort _remotePort = null;
+
+        // Communication
+        private const string localPort = "27072";
+        private const string remotePort = "27071";
+        private const string remoteAppId = "de.ugoe.SensorFeedback";
+        private bool trustedCommunication = true;
+
+        // Used to deallocate resources for the services
+        private bool _disposedValue = false;
+
         public enum FeedbackType
         {
             NoFeedback = 0,
             Health = 1,
             Location = 2,
             HealthAndLocation = 3,
+            Error = 4 // Should never be the case
         }
 
         public MainPage()
@@ -31,15 +49,25 @@ namespace SensorFeedbackWF.Views
             InitializeComponent();
             BindingContext = this;
 
+            InitializeServices();
+
             // Subscribe to the TimeTick event
             (TApplication.Current as WatchApplication).TimeTick += OnTimeChanged;
             (TApplication.Current as WatchApplication).AmbientTick += OnTimeChangedAmbiant;
 
             // Subcribe to FeedbackService to trigger feedbacks according to the FeedbackType
-            MessagingCenter.Subscribe<FeedbackService, FeedbackType>(this, "UpdateRingFeedback", async (sender, feedback) =>
+            MessagingCenter.Subscribe<FeedbackService, string>(this, "ReceiveRingFeedback", async (sender, feedback) =>
             {
-                await UpdateRingFeedback(feedback);
+                await ReceiveRingFeedback(feedback);
             });
+
+        }
+
+        private void InitializeServices()
+        {
+            _mpService = new MessagePortService(localPort, trustedCommunication);
+            _mpService.Open();
+            _remotePort = new RemotePort(remoteAppId, remotePort, trustedCommunication);
         }
 
         // Get or set time to be displayed.
@@ -81,8 +109,12 @@ namespace SensorFeedbackWF.Views
         /*================================================================================*/
 
         // Displays an outer colored ring on the Watch Face. Color depends on sensor type.
-        private Task UpdateRingFeedback(FeedbackType feedback)
+        private void UpdateRingFeedback(FeedbackType feedback)
         {
+            // If an incorrect feedback type is received, do nothing
+            if (feedback == FeedbackType.Error){
+                return;
+            }  
 
             // If both active
             if (feedback == FeedbackType.HealthAndLocation){
@@ -133,8 +165,6 @@ namespace SensorFeedbackWF.Views
                 (TApplication.Current as WatchApplication).TimeTick += AnimateRing;
 
             }
-
-            return Task.CompletedTask;
         }
 
         private void AnimateRing(object sender, TimeEventArgs e)
@@ -162,5 +192,54 @@ namespace SensorFeedbackWF.Views
             return base.OnBackButtonPressed();
         }
 
+        /*================================================================================*/
+        /*============================== PORT COMMUNICATION ==============================*/
+        /*================================================================================*/
+
+        // This function is called inside MessagePortService.cs
+        public Task ReceiveRingFeedback(String message){
+            // In case the message format is incorrect, assign Error by default
+            FeedbackType feedback = FeedbackType.Error;
+
+            switch (message){
+                case "NoFeedback": feedback = FeedbackType.NoFeedback; break;
+                case "Health": feedback = FeedbackType.Health; break;
+                case "Location": feedback = FeedbackType.Location; break;
+                case "HealthAndLocation": feedback = FeedbackType.HealthAndLocation; break;
+                default: break;
+            }
+
+            UpdateRingFeedback(feedback);
+            return Task.CompletedTask;
+        }
+
+        /*================================================================================*/
+        /*=============================== DISPOSING RESOURCES ============================*/
+        /*================================================================================*/
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _mpService.Dispose();
+                    _remotePort.Dispose();
+                }
+                _mpService = null;
+                _remotePort.Dispose();
+                _disposedValue = true;
+            }
+        }
+
+        ~MainPage()
+        {
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

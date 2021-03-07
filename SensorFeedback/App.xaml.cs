@@ -1,6 +1,4 @@
-﻿using System;
-
-using SensorFeedback.Services;
+﻿using SensorFeedback.Services;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -25,6 +23,7 @@ namespace SensorFeedback
 
             // The app has to request the permission to access sensors
             RequestPermissionSensorAsync();
+
         }
 
         protected override void OnSleep()
@@ -68,5 +67,6 @@ namespace SensorFeedback
                 // TODO: The user denied the permission
             }
         }
+
     }
 }

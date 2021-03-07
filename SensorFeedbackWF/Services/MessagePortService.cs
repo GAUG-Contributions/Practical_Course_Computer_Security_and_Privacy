@@ -3,7 +3,7 @@
 using Tizen.Applications;
 using Tizen.Applications.Messages;
 
-namespace SensorFeedback.Services
+namespace SensorFeedbackWF.Services
 {
     /// <summary>
     /// Provides functionalities for communicating with each other.
@@ -12,6 +12,7 @@ namespace SensorFeedback.Services
     public class MessagePortService : IDisposable
     {
         private MessagePort _localPort;
+        private FeedbackService _feedbackService;
 
         private bool _disposed = false;
 
@@ -23,6 +24,7 @@ namespace SensorFeedback.Services
         public MessagePortService(string localPort, bool trusted)
         {
             _localPort = new MessagePort(localPort, trusted);
+            _feedbackService = new FeedbackService();
         }
 
         /// <summary>
@@ -137,7 +139,9 @@ namespace SensorFeedback.Services
         private void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             MessageReceived?.Invoke(sender, e);
-            // TODO: Handle received message.
+            string message = e.Message.GetItem("feedback").ToString();
+            _feedbackService.ReceiveRingFeedback(message);
+            
         }
     }
 }

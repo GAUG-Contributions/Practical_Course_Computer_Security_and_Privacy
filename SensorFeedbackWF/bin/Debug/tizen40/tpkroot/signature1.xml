@@ -52,11 +52,11 @@
     </Reference>
     <Reference URI="bin%2FSensorFeedbackWF.pdb">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-      <DigestValue>80lhUsL6uGrweWEQgu046w7qdpnFTAvZPOtstn+Go+E=</DigestValue>
+      <DigestValue>xGEXvPIU24j9LanIwm/Dkv2OoZTrPCKMPlHpk6bsh4E=</DigestValue>
     </Reference>
     <Reference URI="bin%2FSensorFeedbackWF.dll">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-      <DigestValue>BmOkq6Ec49h/clGvpHdjYK8vTQ4QP9nKJ/Vp6nZVFMc=</DigestValue>
+      <DigestValue>y1hGRZ+H4Bq6UqrUBZQ5B1g28n4eIWGOWHSiBVOdahk=</DigestValue>
     </Reference>
     <Reference URI="bin%2FSensorFeedbackWF.deps.json">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
@@ -64,7 +64,7 @@
     </Reference>
     <Reference URI="author-signature.xml">
       <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
-      <DigestValue>J3KMl2JyIFB7rFgwNhNeKrrAGManYoBBi48W6g4UuLg=</DigestValue>
+      <DigestValue>QcA2z/J4mptB4dRDGA+zifoX/8dwhzUD+nr5UxsIZZA=</DigestValue>
     </Reference>
     <Reference URI="#prop">
       <Transforms>
@@ -75,9 +75,9 @@
     </Reference>
   </SignedInfo>
   <SignatureValue>
-SE0yckXFGf3DolzPJ2JG7r4SXLIGVnGbwuo6XVw79mYAogNt1lqloxxbMJyURoD0XINM/SwvqL2L
-takat8sgMDaXwnRhl9D786n5HgHmgXvfuZiiHdH1HtBCxrfylOYDcwtMh0QwfqwK5TLFyCaIZbKS
-o1J3HACBGwdcfS6xV9o=
+bo2wbeyxHJAxGa5wyOb1mEB+KqSSc6iPhb/QiWex8QVbaT0M8HIocTmI8+h7DwnJ3BqJ9Rpme4J0
+kepDiW8S0c40HbH+KWKv2XPvGveFeSb7xudKcA1FSxSYLXPAhhsLRZeAal+Hvv5ytCXQ9uIEZtg1
+Lh9rZ1RFJOvVyogZpQE=
 </SignatureValue>
   <KeyInfo>
     <X509Data>

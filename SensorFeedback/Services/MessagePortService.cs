@@ -134,10 +134,10 @@ namespace SensorFeedback.Services
             _disposed = true;
         }
 
+        // The Main app is currently not receiving anything from the WF
         private void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             MessageReceived?.Invoke(sender, e);
-            // TODO: Handle received message.
         }
     }
 }

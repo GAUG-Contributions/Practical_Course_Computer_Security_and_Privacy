@@ -17,35 +17,24 @@ namespace SensorFeedbackWF.Views
         private DateTime _time;
         private string _timeString;
 
+        // Used to stop all sensors sensing if the user denied the access
+        private bool _areSensorsAllowed = true;
+
         // Ring blinking animation variables
         private double _animTimer = 1.0; // Should last one second
         private double _timerDirection = 0.1; // Is added to animTimer 10x per second so that the timer reaches 0 or 1 every second
         private bool _isAnimateRingActive = false;
 
-        // Services
+        // Communication services
         private MessagePortService _mpService;
         private RemotePort _remotePortService = null;
-
-        // Communication
         private const string _localPort = "27072";
         private const string _remotePort = "27071";
         private const string _remoteAppId = "de.ugoe.SensorFeedback";
         private bool _trustedCommunication = true;
 
-        // For future use 
-        private bool _areSensorsAllowed = true;
-
-        // Used to deallocate resources for the services
+        // Used to track if the resources allocated were disposed
         private bool _disposedValue = false;
-
-        public enum FeedbackType
-        {
-            NoFeedback = 0,
-            Health = 1,
-            Location = 2,
-            HealthAndLocation = 3,
-            Error = 4 // Should never be the case
-        }
 
         public MainPage()
         {
@@ -58,19 +47,58 @@ namespace SensorFeedbackWF.Views
             (TApplication.Current as WatchApplication).TimeTick += OnTimeChanged;
             (TApplication.Current as WatchApplication).AmbientTick += OnTimeChangedAmbiant;
 
-            // Subcribe to FeedbackService to trigger feedbacks according to the FeedbackType
-            MessagingCenter.Subscribe<FeedbackService, string>(this, "ReceiveRingFeedback", async (sender, feedback) =>
+            // Used to receive ring color settings from the FeedbackService
+            MessagingCenter.Subscribe<FeedbackService, Bundle>(this, "ReceiveRingSettings", async (sender, message) =>
             {
-                await ReceiveRingFeedback(feedback);
+                await ReceiveRingSettings(message);
             });
 
+            // Used to receive icon color settings from the FeedbackService
+            MessagingCenter.Subscribe<FeedbackService, Bundle>(this, "ReceiveIconSettings", async (sender, message) =>
+            {
+                await ReceiveIconSettings(message);
+            });
+
+            // Used to receive notification color settings from the FeedbackService
+            MessagingCenter.Subscribe<FeedbackService, Bundle>(this, "ReceiveNotificationSettings", async (sender, message) =>
+            {
+                await ReceiveNotificationSettings(message);
+            });
+
+            // Used to debug - don't remove before the final version
+            MessagingCenter.Subscribe<FeedbackService, String>(this, "printMe", async (sender, str) =>
+            {
+                await printMe(str);
+            });
+
+            // Used to debug - don't remove before the final version
+            MessagingCenter.Subscribe<MessagePortService, Color>(this, "printMe2", async (sender, col) =>
+            {
+                await printMe2(col);
+            });
+        }
+
+        // Used to debug - don't remove before the final version
+        private Task printMe(string str){
+            DebugLabel.Text = str;
+
+            return Task.CompletedTask;
+        }
+
+        // Used to debug - don't remove before the final version
+        private Task printMe2(Color color)
+        {
+            DebugLabel.TextColor = color;
+
+            return Task.CompletedTask;
         }
 
         private void InitializeServices()
         {
             _mpService = new MessagePortService(_localPort, _trustedCommunication);
             _mpService.Open();
-            _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
+            // Not needed for now because we don't send anything from WF to the Main App
+            //_remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
 
         // Get or set time to be displayed.
@@ -112,63 +140,32 @@ namespace SensorFeedbackWF.Views
         /*================================================================================*/
 
         // Displays an outer colored ring on the Watch Face. Color depends on sensor type.
-        private void UpdateRingFeedback(FeedbackType feedback)
+        private void UpdateRingFeedback(bool isVisible, double value, Color bar, Color background)
         {
-            // If an incorrect feedback type is received, do nothing
-            // Or user doesn't want to be tracked
-            if (feedback == FeedbackType.Error || !_areSensorsAllowed){
-                return;
-            }  
+            // If the user doesn't want to be tracked - return
+            if (!_areSensorsAllowed) return;
 
-            // If both active
-            if (feedback == FeedbackType.HealthAndLocation){
+            progressBar.IsVisible = isVisible;
+            progressBar.Value = value;
+            progressBar.BarColor = bar;
+            progressBar.BackgroundColor = background;
 
-                progressBar.IsVisible = true;
-
-                // Halve the bar to show both the health related bar and the location bar
-                progressBar.Value = 0.5;
-                progressBar.BarColor = Color.Yellow;
-                progressBar.BackgroundColor = Color.Red;
-
-            } else if (feedback == FeedbackType.NoFeedback)
-            {
-                progressBar.IsVisible = false;
-                (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
-                _isAnimateRingActive = false;
-
-                // Don't remove, important for 'fast synchronization' aka 'shadowing desynchronization' :)
-                // Just making the progressBar invisible doesn't remove
-                // the color when there is no active service, at least on the emulator
-                progressBar.BarColor = Color.Black;
-                progressBar.BackgroundColor = Color.Black;
-            }
-            else
-            { // only one active
-
-                progressBar.IsVisible = true;
-                progressBar.Value = 1;
-
-                if (feedback == FeedbackType.Health)
-                {
-                    progressBar.BarColor = Color.Red;
+            // If the ring is visible, subscribe to the tick event if not already subscribed
+            if (isVisible){
+                if (!_isAnimateRingActive){
+                    _isAnimateRingActive = true;
+                    // Subscribe to the tick event -> triggered every second
+                    (TApplication.Current as WatchApplication).TimeTick += AnimateRing;
                 }
-                if (feedback == FeedbackType.Location)
-                {
-                    progressBar.BarColor = Color.Yellow;
+            } // If the ring is not visible, remove the subscription is there is one
+            else{
+                if (_isAnimateRingActive){
+                    _isAnimateRingActive = false;
+                    // Remove the subscription
+                    (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
                 }
-
-                progressBar.BackgroundColor = Color.Transparent;
             }
 
-            // This check is performed to make sure that the AnimateRing won't get activated 
-            // more than once. Activating more than once leads to faster blinking.
-            if (!_isAnimateRingActive)
-            {
-                _isAnimateRingActive = true;
-                //Subscribe to the tick event -> triggered every second
-                (TApplication.Current as WatchApplication).TimeTick += AnimateRing;
-
-            }
         }
 
         private void AnimateRing(object sender, TimeEventArgs e)
@@ -201,19 +198,56 @@ namespace SensorFeedbackWF.Views
         /*================================================================================*/
 
         // This function is called inside MessagePortService.cs
-        public Task ReceiveRingFeedback(String message){
-            // In case the message format is incorrect, assign Error by default
-            FeedbackType feedback = FeedbackType.Error;
+        public Task ReceiveRingSettings(Bundle message)
+        {
+            // Get separated strings
+            string isVisibleStr = message.GetItem("isVisible").ToString();
+            string valueStr = message.GetItem("barValue").ToString();
+            string colorStr = message.GetItem("barColor").ToString();
+            string backgroundStr = message.GetItem("backgroundColor").ToString();
 
-            switch (message){
-                case "NoFeedback": feedback = FeedbackType.NoFeedback; break;
-                case "Health": feedback = FeedbackType.Health; break;
-                case "Location": feedback = FeedbackType.Location; break;
-                case "HealthAndLocation": feedback = FeedbackType.HealthAndLocation; break;
-                default: break;
+            // Set default values
+            bool isVisible= false;
+            double barValue = 0;
+            Color bar = Color.Transparent;
+            Color background = Color.Transparent;
+
+            bool parsingSuccessful = true;
+
+            // Try to parse booleans
+            if (!bool.TryParse(isVisibleStr, out isVisible))
+                parsingSuccessful = false;
+
+            if (!double.TryParse(valueStr, out barValue))
+                parsingSuccessful = false;
+
+            // Parse colours
+            bar = Color.FromHex(colorStr);
+            background = Color.FromHex(backgroundStr);
+
+            // If the parsing was successful, update ring feedback
+            if (parsingSuccessful){
+                UpdateRingFeedback(isVisible, barValue, bar, background);
             }
+            else{
+                DebugLabel.Text = "FailedRingSettings";
+                DebugLabel.TextColor = Color.Red;
+            }
+                
+            return Task.CompletedTask;
+        }
 
-            UpdateRingFeedback(feedback);
+        // TODO: Implement the receiving of Icon Settings
+        public Task ReceiveIconSettings(Bundle message)
+        {
+
+            return Task.CompletedTask;
+        }
+
+        // TODO: Implement the receiving of Notification Settings
+        public Task ReceiveNotificationSettings(Bundle message)
+        {
+
             return Task.CompletedTask;
         }
 

@@ -4,7 +4,8 @@
              x:Class="SensorFeedback.Views.MainPage">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <Label Text="Overview"
+            <Label x:Name="labelOverview"
+                    Text="Overview"
                     AbsoluteLayout.LayoutBounds="0, 150, 360, 60"
                     AbsoluteLayout.LayoutFlags="None"
                     HorizontalTextAlignment="Center"

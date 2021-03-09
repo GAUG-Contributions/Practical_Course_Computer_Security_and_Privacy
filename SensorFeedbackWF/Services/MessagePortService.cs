@@ -2,6 +2,7 @@
 
 using Tizen.Applications;
 using Tizen.Applications.Messages;
+using Xamarin.Forms;
 
 namespace SensorFeedbackWF.Services
 {
@@ -136,14 +137,19 @@ namespace SensorFeedbackWF.Services
             _disposed = true;
         }
 
+        // Data received from the Main app
         private void OnMessageReceived(object sender, MessageReceivedEventArgs e)
         {
             MessageReceived?.Invoke(sender, e);
-            string visualFeedback = e.Message.GetItem("visualFeedback").ToString();
-            string vibrationFeedback = e.Message.GetItem("vibrationFeedback").ToString();
-            string soundFeedback = e.Message.GetItem("soundFeedback").ToString();
-            _feedbackService.ReceiveRingFeedback(visualFeedback, vibrationFeedback, soundFeedback);
-            
+
+            string color = e.Message.GetItem("colorFeedback").ToString();
+            string visual = e.Message.GetItem("visualFeedback").ToString();
+            string vibration = e.Message.GetItem("vibrationFeedback").ToString();
+            string sound = e.Message.GetItem("soundFeedback").ToString();
+
+            // Send the received data to the Feedback Service
+            _feedbackService.ReceiveFeedbackRequest(color, visual, vibration, sound);
+
         }
     }
 }

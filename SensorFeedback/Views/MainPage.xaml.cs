@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using SensorFeedback.Models;
 using SensorFeedback.Services;
 using Tizen.Applications;
@@ -16,11 +17,24 @@ namespace SensorFeedback.Views
         private bool _disposedValue = false;
         private RandomSensingService _randomSensingService;
 
-
         public MainPage()
         {
             InitializeComponent();
             _randomSensingService = RandomSensingService.GetInstance;
+
+            // Used to debug - don't remove before the final version
+            MessagingCenter.Subscribe<RandomSensingService, String>(this, "printMe", async (sender, str) =>
+            {
+                await printMe(str);
+            });
+
+        }
+
+        // Used to debug - don't remove before the final version
+        private Task printMe(string str){
+            labelOverview.Text = str;
+
+            return Task.CompletedTask;
         }
 
         /*================================================================================*/
@@ -34,19 +48,23 @@ namespace SensorFeedback.Views
         }
 
         private void OnHealthButtonClicked(object sender, EventArgs args){
-            bool bActive =_randomSensingService.SwitchStateHR();
-            buttonHR.TextColor = bActive ? Color.Red : Color.White;
+
         }
 
         private void OnLocationButtonClicked(object sender, EventArgs args){
-            bool bActive =_randomSensingService.SwitchStateLoc();
-            buttonLocation.TextColor = bActive ? Color.Yellow : Color.White;
+
         }
 
         private void OnRandButtonClicked(object sender, EventArgs e)
         {
-            bool bActive =_randomSensingService.SwitchRandomSensing();
-            buttonRand.TextColor = bActive ? Color.Green : Color.White;
+            if (_randomSensingService.IsRandomActive()){
+                buttonRand.TextColor = Color.White;
+                _randomSensingService.StopRandom();
+            }
+            else {
+                buttonRand.TextColor = Color.Green;
+                _randomSensingService.StartRandom();
+            }
         }
 
         protected virtual void Dispose(bool disposing)

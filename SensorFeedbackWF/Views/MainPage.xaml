@@ -6,6 +6,24 @@
     xmlns:c="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms">
     <ContentPage.Content>
         <AbsoluteLayout x:Name="layout" BackgroundColor="Transparent">
+            <FlexLayout JustifyContent="Center" AbsoluteLayout.LayoutBounds="0.5,0.2,0.4,0.13" AbsoluteLayout.LayoutFlags="All">
+                <Image
+                x:Name="healthIcon"
+                Source="health.png" 
+                Margin="5"
+                IsVisible="false"/>
+                <Image
+                x:Name="locationIcon"
+                Source="location.png"
+                Margin="5" 
+                IsVisible="false"/>
+                <Image
+                x:Name="activityIcon"
+                Source="activity.png"
+                Margin="5" 
+                IsVisible="false"/>
+            </FlexLayout>
+
             <Label
                 x:Name="DebugLabel"
                 AbsoluteLayout.LayoutBounds="180, 100, 360, 60"
@@ -13,6 +31,7 @@
                 FontSize="10"
                 FontAttributes="Bold"
                 Text="Debug"
+                IsVisible="false"
                 TextColor="White" />
             <Label
                 x:Name="TimeLabel"

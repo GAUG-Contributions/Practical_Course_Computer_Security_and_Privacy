@@ -8,20 +8,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("SensorFeedback.Views.FeedbackSettingsPage.xaml", "Views/FeedbackSettingsPage.xaml", typeof(global::SensorFeedback.Views.FeedbackSettingsPage))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("SensorFeedback.Views.VisualFeedbackSettingsPage.xaml", "Views/VisualFeedbackSettingsPage.xaml", typeof(global::SensorFeedback.Views.VisualFeedbackSettingsPage))]
 
 namespace SensorFeedback.Views {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\FeedbackSettingsPage.xaml")]
-    public partial class FeedbackSettingsPage : global::Xamarin.Forms.ContentPage {
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\VisualFeedbackSettingsPage.xaml")]
+    public partial class VisualFeedbackSettingsPage : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private global::Xamarin.Forms.ListView listView;
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
-            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(FeedbackSettingsPage));
+            global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(VisualFeedbackSettingsPage));
             listView = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::Xamarin.Forms.ListView>(this, "listView");
         }
     }

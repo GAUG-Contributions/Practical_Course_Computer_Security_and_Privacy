@@ -152,7 +152,6 @@ namespace SensorFeedback.Services
         {
             State = e.ServiceState;
 
-            // TODO: Insert code to handle this event.
             // After calling Start(), this event is also invoked with enabled state when the state of location service is changed to enabled.
             if (e.ServiceState == ServiceState.Enabled)
             {
@@ -160,21 +159,16 @@ namespace SensorFeedback.Services
                 Location location = _locator.GetLocation();
                 Logger.Info($"Current location: {location.Latitude}, {location.Longitude}");
             }
-            else
-            {
-                // TODO: Insert code to handle this state.
-            }
+
         }
 
         private void OnLocationChanged(object sender, LocationChangedEventArgs e)
         {
-            // TODO: Insert code to handle this event.
             Logger.Info($"Current location: {e.Location.Latitude}, {e.Location.Longitude}");
         }
 
         private void OnDistanceBasedLocationChanged(object sender, LocationChangedEventArgs e)
         {
-            // TODO: Insert code to handle this event.
             Logger.Info($"Current location: {e.Location.Latitude}, {e.Location.Longitude}");
         }
     }

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:w="clr-namespace:Tizen.Wearable.CircularUI.Forms;assembly=Tizen.Wearable.CircularUI.Forms"
+             x:Class="SensorFeedback.Views.VisualFeedbackSettingsPage">
+    <ContentPage.Content>
+        <ListView
+            x:Name="listView"
+            ItemsSource="{Binding VisualFeedbackSettings}">
+            <ListView.Header>
+                <StackLayout Padding="5,20,5,0">
+                    <Label HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"
+                           w:CircleListView.CancelEffect="True"
+                           Text="Visual Feedback" 
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           TextColor="#008cff" Visual="Material" />
+                </StackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <w:RadioCell
+                        On="{Binding IsChecked}"
+                        Text="{Binding DisplayName}"
+                        GroupName="VisualFeedback"
+                        Tapped="OnRadioButtonPressed"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </ContentPage.Content>
+</ContentPage>

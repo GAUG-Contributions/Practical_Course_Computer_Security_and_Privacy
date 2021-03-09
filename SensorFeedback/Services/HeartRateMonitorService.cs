@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Tizen.Applications;
 using Tizen.Sensor;
 
 namespace SensorFeedback.Services
@@ -30,20 +30,15 @@ namespace SensorFeedback.Services
 
                 // Add an event handler to the sensor
                 _sensor.DataUpdated += OnSensorDataUpdated;
-
-                // TODO: Declare how the sensor behaves when the screen turns off or the device goes into power save mode
-                // For details see https://docs.tizen.org/application/dotnet/guides/location-sensors/device-sensors
-                // _sensor.PausePolicy = SensorPausePolicy.All;
-
                 _sensor.Interval = 1000;
             }
             catch (NotSupportedException)
             {
-                // TODO: The device does not support the sensor, handle exception as appropriate to your scenario
+                Application.Current.Exit();
             }
             catch (UnauthorizedAccessException)
             {
-                // TODO: The user does not grant your app access to sensors, handle exception as appropriate to your scenario
+                Application.Current.Exit();
             }
         }
 

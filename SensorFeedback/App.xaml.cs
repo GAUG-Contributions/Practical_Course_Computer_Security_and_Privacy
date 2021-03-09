@@ -16,8 +16,6 @@ namespace SensorFeedback
 
         protected override void OnStart()
         {
-            // Handle when your app starts
-
             // The app has to request the permission to obtain the location information
             RequestPermissionLocationAsync();
 
@@ -42,13 +40,9 @@ namespace SensorFeedback
         private async void RequestPermissionLocationAsync()
         {
             var response = await PrivacyPermissionService.RequestAsync(PrivacyPrivilege.Location);
-            if (response == PrivacyPermissionStatus.Granted)
+            if (response == PrivacyPermissionStatus.Denied)
             {
-                // TODO: The permission was granted
-            }
-            else
-            {
-                // TODO: The user denied the permission
+                Application.Current.Quit();
             }
         }
 
@@ -58,13 +52,9 @@ namespace SensorFeedback
         private async void RequestPermissionSensorAsync()
         {
             var response = await PrivacyPermissionService.RequestAsync(PrivacyPrivilege.HealthInfo);
-            if (response == PrivacyPermissionStatus.Granted)
+            if (response == PrivacyPermissionStatus.Denied)
             {
-                // TODO: The permission was granted
-            }
-            else
-            {
-                // TODO: The user denied the permission
+                Application.Current.Quit();
             }
         }
 

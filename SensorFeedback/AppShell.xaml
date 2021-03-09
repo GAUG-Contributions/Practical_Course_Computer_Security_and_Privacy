@@ -17,7 +17,8 @@
     </FlyoutItem>
     <FlyoutItem Route="FeedbackSettings" Title="{x:Static res:AppResources.FeedbackSettingsPageTitle}">
         <ShellSection>
-            <ShellContent ContentTemplate="{DataTemplate views:FeedbackSettingsPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate views:VisualFeedbackSettingsPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate views:OtherFeedbackSettingsPage}"/>
         </ShellSection>
     </FlyoutItem>
     <FlyoutItem Route="MonitoringSettings" Title="{x:Static res:AppResources.MonitoringSettingsPageTitle}">

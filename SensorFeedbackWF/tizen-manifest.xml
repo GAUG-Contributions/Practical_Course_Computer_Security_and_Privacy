@@ -2,7 +2,7 @@
 <manifest package="de.ugoe.SensorFeedbackWF" version="1.0.0" api-version="4" xmlns="http://tizen.org/ns/packages">
     <profile name="wearable" />
     <watch-application appid="de.ugoe.SensorFeedbackWF" exec="SensorFeedbackWF.dll" type="dotnet" hw-acceleration="on" ambient-support="true">
-        <label>SensorFeedbackWF</label>
+        <label>Sensor Feedback</label>
         <icon>SensorFeedbackWF.png</icon>
         <metadata key="http://tizen.org/metadata/prefer_dotnet_aot" value="true" />
         <splash-screens />
@@ -10,9 +10,8 @@
     <shortcut-list />
     <privileges>
         <privilege>http://tizen.org/privilege/alarm.set</privilege>
-        <privilege>http://tizen.org/privilege/location</privilege>
         <privilege>http://tizen.org/privilege/haptic</privilege>
-        <privilege>http://tizen.org/privilege/healthinfo</privilege>
+        <privilege>http://tizen.org/privilege/notification</privilege>
     </privileges>
     <dependencies />
     <provides-appdefined-privileges />

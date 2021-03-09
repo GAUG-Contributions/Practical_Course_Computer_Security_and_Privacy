@@ -61,7 +61,7 @@ namespace SensorFeedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SensorFeedback.
+        ///   Looks up a localized string similar to Sensor Feedback.
         /// </summary>
         public static string AppDescription {
             get {
@@ -70,7 +70,7 @@ namespace SensorFeedback.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SensorFeedback.
+        ///   Looks up a localized string similar to Sensor Feedback.
         /// </summary>
         public static string AppDisplayName {
             get {

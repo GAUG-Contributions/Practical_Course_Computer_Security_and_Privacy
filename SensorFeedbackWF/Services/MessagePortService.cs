@@ -2,7 +2,6 @@
 
 using Tizen.Applications;
 using Tizen.Applications.Messages;
-using Xamarin.Forms;
 
 namespace SensorFeedbackWF.Services
 {
@@ -131,6 +130,7 @@ namespace SensorFeedbackWF.Services
                 {
                     Close();
                     _localPort.Dispose();
+                    _feedbackService.Dispose();
                 }
             }
 

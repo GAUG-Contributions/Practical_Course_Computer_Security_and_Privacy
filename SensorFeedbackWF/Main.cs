@@ -1,16 +1,7 @@
-﻿using System;
-using System.Resources;
-
-using Tizen.Applications;
+﻿using Tizen.Applications;
 using Tizen.Wearable.CircularUI.Forms;
 using Tizen.Wearable.CircularUI.Forms.Renderer.Watchface;
-
 using Xamarin.Forms;
-
-// TODO: Define the default culture of your app.
-// This improves lookup performance for the first resource to load.
-// For more details, see https://docs.microsoft.com/dotnet/api/system.resources.neutralresourceslanguageattribute.
-[assembly: NeutralResourcesLanguage("en-US")]
 
 namespace SensorFeedbackWF
 {

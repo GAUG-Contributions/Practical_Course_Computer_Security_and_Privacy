@@ -1,36 +1,41 @@
-﻿using System;
+﻿using SensorFeedbackWF.Services;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using SensorFeedbackWF.Services;
 using Tizen.Applications;
 using Tizen.Applications.Messages;
-
-using TApplication = Tizen.Applications.Application;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using TApplication = Tizen.Applications.Application;
 
 namespace SensorFeedbackWF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage, IDisposable
     {
+        // Get or set time to be displayed.
         private DateTime _time;
         private string _timeString;
+        public string TimeString
+        {
+            get { return _timeString; }
+            set { Set(ref _timeString, value); }
+        }
 
         // Used to stop all sensors sensing if the user denied the access
         private bool _areSensorsAllowed = true;
 
         // Ring blinking animation variables
         private double _animTimer = 1.0; // Should last one second
-        private double _timerDirection = 0.1; // Is added to animTimer 10x per second so that the timer reaches 0 or 1 every second
+        private double _timerDirection = 0.01; // Is added to animTimer 10x per second so that the timer reaches 0 or 1 every second
         private bool _isAnimateRingActive = false;
 
         // Communication services
         private MessagePortService _mpService;
         private RemotePort _remotePortService = null;
         private const string _localPort = "27072";
-        private const string _remotePort = "27071";
-        private const string _remoteAppId = "de.ugoe.SensorFeedback";
+        // private const string _remotePort = "27071";
+        // private const string _remoteAppId = "de.ugoe.SensorFeedback";
         private bool _trustedCommunication = true;
 
         // Used to track if the resources allocated were disposed
@@ -59,12 +64,6 @@ namespace SensorFeedbackWF.Views
                 await ReceiveIconSettings(message);
             });
 
-            // Used to receive notification color settings from the FeedbackService
-            MessagingCenter.Subscribe<FeedbackService, Bundle>(this, "ReceiveNotificationSettings", async (sender, message) =>
-            {
-                await ReceiveNotificationSettings(message);
-            });
-
             // Used to debug - don't remove before the final version
             MessagingCenter.Subscribe<FeedbackService, String>(this, "printMe", async (sender, str) =>
             {
@@ -79,7 +78,8 @@ namespace SensorFeedbackWF.Views
         }
 
         // Used to debug - don't remove before the final version
-        private Task printMe(string str){
+        private Task printMe(string str)
+        {
             DebugLabel.Text = str;
 
             return Task.CompletedTask;
@@ -99,13 +99,6 @@ namespace SensorFeedbackWF.Views
             _mpService.Open();
             // Not needed for now because we don't send anything from WF to the Main App
             //_remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
-        }
-
-        // Get or set time to be displayed.
-        public string TimeString
-        {
-            get { return _timeString; }
-            set { Set(ref _timeString, value); }
         }
 
         // Update time to be displayed.
@@ -151,21 +144,38 @@ namespace SensorFeedbackWF.Views
             progressBar.BackgroundColor = background;
 
             // If the ring is visible, subscribe to the tick event if not already subscribed
-            if (isVisible){
-                if (!_isAnimateRingActive){
+            if (isVisible)
+            {
+                if (!_isAnimateRingActive)
+                {
                     _isAnimateRingActive = true;
                     // Subscribe to the tick event -> triggered every second
                     (TApplication.Current as WatchApplication).TimeTick += AnimateRing;
                 }
             } // If the ring is not visible, remove the subscription is there is one
-            else{
-                if (_isAnimateRingActive){
+            else
+            {
+                if (_isAnimateRingActive)
+                {
                     _isAnimateRingActive = false;
                     // Remove the subscription
                     (TApplication.Current as WatchApplication).TimeTick -= AnimateRing;
                 }
             }
+        }
 
+        private void UpdateIconFeedback(bool bHealthIconActive, bool bLocationIconActive, bool bActivityIconActive)
+        {
+            // If the user doesn't want to be tracked - turn off
+            if (!_areSensorsAllowed)
+            {
+                healthIcon.IsVisible = false;
+                locationIcon.IsVisible = false;
+                activityIcon.IsVisible = false;
+            }
+            healthIcon.IsVisible = bHealthIconActive;
+            locationIcon.IsVisible = bLocationIconActive;
+            activityIcon.IsVisible = bActivityIconActive;
         }
 
         private void AnimateRing(object sender, TimeEventArgs e)
@@ -173,6 +183,7 @@ namespace SensorFeedbackWF.Views
             // Continues firing every 100ms until it looped 10 times for a full second
             Device.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
+                // Interact on the UI thread
                 progressBar.BarColor = new Color(progressBar.BarColor.R, progressBar.BarColor.G, progressBar.BarColor.B, this._animTimer);
                 progressBar.BackgroundColor = new Color(progressBar.BackgroundColor.R, progressBar.BackgroundColor.G, progressBar.BackgroundColor.B, this._animTimer);
 
@@ -184,69 +195,63 @@ namespace SensorFeedbackWF.Views
         }
 
         /*================================================================================*/
-        /*=============================== BUTTON LISTENERS ===============================*/
-        /*================================================================================*/
-
-        protected override bool OnBackButtonPressed()
-        {
-            Shell.Current.GoToAsync("//Main");
-            return base.OnBackButtonPressed();
-        }
-
-        /*================================================================================*/
         /*============================== PORT COMMUNICATION ==============================*/
         /*================================================================================*/
 
         // This function is called inside MessagePortService.cs
         public Task ReceiveRingSettings(Bundle message)
         {
+            if (message == null) throw new ArgumentNullException("message");
+
+            // Stop other potential visual feedback
+            UpdateIconFeedback(false, false, false);
+
             // Get separated strings
             string isVisibleStr = message.GetItem("isVisible").ToString();
             string valueStr = message.GetItem("barValue").ToString();
             string colorStr = message.GetItem("barColor").ToString();
             string backgroundStr = message.GetItem("backgroundColor").ToString();
 
-            // Set default values
-            bool isVisible= false;
-            double barValue = 0;
-            Color bar = Color.Transparent;
-            Color background = Color.Transparent;
+                // Set default values
+                bool parsingSuccessful = true;
 
-            bool parsingSuccessful = true;
-
-            // Try to parse booleans
-            if (!bool.TryParse(isVisibleStr, out isVisible))
+                // Try to parse booleans
+                if (!bool.TryParse(isVisibleStr, out bool isVisible))
                 parsingSuccessful = false;
 
-            if (!double.TryParse(valueStr, out barValue))
+            if (!double.TryParse(valueStr, out double barValue))
                 parsingSuccessful = false;
 
             // Parse colours
-            bar = Color.FromHex(colorStr);
-            background = Color.FromHex(backgroundStr);
+            Color bar = Color.FromHex(colorStr);
+            Color background = Color.FromHex(backgroundStr);
 
             // If the parsing was successful, update ring feedback
-            if (parsingSuccessful){
+            if (parsingSuccessful)
+            {
                 UpdateRingFeedback(isVisible, barValue, bar, background);
             }
-            else{
+            else
+            {
                 DebugLabel.Text = "FailedRingSettings";
                 DebugLabel.TextColor = Color.Red;
             }
-                
+
             return Task.CompletedTask;
         }
 
-        // TODO: Implement the receiving of Icon Settings
         public Task ReceiveIconSettings(Bundle message)
         {
+            if (message == null) throw new ArgumentNullException("message");
 
-            return Task.CompletedTask;
-        }
+            // Stop other potential visual feedback
+            UpdateRingFeedback(false, 0, Color.Transparent, Color.Transparent);
 
-        // TODO: Implement the receiving of Notification Settings
-        public Task ReceiveNotificationSettings(Bundle message)
-        {
+            _ = bool.TryParse(message.GetItem("bHealthIconActive").ToString(), out bool bHealthIconActive);
+            _ = bool.TryParse(message.GetItem("bLocationIconActive").ToString(), out bool bLocationIconActive);
+            _ = bool.TryParse(message.GetItem("bActivityIconActive").ToString(), out bool bActivityIconActive);
+
+            UpdateIconFeedback(bHealthIconActive, bLocationIconActive, bActivityIconActive);
 
             return Task.CompletedTask;
         }

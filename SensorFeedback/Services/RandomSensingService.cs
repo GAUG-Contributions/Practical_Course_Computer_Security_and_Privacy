@@ -111,7 +111,7 @@ namespace SensorFeedback.Services
             _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
 
-        // Allows or Forbids sensor's sensing
+        // Allows or Forbids sensors sensing
         public void AllowSensing(bool value) {
             _areSensorsAllowed = value;
 
@@ -123,6 +123,7 @@ namespace SensorFeedback.Services
                 SendFeedbackToWF();
             }
         }
+
         public bool AreSensonrsAllowed(){
             return _areSensorsAllowed;
         }
@@ -430,8 +431,6 @@ namespace SensorFeedback.Services
         // Data sent to the WF app
         private void SendFeedbackToWF()
         {
-            // If the user didn't allow sensors for some time skip
-            if (!_areSensorsAllowed) return;
 
             // If the remote app's port is listening
             if (_remotePort != null && _remotePortService.IsRunning())
@@ -439,18 +438,15 @@ namespace SensorFeedback.Services
                 // Generates color feedback according to the current activity state of services
                 ColorFeedback color = generateColorFeedback();
 
-                // Check for User Settings to decide if there should also be vibration and/or sound
+                // Check for User Settings to apply feedback preferences
                 DatabaseService ds = DatabaseService.GetInstance;
                 UserSettings us = ds.LoadUserSettings();
 
                 var message = new Bundle();
                 message.AddItem("colorFeedback", color.ToString());
-                // Insert here the appropriate DB access to choose the Ring, Icon and Notific - Should be done
-                message.AddItem("visualFeedback", "Ring");
+                message.AddItem("visualFeedback", us.VisualFeedbackType.ToString());
                 message.AddItem("vibrationFeedback", us.ActivateVibrationFeedback.ToString());
                 message.AddItem("soundFeedback", us.ActivateSoundFeedback.ToString());
-                // message.AddItem("vibrationFeedback", "false"); - For debug
-                // message.AddItem("soundFeedback", "false"); - For debug 
                 _mpService.Send(message, _remotePortService.AppId, _remotePortService.PortName);
                 
                 message.Dispose();

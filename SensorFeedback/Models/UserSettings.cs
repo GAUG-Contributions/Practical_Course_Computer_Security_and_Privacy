@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Tizen.System;
+using static SensorFeedback.Services.RandomSensingService;
 
 namespace SensorFeedback.Models
 {
@@ -14,6 +15,6 @@ namespace SensorFeedback.Models
 
         public bool ActivateVibrationFeedback { get; set; } = false;
         public bool ActivateSoundFeedback { get; set; } = false;
-        public int VisualFeedbackType { get; set; } = 0;
+        public VisualFeedback VisualFeedbackType { get; set; } = VisualFeedback.Ring;
     }
 }

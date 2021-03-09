@@ -1,14 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="SensorFeedback.Views.FeedbackSettingsPage"
+    x:Class="SensorFeedback.Views.OtherFeedbackSettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
         <ListView
             x:Name="listView"
-            ItemsSource="{Binding FeedbackSettings}"
-            ItemSelected="OnItemSelected"
-            ItemTapped="OnItemTapped">
+            ItemsSource="{Binding FeedbackSettings}">
+            <ListView.Header>
+                <StackLayout Padding="5,20,5,0">
+                    <Label HorizontalOptions="CenterAndExpand" 
+                           HorizontalTextAlignment="Center"
+                           Text="Vibration and Sound Feedback" 
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           TextColor="#2d98ff" />
+                </StackLayout>
+            </ListView.Header>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <SwitchCell

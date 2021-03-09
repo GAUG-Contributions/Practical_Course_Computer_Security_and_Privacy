@@ -1,12 +1,9 @@
-﻿using SensorFeedbackWF.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Tizen.System;
-using Tizen.Wearable.CircularUI.Forms;
-using Xamarin.Forms;
+﻿using System;
+using System.Text.RegularExpressions;
 using Tizen.Applications;
+using Tizen.Applications.Notifications;
+using Tizen.System;
+using Xamarin.Forms;
 
 namespace SensorFeedbackWF.Services
 {
@@ -99,12 +96,13 @@ namespace SensorFeedbackWF.Services
             bool sound = false;
 
             // Parses and assigns appropriate values to the feedback variables
-            parseStrings(cStr, ref color, vStr, ref visual, vibStr, ref vibration, sStr, ref sound);
+            ParseStrings(cStr, ref color, vStr, ref visual, vibStr, ref vibration, sStr, ref sound);
             processFeedbackRequest(color, visual, vibration, sound);
         }
 
         // Parse the received strings to their appropriate types
-        private void parseStrings(string cStr, ref ColorFeedback c, string vStr, ref VisualFeedback v, string vibStr, ref bool vib, string sStr, ref bool s) {
+        private void ParseStrings(string cStr, ref ColorFeedback c, string vStr, ref VisualFeedback v, string vibStr, ref bool vib, string sStr, ref bool s)
+        {
 
             // Parse color string, if failed assign Error
             if (!Enum.TryParse(cStr, out c))
@@ -123,19 +121,24 @@ namespace SensorFeedbackWF.Services
                 s = false;
         }
 
-        // Process the feedback reques accordingly
+        // Process the feedback request accordingly
         public void processFeedbackRequest(ColorFeedback c, VisualFeedback v, bool vibration, bool sound)
         {
-            processVisual(v);
-            if(v == VisualFeedback.Ring)
-                processColorRing(c);
-            
-            if(c != ColorFeedback.NoFeedback && v != VisualFeedback.NoFeedback)
-                processVibrationAndSound(vibration, sound);
+            if (v == VisualFeedback.Ring)
+                ProcessColorRing(c);
+            if (v == VisualFeedback.Icon)
+                processColorIcon(c);
+            if (v == VisualFeedback.Notification)
+                ProcessColorNotification(c);
+
+            // Notifications have their own vibration and sound
+            if (c != ColorFeedback.NoFeedback && v != VisualFeedback.NoFeedback && v != VisualFeedback.Notification)
+                ProcessVibrationAndSound(vibration, sound);
 
         }
 
-        private void processColorRing(ColorFeedback c){
+        private void ProcessColorRing(ColorFeedback c)
+        {
             // Default values
             bool isVisible = false;
             double barValue = 0.0;
@@ -150,12 +153,14 @@ namespace SensorFeedbackWF.Services
             if (cI >= 7) return;
 
             // No sensor is active
-            if (cI == 0){
+            if (cI == 0)
+            {
                 // this case is handled by default values
             }
 
             // If a single sensor is active
-            if(cI > 0 && cI < 4){
+            if (cI > 0 && cI < 4)
+            {
                 barValue = 1.0;
 
                 if (c == ColorFeedback.Health) barColor = healthColor;
@@ -171,13 +176,18 @@ namespace SensorFeedbackWF.Services
             {
                 barValue = 0.5;
 
-                if (c == ColorFeedback.HealthAndLocation){
+                if (c == ColorFeedback.HealthAndLocation)
+                {
                     barColor = healthColor;
                     backgroundColor = locationColor;
-                }else if (c == ColorFeedback.HealthAndActivity){
+                }
+                else if (c == ColorFeedback.HealthAndActivity)
+                {
                     barColor = healthColor;
                     backgroundColor = activityColor;
-                }else if (c == ColorFeedback.LocationAndActivity){
+                }
+                else if (c == ColorFeedback.LocationAndActivity)
+                {
                     barColor = locationColor;
                     backgroundColor = activityColor;
                 }
@@ -197,26 +207,74 @@ namespace SensorFeedbackWF.Services
             message.Dispose();
         }
 
-        // TODO: Set appropriate settings for Icon
-        private void processColorIcon(ColorFeedback c){
+        private void processColorIcon(ColorFeedback c)
+        {
+            bool bHealthIconActive = false;
+            bool bLocationIconActive = false;
+            bool bActivityIconActive = false;
 
-            // TODO: New method should be implemented in the MainPage.cs to accept these settings
-            // MessagingCenter.Send(this, "ReceiveIconSettings", message);
+            switch (c)
+            {
+                case ColorFeedback.Health: bHealthIconActive = true; break;
+                case ColorFeedback.Location: bLocationIconActive = true; break;
+                case ColorFeedback.Activity: bActivityIconActive = true; break;
+                case ColorFeedback.HealthAndActivity:
+                    bHealthIconActive = true;
+                    bActivityIconActive = true;
+                    break;
+                case ColorFeedback.HealthAndLocation:
+                    bHealthIconActive = true;
+                    bLocationIconActive = true;
+                    break;
+                case ColorFeedback.LocationAndActivity:
+                    bLocationIconActive = true;
+                    bActivityIconActive = true;
+                    break;
+            }
+
+            // Create a new message bundle
+            Bundle message = new Bundle();
+            message.AddItem("bHealthIconActive", bHealthIconActive.ToString());
+            message.AddItem("bLocationIconActive", bLocationIconActive.ToString());
+            message.AddItem("bActivityIconActive", bActivityIconActive.ToString());
+            MessagingCenter.Send(this, "ReceiveIconSettings", message);
+            message.Dispose();
+
         }
 
-        // TODO: Set appropriate settings for Notification
-        private void processColorNotification(ColorFeedback c){
+        private void ProcessColorNotification(ColorFeedback c)
+        {
+            // If no feedback, don't push a notification
+            if (c.Equals(ColorFeedback.NoFeedback)) return;
 
-            // TODO: New method should be implemented in the MainPage.cs to accept these settings
-            // MessagingCenter.Send(this, "ReceiveNotificationSettings", message);
+            // Here, no need to forward messages to the main page as we have nothing to visualize - notifications are treated internally by the system
+            // Split the enum value in words
+            string[] sensors = Regex.Split(c.ToString(), @"(?<!^)(?=[A-Z])");
+            string sWords = string.Join(" ", sensors).ToLower();
+
+            // When multiple sensors are used at once, the icon path will not be found. This is ok, because we can't display more than 1 icon at the same time.
+            // As a result, no icon is displayed when 2 sensors are used at the same time.
+            Notification notification = new Notification
+            {
+                Title = (sensors.Length > 1 ? "Sensors" : "Sensor") + " active",
+                Content = "Your " + sWords + " data " + (sensors.Length > 1 ? "are" : "is") + " being collected",
+                Icon = Tizen.Applications.Application.Current.DirectoryInfo.SharedResource + sWords + ".png",
+                Count = 3
+            };
+
+            Notification.AccessorySet accessory = new Notification.AccessorySet
+            {
+                SoundOption = AccessoryOption.On,
+                CanVibrate = true
+            };
+
+            notification.Accessory = accessory;
+            NotificationManager.Post(notification);
+            notification.Dispose();
         }
 
-        // TODO: Set appropriate settings for Visual Feedback - this method might not be needed
-        private void processVisual(VisualFeedback v){
-
-        }
-
-        private void processVibrationAndSound(bool vibration, bool sound){
+        private void ProcessVibrationAndSound(bool vibration, bool sound)
+        {
             if (_feedback == null)
                 throw new NotSupportedException(Resources.AppResources.ExceptionVibrationServicePredefinedNotSupported);
 

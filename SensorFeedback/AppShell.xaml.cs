@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using SensorFeedback.Services;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace SensorFeedback
@@ -21,6 +22,8 @@ namespace SensorFeedback
                 FlyoutIsPresented = false;
                 return true;
             }
+            RandomSensingService rss = RandomSensingService.GetInstance;
+            rss.AllowSensing(false);
             return base.OnBackButtonPressed();
         }
     }

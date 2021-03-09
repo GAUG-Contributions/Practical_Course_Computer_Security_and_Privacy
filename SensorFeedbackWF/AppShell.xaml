@@ -10,7 +10,4 @@
     <ShellItem Route="Main" Title="{x:Static res:AppResources.MainPageTitle}">
         <ShellContent Route="content" Title="Main" ContentTemplate="{DataTemplate views:MainPage}"/>
     </ShellItem>
-    <ShellItem Route="Settings" FlyoutDisplayOptions="AsMultipleItems">
-
-    </ShellItem>
 </Shell>

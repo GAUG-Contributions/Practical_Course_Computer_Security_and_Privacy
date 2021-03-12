@@ -5,6 +5,7 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{acronym}
+\usepackage{subcaption}
 \usepackage[style=ieee]{biblatex}
 \usepackage[nottoc]{tocbibind}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -62,27 +63,77 @@ component, formatting, style, styling, insert
 
 The main goal of our work is to raise the awareness about smartwatch data collection. In this section, we first clarify our notion of smartwatch data collection and describe the technologies and platforms we use. 
 
-A smartwatch is a device in the form of a watch which has computing capabilities. Although the earlier models had restricted functionality, the models starting from early 2010s are closer to smartphones in regard to features. Modern smartwatches have WiFi/Bluetooth connectivity, support mobile apps, have their own operating system and peripheral devices, which may include health tracking sensors such as heart rate monitors, location tracking sensors such as GPS receivers and activity tracking sensors such as pedometers.\cite{smartwatchWiki}
+A smartwatch is a device in the form of a watch which has computing capabilities. Although the earlier models had restricted functionality, the models starting from early 2010s are closer to smartphones in regard to features. Modern smartwatches have WiFi/Bluetooth connectivity, support mobile apps, have their own operating system and peripheral devices, which may include health tracking sensors such as heart rate monitors, location tracking sensors such as GPS receivers and activity tracking sensors such as pedometers.\cite{smartwatch}
 
 Mobile apps may gather data from different sensors at any given time. We refer to this process as smartwatch data collection. Mobile apps often ask the permission to use different sensors when they are launched for the first time. Users give permission but are not aware of exactly when and how often apps gather, e.g., their health, location or activity data. We propose 3 different mechanisms to increase the awareness users about the data gathering process: Visual, Sound and Haptic feedback. The visual feedback divides into 3 sub categories: Ring, Icon and Notification. The awareness increasing mechanisms are discussed in more details in section \ref{approach}. Our proposal could be further extended and developed as an API which developers could use in the future.
 
 \begin{figure}[t]
 \leftline{\includegraphics[width=.5\textwidth]{img/tizenInfrastructure.png}}
-\caption{Tizen infrastructure~\ref{tizen}}
+\caption{Tizen infrastructure~\cite{tizen}}
 \label{fig:tizen}
 \end{figure}
 
 For our research, we used a Samsung Galaxy Watch 3 \cite{galaxyWatch3}. The smartwatch runs Tizen OS 5.5, an open source Linux-based mobile operating system which is built to work on diverse devices. In order to support different types of devices and provide product-optimized performance, Tizen uses different profiles to categorize functions and features according to the requirements of each device type. Currently, four profiles are supported: IoT, Mobile, TV, and Wearable. Since all profiles are built on top of a common, shared infrastructure (as shown in Fig.~\ref{fig:tizen}), it is easy to add new profiles for emerging technologies \cite{tizen}.
 
-% ref for Fig. 1
-
 Tizen has its own official IDE for developing web based and native applications. Moreover, the availability of Tizen extensions for the Visual Studio Family makes possible to develop Tizen applications in the .NET environment. Tizen .NET, in comparison to web and native frameworks, is more advantageous. The C-based framework does not have advantages of a managed runtime and the HTML5-based framework has fewer features supported and worse performance. On the other hand, Tizen .NET has managed runtime advantages such as faster development, safer code, cross-platform support and better quality software. Tizen provides an emulator which increases the application development process. Firstly, because we do not need an actual physical device to start the development process. And secondly, because the control panel of the emulator makes it possible to produce different sensor values \cite{tizen}.
 
-It is however important to note that Tizen .NET relies on various components from different entities: the .NET framework \ref{dotnet} is maintained by Microsoft, as well as the cross-platform UI framework Xamarin.Forms \ref{xamarin}. On top of this comes CircularUI \ref{circularUI}, which is maintained by Samsung and extends Xamarin.Forms for Samsung-specific hardware. Lastly, in a similar fashion, Samsung extends the .NET \ac{API} with TizenFX\ref{tizenFX} for hardware specific methods that are not covered by the base framework.
+It is, however, important to note that Tizen .NET relies on various components from different entities: the .NET framework \cite{dotnet} is maintained by Microsoft, as well as the cross-platform UI framework Xamarin.Forms \cite{xamarin}. On top of this comes CircularUI \cite{circularUI}, which is maintained by Samsung and extends Xamarin.Forms for Samsung-specific hardware. Lastly, in a similar fashion, Samsung extends the .NET \ac{API} with TizenFX\cite{tizenFX} for hardware specific methods that are not covered by the base framework.
 
 \section{Related Work}\label{related}
 
 \section{Approach}\label{approach}
+
+% System overview
+\begin{figure*}[ht]
+\centerline{\includegraphics[width=1\textwidth]{img/appDiagram.png}}
+\caption{System overview}
+\label{systemOverview}
+\end{figure*}
+
+% Visual Feedback images
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.33\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/ringHR&Location.png}
+        \caption{Ring - HR and Location}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/iconLocation&Activity.png}
+        \caption{Icon - Location and Activity}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.33\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/notificationActifity.png}
+        \caption{Notification - Activity}
+    \end{subfigure}
+    \caption{Different kinds of visual feedback}
+    \label{visualFeedbackImage}
+\end{figure*}
+
+% Feedback Settings images
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/settingsVisualFeedback.png}
+        \caption{Visual feedback settings}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/settingsOtherFeedback.png}
+        \caption{Other feedback settings}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.32\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/settingsSuspend.png}
+        \caption{Suspend settings}
+    \end{subfigure}
+    \caption{Feedback and suspend settings}
+    \label{feedbackSettingsImage}
+\end{figure*}
+
 
 \section{Discussion}\label{discussion}
 This section discusses the different approaches that were used in order to raise awareness in smartwatch data collection. Prior to developping the application that was discussed in section \ref{approach}, we imagined another application that was, to the best of our knowledge, not realizable with current \acp{API} and system accesses.  
@@ -118,20 +169,13 @@ Lastly, our implementation can easily be bypassed by the user, if they simply ch
 Globally, none of the limitations of our current approach are critical when considering mechanisms to raise awareness in smartwatch data collection. However, the impossibility to implement the first one is in itself the major limit that prevented us from going further into this more global direction of providing feedback in a general way for all sensor accesses---not just the current application.
 
 \section{Conclusion}
-This report presented our proposal for mechanisms that raise awareness about smartwatch data collection. An overview of the capabilities of current smartwatches and their systems is described is section \ref{foundations}. We compared our work with past litterature. On one hand, there is evidence about users' privacy concerns when it comes to smartwatch devices \ref{}. On the other hand, there are various proposal of systems that give feedback to users for various usages, such as medical, or more recently, hygienic \ref{}. However, these two fields are, to the best of our knowledge, not connected together. As such, we are not aware of mechanisms that give users feedback related to data collection in smartwatches. 
+This report presented our proposal for mechanisms that raise awareness about smartwatch data collection. An overview of the capabilities of current smartwatches and their systems is described is section \ref{foundations}. We compared our work with past litterature. On one hand, there is evidence about users' privacy concerns when it comes to smartwatch devices \cite{}. On the other hand, there are various proposal of systems that give feedback to users for various usages, such as medical, or more recently, hygienic \cite{}. However, these two fields are, to the best of our knowledge, not connected together. As such, we are not aware of mechanisms that give users feedback related to data collection in smartwatches. 
 
 Given this, we attempted to create a monitoring application that could detect when installed applications access sensors, and give feedback accordingly. This attempt resulted in failure, due to the lack of tools to achieve our goal. This result hopefully points out at the necessity for vendors to provide \acp{API} that can indicate sensor usage in a global context instead of restricting it to the app context only. 
 
 From this, we implemented a prototype application that sends various types and combinations of feedback to the user when it accesses smartwartch sensors, including visual, haptic and sonor feedback. The application is divided between a watch face (i.e. the main interface of a smartwatch which mainly displays the time among other things; here, visual feedback) an a main application which accesses sensors and sends messages to the watch face. The main application also supports user preferences: the user can choose between different visual feedbacks and whether they want to add sounds or vibration on top of the visual feedback. These diferent combinations allow for a wide granularity of feedback, which can better suit users depending on the amount of feedback they want. Furthermore, users are put in control through a sensor suspension mechanism: they can set a timer until which the application can not access any sensor. Globally, this approach should both reassure users when they do not perceive any feedback (because this implies no collection of their data) and raise their awareness when the feedback informs them of data colleciton.  
 
 The interest for this project is that it mimicks what a real-life application could do. Considering a scenario where a company provides its employees with an application that collects sensor data in a transparent way (i.e. by giving corresponding feedback) justifies our application in the sense that this could be the next step for smartwatch applications in the future. Furthermore, the watch face code could be shared to the Tizen community as a first step towards a global \ac{API}. As such, having groundwork in this direction is of importance.
-
-
-\begin{figure*}[ht]
-\centerline{\includegraphics[width=1\textwidth]{img/appDiagram.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure*}
 
 \section*{Acknowledgment}
 

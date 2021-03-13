@@ -77,10 +77,10 @@ For our research, we used a Samsung Galaxy Watch 3 \cite{galaxyWatch3}. The smar
 
 Tizen has its own official IDE for developing web based and native applications. Moreover, the availability of Tizen extensions for the Visual Studio Family makes possible to develop Tizen applications in the .NET environment. Tizen .NET, in comparison to web and native frameworks, is more advantageous. The C-based framework does not have advantages of a managed runtime and the HTML5-based framework has fewer features supported and worse performance. On the other hand, Tizen .NET has managed runtime advantages such as faster development, safer code, cross-platform support and better quality software. Tizen provides an emulator which increases the application development process. Firstly, because we do not need an actual physical device to start the development process. And secondly, because the control panel of the emulator makes it possible to produce different sensor values \cite{tizen}.
 
-It is, however, important to note that Tizen .NET relies on various components from different entities: the .NET framework \cite{dotnet} is maintained by Microsoft, as well as the cross-platform UI framework Xamarin.Forms \cite{xamarin}. On top of this comes CircularUI \cite{circularUI}, which is maintained by Samsung and extends Xamarin.Forms for Samsung-specific hardware. Lastly, in a similar fashion, Samsung extends the .NET \ac{API} with TizenFX\cite{tizenFX} for hardware specific methods that are not covered by the base framework.
+It is, however, important to note that Tizen .NET relies on various components from different entities: the .NET framework \cite{dotnet} is maintained by Microsoft, as well as the cross-platform UI framework Xamarin.Forms \cite{xamarin}. On top of this comes CircularUI \cite{circularUI}, which is maintained by Samsung and extends Xamarin.Forms for Samsung-specific hardware. Lastly, in a similar fashion, Samsung extends the .NET \ac{API} with TizenFX \cite{tizenFX} for hardware specific methods that are not covered by the base framework.
 
 \section{Related Work}\label{related}
-Our topic englobes two distinct domains. First, raising awareness about smartwatch data collection is important because users have privacy concerns about smartwatches.
+Our topic englobes two distinct domains. First, raising awareness about smartwatch data collection is important because users have both privacy concerns and misconceptions about smartwatches. This is pointed out in \cite{datta2018survey,motti2015users,udoh2016privacy}. Moreover, Udoh and Alkharashi reveal that participants in their study held wrong beliefs when it came to privacy and wearables \cite{udoh2016privacy}. This confirms the importance of raising awareness by providing clear, understandable information about data collection.
 
 \section{Approach}\label{approach}
 
@@ -256,6 +256,7 @@ From this, we implemented a prototype application that sends various types and c
 The interest for this project is that it mimicks what a real-life application could do. Considering a scenario where a company provides its employees with an application that collects sensor data in a transparent way (i.e. by giving corresponding feedback) justifies our application in the sense that this could be the next step for smartwatch applications in the future. Furthermore, the watch face code could be shared to the Tizen community as a first step towards a global \ac{API}. As such, having groundwork in this direction is of importance.
 
 \section*{Acknowledgment}
+The authors would like to thank their supervisor, Alexander Richter, for providing feedback, visual resources, as well as the scenario where a company provides its employees with an application that collects sensor data in a transparent way, which helped modeling the second approach a lot.
 
 \printbibliography
 

@@ -54,10 +54,15 @@ or Math in Paper Title or Abstract.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+smartwatch, awareness, feedback, sensor, privacy
 \end{IEEEkeywords}
 
 \section{Introduction}
+The well-known privacy-paradox \cite{williams2019smart,patil2015interrupt} is prevalent in smartwatches: users are concerned about the pervasiveness of ubiquitous devices such as smartwatches, but they also have misunderstandings, or even false beliefs concerning these devices \cite{udoh2016privacy}. This points at the importance of raising awareness in smartwatch data collection, as users need to understand what, how, and when their data is collected by the sensors of their watch, in order to better protect their privacy. 
+
+The emerging question to this problem is: how do we raise user awareness on smartwatch data collection? Where past contributions have used serious games as an approach \cite{williams2019smart}, we implemented different types of feedback in an application that randomly collects sensor data in order to show users that their data is being collected in real-time. Our solution lets users choose between different visual, haptic and sonor configuration which provide a good granularity of feedback, thus matching different profiles. Moreover, we provide users with control on data collection by supporting a sensor suspension mechanism through a timer. The architecture of the project is split between a watch face (i.e. an application that acts as the main interface for the user which displays time among other things) and a main application that accesses sensors and forwards feedback messages to the watch face. This makes for an easy sharing of the watch face that can then be easily connected by a developer to their own application, if they wanted to facilitate transparency.
+
+The structure for this report is as follows: the necessary terms and concepts to understand our work are described in section \ref{foundations}. Then, we analyse contributions in the domains of privacy concerns and smartwatch feedback separately before looking at works that include both of these domains together in section \ref{related}. A description of our approach is detailed in section \ref{approach}. We then discuss the advantages and limits of this solution in section \ref{discussion}, along with results regarding our first approach on this topic. Finally, we conclude this work in section \ref{conclusion}.   
 
 \section{Foundations}\label{foundations}
 
@@ -98,7 +103,7 @@ It is observable that despite the high amount of contributions in both analyses 
 
 % System overview
 \begin{figure*}[ht]
-\centerline{\includegraphics[width=1\textwidth]{img/appDiagram.png}}
+\centerline{\includegraphics[width=.9\textwidth]{img/appDiagram.png}}
 \caption{System overview}
 \label{fig:systemOverview}
 \end{figure*}
@@ -250,7 +255,7 @@ Lastly, our implementation can easily be bypassed by the user, if they simply ch
 
 Globally, none of the limitations of our current approach are critical when considering mechanisms to raise awareness in smartwatch data collection. However, the impossibility to implement the first one is in itself the major limit that prevented us from going further into this more global direction of providing feedback in a general way for all sensor accesses---not just the current application.
 
-\section{Conclusion}
+\section{Conclusion}\label{conclusion}
 This report presented our proposal for mechanisms that raise awareness about smartwatch data collection. An overview of the capabilities of current smartwatches and their systems is described is section \ref{foundations}. We compared our work with past litterature. On one hand, there is evidence about users' privacy concerns when it comes to smartwatch devices \cite{udoh2016privacy,datta2018survey,motti2015users}. On the other hand, there are various proposal of systems that give feedback to users for various usages, such as medical \cite{lee2019smartwatch}, accessibility \cite{goodman2020evaluating}, or navigation \cite{dobbelstein2016unconstrained}. However, these two fields are, to the best of our knowledge, not connected together. As such, we are not aware of mechanisms that give users feedback related to data collection in smartwatches. 
 
 Given this, we attempted to create a monitoring application that could detect when installed applications access sensors, and give feedback accordingly. This attempt resulted in failure, due to the lack of tools to achieve our goal. This result hopefully points out at the necessity for vendors to provide \acp{API} that can indicate sensor usage in a global context instead of restricting it to the app context only. 
@@ -260,7 +265,7 @@ From this, we implemented a prototype application that sends various types and c
 The interest for this project is that it mimicks what a real-life application could do. Considering a scenario where a company provides its employees with an application that collects sensor data in a transparent way (i.e. by giving corresponding feedback) justifies our application in the sense that this could be the next step for smartwatch applications in the future. Furthermore, the watch face code could be shared to the Tizen community as a first step towards a global \ac{API}. As such, having groundwork in this direction is of importance.
 
 \section*{Acknowledgment}
-The authors would like to thank their supervisor, Alexander Richter, for providing feedback, visual resources, as well as the scenario where a company provides its employees with an application that collects sensor data in a transparent way, which helped modeling the second approach a lot.
+The authors would like to thank their supervisor, Alexander Richter, for providing feedback and visual resources, which helped modeling their approach a lot.
 
 \printbibliography
 

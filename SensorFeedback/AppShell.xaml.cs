@@ -1,6 +1,5 @@
 ﻿using SensorFeedback.Services;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SensorFeedback
 {

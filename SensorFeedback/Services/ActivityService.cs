@@ -4,10 +4,9 @@ using Tizen.Sensor;
 
 namespace SensorFeedback.Services
 {
-    // For more information about sensors see https://docs.tizen.org/application/dotnet/guides/location-sensors/device-sensors
-    public class HeartRateMonitorService : IDisposable
+    class ActivityService : IDisposable
     {
-        private HeartRateMonitor _sensor;
+        private Pedometer _sensor;
 
         private bool _disposed = false;
 
@@ -16,13 +15,12 @@ namespace SensorFeedback.Services
         /// </summary>
         /// <exception cref="NotSupportedException">The device does not support the sensor</exception>
         /// <exception cref="UnauthorizedAccessException">The user does not grant your app access to sensors</exception>
-        public HeartRateMonitorService()
+        public ActivityService()
         {
             try
             {
                 // A NotSupportedException will be thrown if the sensor is not available on the device
-                _sensor = new HeartRateMonitor();
-
+                _sensor = new Pedometer();
                 // Add an event handler to the sensor
                 _sensor.DataUpdated += OnSensorDataUpdated;
                 _sensor.Interval = 1000;
@@ -37,7 +35,7 @@ namespace SensorFeedback.Services
             }
         }
 
-        ~HeartRateMonitorService()
+        ~ActivityService()
         {
             Dispose(false);
         }
@@ -89,13 +87,11 @@ namespace SensorFeedback.Services
         }
 
         /// <summary>
-        /// Called when the heart rate has changed
+        /// Called when the Step Count has changed
         /// </summary>
-        private void OnSensorDataUpdated(object sender, HeartRateMonitorDataUpdatedEventArgs e)
+        private void OnSensorDataUpdated(object sender, PedometerDataUpdatedEventArgs e)
         {
-            
-            // More details at https://docs.tizen.org/application/dotnet/guides/location-sensors/device-sensors#heart-rate-monitor-sensor
-            Logger.Info($"Heart rate: {e.HeartRate}");
+            Logger.Info($"Step count: {e.StepCount}");
         }
     }
 }

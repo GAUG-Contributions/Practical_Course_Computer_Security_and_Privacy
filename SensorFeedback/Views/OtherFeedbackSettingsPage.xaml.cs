@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Input;
 using SensorFeedback.Models;
 using SensorFeedback.Services;
 using Tizen.System;

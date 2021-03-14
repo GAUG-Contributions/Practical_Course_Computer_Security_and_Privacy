@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SensorFeedback.Models;
 using SensorFeedback.Services;
-using Tizen.Applications;
-using Tizen.Applications.Messages;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

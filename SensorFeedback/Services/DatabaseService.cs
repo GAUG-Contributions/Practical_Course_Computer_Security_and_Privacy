@@ -108,8 +108,9 @@ namespace SensorFeedback.Services
         {
             if (disposing)
             {
-                _db = null;
+                _db.Dispose();
             }
+            _db = null;
         }
     }
 }

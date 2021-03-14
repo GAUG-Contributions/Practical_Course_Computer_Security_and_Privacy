@@ -1,8 +1,6 @@
 ﻿using Tizen.Wearable.CircularUI.Forms;
 using Xamarin.Forms;
 
-
-
 namespace SensorFeedback
 {
     class TizenApplication : global::Xamarin.Forms.Platform.Tizen.FormsApplication

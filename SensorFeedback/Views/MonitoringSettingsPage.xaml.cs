@@ -1,10 +1,5 @@
 ﻿using SensorFeedback.Services;
 using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace SensorFeedback.Views
@@ -26,9 +21,11 @@ namespace SensorFeedback.Views
         {
             // Stop the randomization of services gathering sensor data
              _randomSensingService.AllowSensing(false);
-            Device.StartTimer(new TimeSpan((int)StepperH.Value, (int)StepperM.Value, 0), () =>
+            TimeSpan timer = new TimeSpan((int)StepperH.Value, (int)StepperM.Value, 0);
+            Device.StartTimer(timer, () =>
             {
                  _randomSensingService.AllowSensing(true);
+                _randomSensingService.StartRandom();
                 return false;
             });
 

@@ -1,7 +1,6 @@
 ﻿using SensorFeedback.Services;
 using System;
 using System.Threading.Tasks;
-
 using Tizen.Location;
 
 namespace SensorFeedback.Services

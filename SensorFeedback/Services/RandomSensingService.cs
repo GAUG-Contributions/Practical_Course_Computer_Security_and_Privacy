@@ -1,8 +1,5 @@
 ﻿using SensorFeedback.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Tizen.Applications;
 using Tizen.Applications.Messages;
 using Xamarin.Forms;
@@ -14,15 +11,13 @@ namespace SensorFeedback.Services
         // Main Services - Health, Location and Activity
         private HeartRateMonitorService _hrmService;
         private LocationService _locService;
-        // private ActivityService _actService; - This is not implemented
+        private ActivityService _actService;
 
         // Used to stop all sensors sensing if the user denied the access
         private bool _areSensorsAllowed = true;
         // Services Activity Status
         private bool _hrmStatus = false;
         private bool _locStatus = false;
-        // although the activity service is not implemented
-        // we would still like to have the blue feedback for activity
         private bool _actStatus = false;
         
         // Communication services
@@ -106,7 +101,7 @@ namespace SensorFeedback.Services
             _hrmService = new HeartRateMonitorService();
             _locService = new LocationService(Tizen.Location.LocationType.Hybrid);
             _mpService = new MessagePortService(_localPort, _trustedCommunication);
-            //_actService = new ... This is not implemented
+            _actService = new ActivityService();
             _mpService.Open();
             _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
@@ -124,7 +119,7 @@ namespace SensorFeedback.Services
             }
         }
 
-        public bool AreSensonrsAllowed(){
+        public bool AreSensorsAllowed(){
             return _areSensorsAllowed;
         }
 
@@ -146,7 +141,7 @@ namespace SensorFeedback.Services
             if (service == ServiceType.Activity && !_actStatus)
             {
                 _actStatus = true;
-                // _actService.Start(); - This is not implemented
+                _actService.Start();
                 return true;
             }
 
@@ -169,7 +164,7 @@ namespace SensorFeedback.Services
 
             if (service == ServiceType.Activity && _actStatus){
                 _actStatus = false;
-                // _actService.Stop(); - This is not implemented
+                _actService.Stop();
                 return true;
             }
 
@@ -355,7 +350,7 @@ namespace SensorFeedback.Services
         // Coninuously performs random actions - RANDOM_ACTIONS_TO_PERFORM times
         private bool PerformRandomActions(){
             // If the sensing is disabled
-            if (!AreSensonrsAllowed())
+            if (!AreSensorsAllowed())
             {
                 StopAllServices();
                 SendFeedbackToWF();
@@ -376,7 +371,7 @@ namespace SensorFeedback.Services
 
             // Random action duration is 5 secs before changing to another action
             Device.StartTimer(TimeSpan.FromMilliseconds(500), () => {
-                if (randomActionsLeft >= 0 && timeCounter == 10 && IsRandomActive() && AreSensonrsAllowed())
+                if (randomActionsLeft >= 0 && timeCounter == 10 && IsRandomActive() && AreSensorsAllowed())
                 {
                     previousAction = PerformOneRandomAction(previousAction);
                     SendFeedbackToWF();
@@ -392,7 +387,7 @@ namespace SensorFeedback.Services
                 }
 
                 // If the sensors are suspended, stop
-                if (!AreSensonrsAllowed()){
+                if (!AreSensorsAllowed()){
                     return false;
                 }
 
@@ -464,14 +459,14 @@ namespace SensorFeedback.Services
                 {
                     _hrmService.Dispose();
                     _locService.Dispose();
-                    // _actService.Dispose(); - this is not implemented
+                    _actService.Dispose();
                     _mpService.Dispose();
                     _remotePortService.Dispose();
                 }
 
                 _hrmService = null;
                 _locService = null;
-                // _actService = null; - this is not implemented
+                _actService = null;
                 _mpService = null;
                 _remotePortService = null;
                 _disposedValue = true;

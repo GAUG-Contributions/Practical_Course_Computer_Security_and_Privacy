@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Tizen.Applications;
 using Tizen.Applications.Messages;
 

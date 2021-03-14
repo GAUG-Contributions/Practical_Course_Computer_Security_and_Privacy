@@ -1,33 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SensorFeedback.Views.MainPage">
+             x:Class="SensorFeedback.Views.MainPage"
+             xmlns:tizen="clr-namespace:Xamarin.Forms.PlatformConfiguration.TizenSpecific;assembly=Xamarin.Forms.Core">
     <ContentPage.Content>
         <AbsoluteLayout>
             <Label x:Name="labelOverview"
                     Text="Overview"
-                    AbsoluteLayout.LayoutBounds="0, 150, 360, 60"
+                    AbsoluteLayout.LayoutBounds="0, 100, 360, 60"
                     AbsoluteLayout.LayoutFlags="None"
                     HorizontalTextAlignment="Center"
                     FontAttributes="Bold"/>
-            <Button x:Name="buttonHR"
-                    Text="HR"
-                    FontSize="Micro"
-                    AbsoluteLayout.LayoutBounds="0.2,0.7,0.35,0.15"
-                    AbsoluteLayout.LayoutFlags="All"
-                    Clicked="OnHealthButtonClicked"
-                    TextColor="White"/>
-            <Button x:Name="buttonLocation"
-                    Text="Location"
-                    FontSize="Micro"
-                    AbsoluteLayout.LayoutBounds="0.8,0.7,0.35,0.15"
-                    AbsoluteLayout.LayoutFlags="All"
-                    Clicked="OnLocationButtonClicked" 
-                    TextColor="White"/>
-            <Button x:Name="buttonRand"
-                    Text="Rand"
-                    FontSize="Micro"
-                    AbsoluteLayout.LayoutBounds="0.5,0.9,0.3,0.15"
+            <Button x:Name="buttonRand" 
+                    tizen:VisualElement.Style="{x:Static tizen:ButtonStyle.Bottom}" 
+                    Text="Start sensing"
+                    FontSize="Default"
+                    AbsoluteLayout.LayoutBounds="0.5,0.7,0.3,0.15"
                     AbsoluteLayout.LayoutFlags="All"
                     Clicked="OnRandButtonClicked" 
                     TextColor="White"/>

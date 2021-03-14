@@ -49,7 +49,8 @@
 
 
 \begin{abstract}
-Although the popularity and availability of smartwatches has increased over the past few years, some researches reveal that users privacy concerns vary depending on the context and that they hold wrong beliefs when it comes to privacy and wearable devices. Hence, raising users' awareness about smartwatch data collection, in a clear and understandable way, becomes important. The goal of this work is to propose mechanisms which attract users' attention and provide them information about the data collection of their smartwatches in a clear and understandable way. Our solution implements different types of visual feedback which could be combined with haptic and/or sonar feedback on top according to the users' preferences. The feedbacks are triggered in real-time whenever a human activity sensor is accessed. Thus, the collection of such data becomes transparent to the users. However, our solution could be adapted for real-life scenarios either if the vendor provides APIs that can indicate sensor usage in a global context instead of an application context or developers of smartwatch applications decide to be transparent about the collected data. While the first option may increase security concerns, the second option may be widely applicable only if it is regulated by laws. 
+Although the popularity and availability of smartwatches has increased over the past few years, some researches reveal that 
+users hold wrong beliefs when it comes to privacy and wearable devices and their privacy concerns vary depending on the context. Hence, raising user awareness about smartwatch data collection, in a clear and understandable way, becomes important. The goal of this work is to propose mechanisms which attract users' attention and provide them information about the data collection of their smartwatches in a clear and understandable way. Our solution implements different types of visual feedback which could be combined with haptic and/or sonar feedback according to the users' preferences. The feedbacks are triggered in real-time whenever a human activity sensor is accessed. Thus, the collection of such data becomes transparent to the users. However, our solution could be adapted for real-life scenarios either if the vendor provides APIs that can indicate sensor usage in a global context instead of an application context or developers of smartwatch applications decide to be transparent about the collected data. While the first option may increase security concerns, the second option may be widely applicable only if it is regulated by laws. 
 
 \end{abstract}
 
@@ -70,19 +71,19 @@ The main goal of our work is to raise the awareness about smartwatch data collec
 
 A smartwatch is a device in the form of a watch which has computing capabilities. Although the earlier models had restricted functionality, the models starting from early 2010s are closer to smartphones in regard to features. Modern smartwatches have WiFi/Bluetooth connectivity, support mobile apps, have their own operating system and peripheral devices, which may include health tracking sensors such as heart rate monitors, location tracking sensors such as GPS receivers and activity tracking sensors such as pedometers.\cite{smartwatch}
 
-Mobile apps may gather data from different sensors at any given time. We refer to this process as smartwatch data collection. Mobile apps often ask the permission to use different sensors when they are launched for the first time. Users give permission but are not aware of exactly when and how often apps gather, e.g., their health, location or activity data. We propose 3 different mechanisms to increase the awareness users about the data gathering process: Visual, Sound and Haptic feedback. The visual feedback divides into 3 sub categories: Ring, Icon and Notification. The awareness increasing mechanisms are discussed in more details in section \ref{approach}. Our proposal could be further extended and developed as an API which developers could use in the future.
-
-For our research, we used a Samsung Galaxy Watch 3 \cite{galaxyWatch3}. The smartwatch runs Tizen OS 5.5, an open source Linux-based mobile operating system which is built to work on diverse devices. In order to support different types of devices and provide product-optimized performance, Tizen uses different profiles to categorize functions and features according to the requirements of each device type. Currently, four profiles are supported: IoT, Mobile, TV, and Wearable. Since all profiles are built on top of a common, shared infrastructure (as shown in Fig.~\ref{fig:tizen}), it is easy to add new profiles for emerging technologies \cite{tizen}.
+Mobile apps may gather data from different sensors at any given time. We refer to this process as smartwatch data collection. Mobile apps, when they are launched for the very first time, ask for permission in order to be able to use different sensors. Users give permission but are not aware of exactly when and how often apps gather, e.g., their health, location or activity data. We propose 3 different mechanisms to increase the user awareness about the data gathering process: Visual, Sound and Haptic feedback. The visual feedback divides into 3 sub categories: Ring, Icon and Notification. These feedbacks are triggered in real-time whenever a sensor data is used by the main application. The awareness increasing mechanisms are discussed in more details in section \ref{approach}. Our proposal could be further extended and developed as an API which developers could use in the future.
 
 \begin{figure}[t]
-\leftline{\includegraphics[width=.5\textwidth]{img/tizenInfrastructure.png}}
+\leftline{\includegraphics[width=0.5\textwidth]{img/tizenInfrastructure.png}}
 \caption{Tizen infrastructure~\cite{tizen}}
 \label{fig:tizen}
 \end{figure}
 
-Tizen has its own official IDE for developing web based and native applications. Moreover, the availability of Tizen extensions for the Visual Studio Family makes possible to develop Tizen applications in the .NET environment. Tizen .NET, in comparison to web and native frameworks, is more advantageous. The C-based framework does not have advantages of a managed runtime and the HTML5-based framework has fewer features supported and worse performance. On the other hand, Tizen .NET has managed runtime advantages such as faster development, safer code, cross-platform support and better quality software. Tizen provides an emulator which increases the application development process. Firstly, because we do not need an actual physical device to start the development process. And secondly, because the control panel of the emulator makes it possible to produce different sensor values \cite{tizen}.
+For our research, we used a Samsung Galaxy Watch 3 \cite{galaxyWatch3}. The smartwatch runs Tizen OS 5.5, an open source Linux-based mobile operating system which is built to work on diverse devices. In order to support different types of devices and provide product-optimized performance, Tizen uses different profiles to categorize functions and features according to the requirements of each device type. Currently, four profiles are supported: IoT, Mobile, TV, and Wearable. Since all profiles are built on top of a common, shared infrastructure (as shown in Fig.~\ref{fig:tizen}), it is easy to add new profiles for emerging technologies \cite{tizen}.
 
-It is, however, important to note that Tizen .NET relies on various components from different entities: the .NET framework \cite{dotnet} is maintained by Microsoft, as well as the cross-platform \ac{UI} framework Xamarin.Forms \cite{xamarin}. On top of this comes CircularUI \cite{circularUI}, which is maintained by Samsung and extends Xamarin.Forms for Samsung-specific hardware. Lastly, in a similar fashion, Samsung extends the .NET \ac{API} with TizenFX \cite{tizenFX} for hardware specific methods that are not covered by the base framework.
+Tizen has its own official IDE for developing web based and native applications. Moreover, the availability of Tizen extensions for the Visual Studio Family makes possible to develop Tizen applications in the .NET environment. Tizen .NET, in comparison to web and native frameworks, is more advantageous. The C-based framework does not have the advantages of a managed runtime and the HTML5-based framework has fewer supported features and worse performance. On the other hand, Tizen .NET has managed runtime advantages such as faster development, safer code, cross-platform support and better quality software. Tizen provides an emulator which speeds up the application development process. First, because we do not need an actual physical device for the development process. Secondly, because the control panel of the emulator makes it possible to artificially produce different sensor values such as location coordinates, pressure, activity status, health status and etc. \cite{tizen}.
+
+It is, however, important to note that Tizen .NET relies on various components from different entities: the .NET framework \cite{dotnet} is maintained by Microsoft, as well as the cross-platform \ac{UI} framework Xamarin.Forms \cite{xamarin}. On top of this comes CircularUI \cite{circularUI}, which is maintained by Samsung and extends Xamarin.Forms for Samsung-specific hardware. Lastly, in a similar fashion, Samsung extends the .NET \ac{API} with TizenFX \cite{tizenFX} for hardware specific methods that are not covered by the base framework. Hence, combining all these components together in a resource efficient manner becomes a difficult task. 
 
 \section{\textbf{Related Work}}\label{related}
 Our topic englobes two distinct domains. First, raising awareness about smartwatch data collection is important because users have both privacy concerns and misconceptions about smartwatches. This is pointed out by Datta, Namin and Chatterjee: in their survey of the literature in the field of privacy concerns in wearable devices, they identify that user concerns vary depending on the context \cite{datta2018survey}. For example, users were more concerned if there was a spacial context in the data, because they understood their position could be inferred. The same conclusion is drawn by Motti and Caine: they claim that users see the GPS sensor in wrist-mounted devices as the most critical privacy concern \cite{motti2015users}. Moreover, Udoh and Alkharashi reveal that participants in their study held wrong beliefs when it came to privacy and wearables \cite{udoh2016privacy}. This confirms the importance of raising awareness by providing clear, understandable information about data collection. These studies, however, only analyse the concerns of users without proposing mechanisms to raise awareness.
@@ -91,16 +92,6 @@ Secondly, the topic implies that to raise awareness, there is a need to attract 
 
 It is observable that despite the high amount of contributions in both analyses of user privacy concerns and unawareness, and applications that give feedback for various contexts, there is, to the best of our knowledge, little work that merges both domains together. Patil et al. assess the importance of privacy feedback and question the impact of its timing on user experience, arguing for a moderate delay \cite{patil2015interrupt}.  Although our implementation provides real-time feedback, we still consider it a viable approach as the provided feedback is never blocking the user. A recent contribution from Williams, Nurse and Creese evaluates the efficiency of serious games in encouraging privacy-protective behaviour, claiming to be the first tool for this matter \cite{williams2019smart}. While this encouraging approach seems to raise privacy awareness in smartwatch users, it differs from ours in the sense that it uses a game rather than real-time feedback. In other words, there is seemingly no system that focuses on raising awareness of users regarding smartwatch data collection through real-time feedback.  
 
-\section{\textbf{Approach}}\label{approach}
-
-\subsection{\textbf{System requirements}}
-
-\subsubsection{\textbf{Functional requirements}}
-\subsubsection{\textbf{User interface requirements}}
-\subsubsection{\textbf{Security and privacy requirements}}
-
-\subsection{\textbf{System overview}}
-
 % System overview
 \begin{figure*}[ht]
 \centerline{\includegraphics[width=.9\textwidth]{img/appDiagram.png}}
@@ -108,7 +99,50 @@ It is observable that despite the high amount of contributions in both analyses 
 \label{fig:systemOverview}
 \end{figure*}
 
+\section{\textbf{Approach}}\label{approach}
+This section describes in details the system requirements, system overview, different services used in the system, supported feedback types and the two applications - main and watch face. 
+
+\subsection{\textbf{System requirements}}
+This sub section describes the functional and non-functional requirements of the system. Functional requirements describe the functions to be performed by the system or its components whereas a non-functional requirements define the performance attributes of the system or each component.
+
+1) Sensor accesses must be detected and appropriate feedback sent to the user.
+
+2) The user should be able to suspend sensor usage.
+
+3) The user interface should be designed following the general principles and guidelines.
+
+4) The different feedback types should be able to adapt to the core settings of the device. For example, if the watch face is in ambient mode the feedbacks should be visualized in a such way that the battery consumption is less in comparison to the normal mode. 
+
+5) The communication between the main application and the watch face application should be minimal, as fast and as efficient as possible for less latency and better synchronization. In other words, the main application should sent only data which is crucial for the proper functioning of the watch face application.  
+
+\subsection{\textbf{System overview}}
+
 Fig.~\ref{fig:systemOverview} illustrates the system overview. We have developed two applications: main and watch face. The main application is responsible for: 1) applying feedback and monitoring settings defined by the user and storing them on the device, 2) simulating random sensor accesses by using the random sensing service and generate matching feedback data, and 3) sending the feedback data to the watch face application via the message port service. The watch face application, on the other hand, is responsible for: 1) receiving feedback data from the main application via the message port service and 2) transforming the feedback data into actual feedbacks and notifying the user about the collected sensor data according to their feedback preferences.
+
+% Visual Feedback images
+\begin{figure*}[t!]
+    \centering
+    \begin{subfigure}[t]{0.33\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/ringHR&Location.png}
+        \caption{Ring - HR and Location}
+        \label{fig:ringFeedback}
+    \end{subfigure}%
+    \begin{subfigure}[t]{0.33\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/iconLocation&Activity.png}
+        \caption{Icon - Location and Activity}
+        \label{fig:iconFeedback}
+    \end{subfigure}
+    \begin{subfigure}[t]{0.33\textwidth}
+        \centering
+        \includegraphics[height=1.5in]{img/notificationActifity.png}
+        \caption{Notification - Activity}
+        \label{fig:notificationFeedback}
+    \end{subfigure}
+    \caption{Different kinds of visual feedback}
+    \label{fig:visualFeedbackImage}
+\end{figure*}
 
 \subsection{\textbf{Services}}\label{services}
 The main logic of the applications is controlled by several services.
@@ -136,60 +170,6 @@ The message port service is responsible for the communication between the two ap
 \subsubsection{\textbf{Feedback service}}
 The feedback service is responsible for the transformation of the received feedback data (active services and user settings) into actual feedback parameters (visualization feedback type, color and activity status of other/additional feedback types) and triggering the feedbacks on the watch face application's main page. 
 
-
-\subsection{\textbf{Supported feedback types}}
-
-% Visual Feedback images
-\begin{figure*}[t!]
-    \centering
-    \begin{subfigure}[t]{0.33\textwidth}
-        \centering
-        \includegraphics[height=1.5in]{img/ringHR&Location.png}
-        \caption{Ring - HR and Location}
-        \label{fig:ringFeedback}
-    \end{subfigure}%
-    \begin{subfigure}[t]{0.33\textwidth}
-        \centering
-        \includegraphics[height=1.5in]{img/iconLocation&Activity.png}
-        \caption{Icon - Location and Activity}
-        \label{fig:iconFeedback}
-    \end{subfigure}
-    \begin{subfigure}[t]{0.33\textwidth}
-        \centering
-        \includegraphics[height=1.5in]{img/notificationActifity.png}
-        \caption{Notification - Activity}
-        \label{fig:notificationFeedback}
-    \end{subfigure}
-    \caption{Different kinds of visual feedback}
-    \label{fig:visualFeedbackImage}
-\end{figure*}
-
-We divide the supported feedback types into two main groups: 1) Visual feedbacks and 2) Other feedbacks.
-
-\subsubsection{\textbf{Visual feedbacks}}
-We assign three colors---red, yellow and blue---for the main three human activity services: health, location and activity, respectively.
-
-The visual feedbacks are further categorized into there sub groups: 1) Ring feedback, 2) Icon feedback, and 3) Notification feedback (as shown in Fig.~\ref{fig:ringFeedback},~\ref{fig:iconFeedback}, and~\ref{fig:notificationFeedback}, respectively).
-
-\textbf{Ring feedback}: this feedback type draws a slowly blinking ring around the screen of the watch, by using the progress bar feature of the device. The color of the ring depends on the currently active services. In case there are two active services at the same time, the ring is divided into two equal parts and each part has the color of the respective active service. Fig.~\ref{fig:ringFeedback} shows an example of the ring feedback type when both health and location services are active. For our research, and for the sake of keeping the implementation simple, the maximum amount of active services at the same time is set to two. Since we use the progress bar feature to achieve the ring feedback, it is enough to assign one color for the progress bar and another color for the progress bar's background, and make the value of the progress bar 0.5 to split it into two equal parts. Theoretically, it is possible to have more than two active services at the same time. However, in a such scenario the blinking ring would be divided into more equal parts, and hence, a more complex algorithm would be needed. 
-
-\textbf{Icon feedback}: this feedback type shows an icon according to which service is active. The icons follow the same color pattern(i.e. the health service has a red color, and so on). Fig.~\ref{fig:iconFeedback} shows an example of the icon feedback type when both location and activity services are active. In comparison to the ring feedback, the icon feedback is a lot more easier to implement in case there are more than two services active at the same time. This is because we used a FlexLayout (a Xamarin.Forms component) in order to correctly center icons regardless of their amount. Hence, the number of the active services does not matter. There is however a maximum limit, which is defined by the screen area.
-
-\textbf{Notification feedback}: this feedback type, as its name suggests, shows a system notification with a title and a message. The messages are of the type: ``Your <health/location/activity> data is being collected'', with according singular or plural grammar depending on the case. If there is only one active service, an icon is additionally shown. When more than one service is active, the generated notification does not show any icons, because Tizen notifications only support one icon. This feedback type gets more suitable as the number of the active services increase, because the message can easily convey the list of active sensors without taking too much space.
-
-\subsubsection{\textbf{Other feedback types}}
-The other feedback types are: 1) Vibration and 2) Sound. These two feedback types are additional feedback and could be considered as an extension to the visual feedbacks, in the sense that they can be added on top of the visual feedbacks (they are deactivated by default). The user may combine one of the visual feedbacks with vibration and/or sound according to their preference from the settings menu, to the exception of the notification type, for which vibration and sound depend on the global system settings---this is to avoid having two sounds and two vibrations at the same time. We do not consider different vibration intensities or sound types; however, they differ from the system notifications' sound and vibration, which are defined in the system settings. Although the system notifications' sound and vibration intensity can be adjusted to a low level in the watch's settings, our own vibration intensity and sound have been designed to be less intense than the system notification ones.
-
-\subsection{\textbf{Main application}}
-The main application's user interface is designed to be simple to use and to not overwhelm the user with options. We used the Shell system from Xamarin.Forms to create routes to the different pages in a way that lets the user navigate easily between them. This is done by using so-called ``flyout'' items, which are accessible by clicking a small arrow at the botom of the screen. Clicking this arrow shows a dropdown list on top of the current page, which shows the available pages.
-
-The main page has a single button which activates and deactivates the random sensing service (the service is discussed in details in section \ref{services}). It exists mainly for testing purposes and could be removed in the future.
-
-The feedback settings page consists of two sub pages, that are navigable by swipe gestures: visual feedback settings and other feedback settings. In the visual feedback settings page, the user can select one of the three available options: 1) Ring, 2) Icon, and 3) Notification (as shown in Fig.~\ref{fig:visualFeedbackSettings}). The radio buttons convey that only one choice is possible. In the other feedback settings page, the user can select additional feedback options such as vibration and sound (as shown in Fig.~\ref{fig:otherFeedbackSettings}) Here, switches communicate that these options can be combined.
-
-In the monitoring settings page, the user can suspend the application's sensor usage for a defined amount of time, as shown in Fig.~\ref{fig:monitoringSettings}. During that time interval, the main application, or more specifically the random sensing service, is not permitted to read any sensor data. 
-
-
 % Feedback Settings images
 \begin{figure*}[t!]
     \centering
@@ -215,14 +195,40 @@ In the monitoring settings page, the user can suspend the application's sensor u
     \label{fig:feedbackSettingsImage}
 \end{figure*}
 
+\subsection{\textbf{Supported feedback types}}
+
+We divide the supported feedback types into two main groups: 1) Visual feedbacks and 2) Other feedbacks.
+
+\subsubsection{\textbf{Visual feedbacks}}
+We assign three colors---red, yellow and blue---for the main three human activity services: health, location and activity, respectively.
+
+The visual feedbacks are further categorized into there sub groups: 1) Ring feedback, 2) Icon feedback, and 3) Notification feedback (as shown in Fig.~\ref{fig:ringFeedback},~\ref{fig:iconFeedback}, and~\ref{fig:notificationFeedback}, respectively).
+
+\textbf{Ring feedback}: this feedback type draws a slowly blinking ring around the screen of the watch, by using the progress bar feature of the device. The color of the ring depends on the currently active services. In case there are two active services at the same time, the ring is divided into two equal parts and each part has the color of the respective active service. Fig.~\ref{fig:ringFeedback} shows an example of the ring feedback type when both health and location services are active. For our research, and for the sake of keeping the implementation simple, the maximum amount of active services at the same time is set to two. Since we use the progress bar feature to achieve the ring feedback, it is enough to assign one color for the progress bar and another color for the progress bar's background, and make the value of the progress bar 0.5 to split it into two equal parts. Theoretically, it is possible to have more than two active services at the same time. However, in a such scenario the blinking ring would be divided into more equal parts, and hence, a more complex algorithm would be needed. 
+
+\textbf{Icon feedback}: this feedback type shows an icon according to which service is active. The icons follow the same color pattern(i.e. the health service has a red color, and so on). Fig.~\ref{fig:iconFeedback} shows an example of the icon feedback type when both location and activity services are active. In comparison to the ring feedback, the icon feedback is a lot more easier to implement in case there are more than two services active at the same time. This is because we used a FlexLayout (a Xamarin.Forms component) in order to correctly center icons regardless of their amount. Hence, the number of the active services does not matter. There is however a maximum limit, which is defined by the screen area.
+
+\textbf{Notification feedback}: this feedback type, as its name suggests, shows a system notification with a title and a message. The messages are of the type: ''Your health/location/activity data is being collected'', with according singular or plural grammar depending on the case. If there is only one active service, an icon is additionally shown. When more than one service is active, the generated notification does not show any icons, because Tizen notifications only support one icon. This feedback type gets more suitable as the number of the active services increase, because the message can easily convey the list of active sensors without taking too much space.
+
+\subsubsection{\textbf{Other feedback types}}
+The other feedback types are: 1) Vibration and 2) Sound. These two feedback types are additional feedback and could be considered as an extension to the visual feedbacks, in the sense that they can be added on top of the visual feedbacks (they are deactivated by default). The user may combine one of the visual feedbacks with vibration and/or sound according to their preference from the settings menu, to the exception of the notification type, for which vibration and sound depend on the global system settings---this is to avoid having two sounds and two vibrations at the same time. We do not consider different vibration intensities or sound types; however, they differ from the system notifications' sound and vibration, which are defined in the system settings. Although the system notifications' sound and vibration intensity can be adjusted to a low level in the watch's settings, our own vibration intensity and sound have been designed to be less intense than the system notification ones.
+
+\subsection{\textbf{Main application}}
+The main application's user interface is designed to be simple to use and to not overwhelm the user with options. We used the Shell system from Xamarin.Forms to create routes to the different pages in a way that lets the user navigate easily between them. This is done by using so-called ``flyout'' items, which are accessible by clicking a small arrow at the botom of the screen. Clicking this arrow shows a dropdown list on top of the current page, which shows the available pages.
+
+The main page has a single button which activates and deactivates the random sensing service. It exists mainly for testing purposes and could be removed in the future.
+
+The feedback settings page consists of two sub pages, that are navigable by swipe gestures: visual feedback settings and other feedback settings. In the visual feedback settings page, the user can select one of the three available options: 1) Ring, 2) Icon, and 3) Notification (as shown in Fig.~\ref{fig:visualFeedbackSettings}). The radio buttons convey that only one choice is possible. In the other feedback settings page, the user can select additional feedback options such as vibration and sound (as shown in Fig.~\ref{fig:otherFeedbackSettings}) Here, switches communicate that these options can be combined.
+
+In the monitoring settings page, the user can suspend the application's sensor usage for a defined amount of time (as shown in Fig.~\ref{fig:monitoringSettings}). During that time interval, the main application, or more specifically the random sensing service, is not permitted to read any sensor data. 
 
 \subsection{\textbf{Watch face application}}
 The watch face application is, for research and design purposes, very minimalistic. By default, it only shows the current time digitally. When the main page receives feedback instructions from the feedback service, the necessary visual components are dynamically parametrized and made visible. In case of the ring feedback, the progress bar values and colors are adapted and made visible. In case of the icon feedback, the respective icons are made visible. Lastly, in case of the notification feedback, nothing is made to the level of the main page, as the system notification naturally triggers and takes the space of the screen, in case the watch face is active. In case not (e.g. the user is using another application), then the notification only pops up at the top of the screen for a few seconds, before disappearing to the notification center. 
 
-When the user activates the ``always on'' mode of their smartwatch, the ambiant mode can be triggered. This happens when no interaction is made after a few seconds. When the screen would normally turn off, the ambiant mode instead reduces the luminosity and the amount of \ac{UI} updates. This permits users to still see the time when the watch's screen should be off. In order to save resources, the ring feedback's blinking animation is suspended in this mode, but the color and value of the progress bar are still updated in real time, in order to keep the fedback accuracy in relation to the sensors that are accessed by the main application.
+When the user activates the ``always on'' mode of their smartwatch, the ambient mode can be triggered. This happens when no interaction is made after a few seconds. When the screen would normally turn off, the ambient mode instead reduces the luminosity and the amount of \ac{UI} updates. This permits users to still see the time when the watch's screen should be off. In order to save resources, the ring feedback's blinking animation is suspended in this mode, but the color and value of the progress bar are still updated in real-time, in order to keep the feedback accuracy in relation to the sensors that are accessed by the main application.
 
 \section{\textbf{Discussion}}\label{discussion}
-This section discusses the different approaches that were used in order to raise awareness in smartwatch data collection. Prior to developping the application that was discussed in section \ref{approach}, we imagined another application that was, to the best of our knowledge, not realizable with current \acp{API} and system accesses.  
+This section discusses the different approaches that were used in order to raise awareness in smartwatch data collection. Prior to developing the application that was discussed in section \ref{approach}, we imagined another application that was, to the best of our knowledge, not realizable with current \acp{API} and system accesses.  
 
 \subsection{\textbf{First approach}}
 The first application that we attempted to develop relied on a monitoring mechanism that would detect any sensor usage by another application that is installed on the watch. This way, the application would have been able to alert the user when an application that they chose to monitor would have started sensing. Unfortunately, this approach was impossible to implement, although the necessary data for its functioning are existing.

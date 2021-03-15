@@ -155,7 +155,7 @@ The health service has an instance of the smartwatch's heart rate monitor sensor
 
 The location service supports four different location positioning system types: 1) Gps, which uses the global positioning system, 2) Wps, which uses the Wi-Fi positioning system, 3) Passive, which uses the passive mode, and 4) Hybrid, which selects the best method available at the moment. 
 
-The activity service could potentially have an instance of the podometer sensor. However, this functionality was not implemented. Nevertheless, we still consider cases which may involve activation of the activity service and handle them accordingly by showing the appropriate feedback to the user. 
+The activity service has an instance of smartwatch's pedometer sensor. This sensor returns information such as moving speed and distance, step counts for both walking and running, stepping frequency and burned calories.
 
 \subsubsection{\textbf{Privacy permission service}}
 The privacy permission service is responsible for checking privacy-related privileges and requesting permission from the user to use specific privileges. For example, in order to use the heart rate monitor sensor, an application must first request and get the health privilege from the user. In the same way, the location privilege must be requested and obtained first in order to allow the usage of the location service.

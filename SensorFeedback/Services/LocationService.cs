@@ -1,6 +1,7 @@
 ﻿using SensorFeedback.Services;
 using System;
 using System.Threading.Tasks;
+using Tizen.Applications;
 using Tizen.Location;
 
 namespace SensorFeedback.Services
@@ -20,15 +21,27 @@ namespace SensorFeedback.Services
 
         private bool _disposed = false;
 
+        private LocationType _type;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LocationService"/> class.
         /// </summary>
         /// <param name="type">The back-end positioning method type.</param>
         public LocationService(LocationType type)
         {
-            // NotSupportedException will be thrown if the given type is not supported
-            _locator = new Locator(type);
-            State = ServiceState.Disabled;
+            _type = type;
+            try
+            {
+                GetSensorIfPermission();
+            }
+            catch (NotSupportedException)
+            {
+                Application.Current.Exit();
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Application.Current.Exit();
+            }
         }
 
         /// <summary>
@@ -37,6 +50,16 @@ namespace SensorFeedback.Services
         ~LocationService()
         {
             Dispose(false);
+        }
+
+        private void GetSensorIfPermission()
+        {
+            PrivacyPermissionStatus response = PrivacyPermissionService.Check(PrivacyPrivilege.Location);
+            if (response == PrivacyPermissionStatus.Granted)
+            {
+                _locator = new Locator(_type);
+                State = ServiceState.Disabled;
+            }
         }
 
         /// <summary>
@@ -138,6 +161,11 @@ namespace SensorFeedback.Services
 
         public void Start()
         {
+            if (_locator == null)
+            {
+                GetSensorIfPermission();
+            }
+
             if (!_started)
             {
                 _locator.ServiceStateChanged += OnServiceStateChanged;

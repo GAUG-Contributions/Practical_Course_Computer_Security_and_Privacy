@@ -19,11 +19,7 @@ namespace SensorFeedback.Services
         {
             try
             {
-                // A NotSupportedException will be thrown if the sensor is not available on the device
-                _sensor = new Pedometer();
-                // Add an event handler to the sensor
-                _sensor.DataUpdated += OnSensorDataUpdated;
-                _sensor.Interval = 1000;
+                GetSensorIfPermission();
             }
             catch (NotSupportedException)
             {
@@ -40,12 +36,31 @@ namespace SensorFeedback.Services
             Dispose(false);
         }
 
+        private void GetSensorIfPermission()
+        {
+            PrivacyPermissionStatus response = PrivacyPermissionService.Check(PrivacyPrivilege.HealthInfo);
+            if (response == PrivacyPermissionStatus.Granted)
+            {
+                _sensor = new Pedometer();
+                // Add an event handler to the sensor
+                _sensor.DataUpdated += OnSensorDataUpdated;
+                _sensor.Interval = 1000;
+            }
+        }
+
         /// <summary>
         /// Starts the sensor to receive sensor data
         /// </summary>
         public void Start()
         {
-            _sensor.Start();
+            if (_sensor == null)
+            {
+                GetSensorIfPermission();
+            }
+            else
+            {
+                _sensor.Start();
+            }
         }
 
         /// <summary>

@@ -1,5 +1,8 @@
 
 .vs/
+Monitoring/bin
+Monitoring/obj
+Monitoring/.vs
 SensorFeedback/bin
 SensorFeedback/obj
 SensorFeedback/.vs

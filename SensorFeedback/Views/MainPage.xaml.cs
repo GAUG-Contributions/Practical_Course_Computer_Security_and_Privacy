@@ -17,20 +17,6 @@ namespace SensorFeedback.Views
         {
             InitializeComponent();
             _randomSensingService = RandomSensingService.GetInstance;
-
-            // Used to debug - don't remove before the final version
-            MessagingCenter.Subscribe<RandomSensingService, String>(this, "printMe", async (sender, str) =>
-            {
-                await printMe(str);
-            });
-
-        }
-
-        // Used to debug - don't remove before the final version
-        private Task printMe(string str){
-            labelOverview.Text = str;
-
-            return Task.CompletedTask;
         }
 
         /*================================================================================*/
@@ -43,23 +29,34 @@ namespace SensorFeedback.Views
             return base.OnBackButtonPressed();
         }
 
-        private void OnHealthButtonClicked(object sender, EventArgs args){
-
-        }
-
-        private void OnLocationButtonClicked(object sender, EventArgs args){
-
-        }
-
         private void OnRandButtonClicked(object sender, EventArgs e)
         {
-            if (_randomSensingService.IsRandomActive()){
-                buttonRand.TextColor = Color.White;
-                _randomSensingService.StopRandom();
-            }
-            else {
-                buttonRand.TextColor = Color.Green;
-                _randomSensingService.StartRandom();
+            // Process the button click 
+            if (_randomSensingService != null){
+                if (_randomSensingService.IsRandomActive())
+                {
+                    buttonRand.TextColor = Color.White;
+                    _randomSensingService.StopRandom();
+                }
+                else
+                {
+                    buttonRand.TextColor = Color.Green;
+                    _randomSensingService.StartRandom();
+                }
+            } 
+            else{
+                // If for some reason the random sensing service was not 
+                // successfully initialized inside the MainPage(), try once more
+                _randomSensingService = RandomSensingService.GetInstance;
+                // If the initialization is successful now, process the pressed button
+                if(_randomSensingService != null)
+                    OnRandButtonClicked(sender, e);
+                else
+                {
+                    // The initialization failed again
+                    Logger.Error("Random sensing service cannot be initialized!", "MainPage.xaml.cs", "OnRandButtonClicked");
+                    // Application.Current.Quit(); - the application could be closed at this point, because the button is not working anyway
+                }
             }
         }
 
@@ -69,8 +66,10 @@ namespace SensorFeedback.Views
             {
                 if (disposing)
                 {
-                    _randomSensingService.Dispose();
+                    if (_randomSensingService != null)
+                        _randomSensingService.Dispose();
                 }
+
                 _randomSensingService = null;
                 _disposedValue = true;
             }

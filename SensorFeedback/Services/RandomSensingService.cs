@@ -9,9 +9,9 @@ namespace SensorFeedback.Services
     class RandomSensingService : IDisposable
     {
         // Main Services - Health, Location and Activity
-        private HeartRateMonitorService _hrmService;
-        private LocationService _locService;
-        private ActivityService _actService;
+        private HeartRateMonitorService _hrmService = null;
+        private LocationService _locService = null;
+        private ActivityService _actService = null;
 
         // Used to stop all sensors sensing if the user denied the access
         private bool _areSensorsAllowed = true;
@@ -21,7 +21,7 @@ namespace SensorFeedback.Services
         private bool _actStatus = false;
         
         // Communication services
-        private MessagePortService _mpService;
+        private MessagePortService _mpService = null;
         private RemotePort _remotePortService = null;
         private const string _localPort = "27071";
         private const string _remotePort = "27072";
@@ -29,9 +29,9 @@ namespace SensorFeedback.Services
         private bool _trustedCommunication = true;
 
         // Randomizer Service
-        private Random _randomizer;
+        private Random _randomizer = null;
         // Number of random actions that the Rand button performs
-        private const int RANDOM_ACTIONS_TO_PERFORM = 200;
+        private const int RANDOM_ACTIONS_TO_PERFORM = 5000;
         private bool _isRandomActive = false;
         private const int NUM_TOTAL_SERVICES = 3;
 
@@ -97,13 +97,15 @@ namespace SensorFeedback.Services
 
         private void InitializeServices()
         {
-            _randomizer = new Random();
-            _hrmService = new HeartRateMonitorService();
-            _locService = new LocationService(Tizen.Location.LocationType.Hybrid);
-            _mpService = new MessagePortService(_localPort, _trustedCommunication);
-            _actService = new ActivityService();
-            _mpService.Open();
-            _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
+            if(_randomizer == null) _randomizer = new Random();
+            if(_hrmService == null) _hrmService = new HeartRateMonitorService();
+            if(_locService == null) _locService = new LocationService(Tizen.Location.LocationType.Hybrid);
+            if(_actService == null) _actService = new ActivityService();
+            if (_mpService == null){
+                _mpService = new MessagePortService(_localPort, _trustedCommunication);
+                _mpService.Open();
+            }
+            if(_remotePortService == null) _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
 
         // Allows or Forbids sensors sensing
@@ -125,21 +127,24 @@ namespace SensorFeedback.Services
 
         // Starts a service if not already running
         public bool StartService(ServiceType service){
+            // If any of the services is null, initialize them again
+            // Should never be the case
+            if (_hrmService == null || _locService == null || _actService == null)
+                InitializeServices();
+
             if (service == ServiceType.Health && !_hrmStatus){
                 _hrmStatus = true;
                 _hrmService.Start();
-                return true;
+                return true;  
             }
 
-            if (service == ServiceType.Location && !_locStatus)
-            {
+            if (service == ServiceType.Location && !_locStatus){
                 _locStatus = true;
                 _locService.Start();
                 return true;
             }
 
-            if (service == ServiceType.Activity && !_actStatus)
-            {
+            if (service == ServiceType.Activity && !_actStatus){
                 _actStatus = true;
                 _actService.Start();
                 return true;
@@ -150,6 +155,11 @@ namespace SensorFeedback.Services
 
         // Stops a service if running
         public bool StopService(ServiceType service){
+            // If any of the services is null, initialize them again
+            // Should never be the case
+            if (_hrmService == null || _locService == null || _actService == null)
+                InitializeServices();
+
             if (service == ServiceType.Health && _hrmStatus){
                 _hrmStatus = false;
                 _hrmService.Stop();
@@ -284,6 +294,9 @@ namespace SensorFeedback.Services
         private int PerformOneRandomAction(int previousAction)
         {
             int randomAction = -1;
+
+            if (_randomizer == null)
+                InitializeServices();
 
             // Generate a random action
             randomAction = _randomizer.Next(0, 4);
@@ -426,28 +439,39 @@ namespace SensorFeedback.Services
         // Data sent to the WF app
         private void SendFeedbackToWF()
         {
-
-            // If the remote app's port is listening
-            if (_remotePort != null && _remotePortService.IsRunning())
+            if (_remotePort != null)
             {
-                // Generates color feedback according to the current activity state of services
-                ColorFeedback color = generateColorFeedback();
+                // If the remote app's port is listening
+                if (_remotePortService.IsRunning())
+                {
+                    // Generates color feedback according to the current activity state of services
+                    ColorFeedback color = generateColorFeedback();
 
-                // Check for User Settings to apply feedback preferences
-                DatabaseService ds = DatabaseService.GetInstance;
-                UserSettings us = ds.LoadUserSettings();
+                    // Check for User Settings to apply feedback preferences
+                    DatabaseService ds = DatabaseService.GetInstance;
+                    UserSettings us = ds.LoadUserSettings();
 
-                var message = new Bundle();
-                message.AddItem("colorFeedback", color.ToString());
-                message.AddItem("visualFeedback", us.VisualFeedbackType.ToString());
-                message.AddItem("vibrationFeedback", us.ActivateVibrationFeedback.ToString());
-                message.AddItem("soundFeedback", us.ActivateSoundFeedback.ToString());
-                _mpService.Send(message, _remotePortService.AppId, _remotePortService.PortName);
-                
-                message.Dispose();
+                    var message = new Bundle();
+                    message.AddItem("colorFeedback", color.ToString());
+                    message.AddItem("visualFeedback", us.VisualFeedbackType.ToString());
+                    message.AddItem("vibrationFeedback", us.ActivateVibrationFeedback.ToString());
+                    message.AddItem("soundFeedback", us.ActivateSoundFeedback.ToString());
 
-            } else {
-                MessagingCenter.Send(this, "printMe", "PORT_ERROR");
+                    if (_mpService != null)
+                        _mpService.Send(message, _remotePortService.AppId, _remotePortService.PortName);
+                    else
+                    {
+                        // Message port service is null, initialize and try to resend again
+                        InitializeServices();
+                        _mpService.Send(message, _remotePortService.AppId, _remotePortService.PortName);
+                    }
+                    message.Dispose();
+                }
+            }
+            else
+            {
+                // Remote port service is null, initialize
+                InitializeServices();
             }
         }
 
@@ -457,11 +481,11 @@ namespace SensorFeedback.Services
             {
                 if (disposing)
                 {
-                    _hrmService.Dispose();
-                    _locService.Dispose();
-                    _actService.Dispose();
-                    _mpService.Dispose();
-                    _remotePortService.Dispose();
+                    if(_hrmService != null) _hrmService.Dispose();
+                    if (_locService != null) _locService.Dispose();
+                    if (_actService != null) _actService.Dispose();
+                    if (_mpService != null) _mpService.Dispose();
+                    if (_remotePortService != null) _remotePortService.Dispose();
                 }
 
                 _hrmService = null;

@@ -48,7 +48,7 @@ namespace SensorFeedbackWF.Services
         /// </remarks>
         public void Open()
         {
-            if (!_localPort.Listening)
+            if (_localPort != null && !_localPort.Listening)
             {
                 _localPort.MessageReceived += OnMessageReceived;
                 _localPort.Listen();
@@ -89,7 +89,22 @@ namespace SensorFeedbackWF.Services
         /// </remarks>
         public void Send(Bundle message, string remoteAppId, string remotePort)
         {
-            _localPort.Send(message, remoteAppId, remotePort, _localPort.Trusted);
+            try
+            {
+                _localPort.Send(message, remoteAppId, remotePort, _localPort.Trusted);
+            }
+            catch (InvalidOperationException)
+            {
+                Logger.Error("Invalid operation!", "MessagePortService.cs", "Send");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Logger.Error("Access not authorized!", "MessagePortService.cs", "Send");
+            }
+            catch (OutOfMemoryException)
+            {
+                Logger.Error("Out of memory!", "MessagePortService.cs", "Send");
+            }
         }
 
         /// <summary>
@@ -97,7 +112,7 @@ namespace SensorFeedbackWF.Services
         /// </summary>
         public void Close()
         {
-            if (_localPort.Listening)
+            if (_localPort != null && _localPort.Listening)
             {
                 _localPort.MessageReceived -= OnMessageReceived;
                 _localPort.StopListening();
@@ -119,22 +134,26 @@ namespace SensorFeedbackWF.Services
         /// <param name="disposing">Indicates whether the method call comes from a Dispose method or from a finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (!_disposed)
             {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_localPort != null)
+                if (disposing)
                 {
-                    Close();
-                    _localPort.Dispose();
-                    _feedbackService.Dispose();
-                }
-            }
+                    if (_localPort != null)
+                    {
+                        Close();
+                        _localPort.Dispose();
+                    }
 
-            _disposed = true;
+                    if(_feedbackService != null)
+                    {
+                        _feedbackService.Dispose();
+                    }
+                }
+
+                _localPort = null;
+                _feedbackService = null;
+                _disposed = true;
+            }
         }
 
         // Data received from the Main app
@@ -148,7 +167,10 @@ namespace SensorFeedbackWF.Services
             string sound = e.Message.GetItem("soundFeedback").ToString();
 
             // Send the received data to the Feedback Service
-            _feedbackService.ReceiveFeedbackRequest(color, visual, vibration, sound);
+            if (_feedbackService != null)
+                _feedbackService.ReceiveFeedbackRequest(color, visual, vibration, sound);
+            else
+                Logger.Error("Feedback service is null!", "MessagePortService.cs", "OnMessageReceived");
 
         }
     }

@@ -7,7 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace SensorFeedback
 {
     public partial class App : Application
-    {
+    {      
         public App()
         {
             InitializeComponent();
@@ -41,6 +41,7 @@ namespace SensorFeedback
             var response = await PrivacyPermissionService.RequestAsync(PrivacyPrivilege.Location);
             if (response == PrivacyPermissionStatus.Denied)
             {
+                Logger.Error("Location privilege denied!", "App.xaml.cs", "RequestPermissionLocationAsync");
                 Application.Current.Quit();
             }
         }
@@ -53,6 +54,7 @@ namespace SensorFeedback
             var response = await PrivacyPermissionService.RequestAsync(PrivacyPrivilege.HealthInfo);
             if (response == PrivacyPermissionStatus.Denied)
             {
+                Logger.Error("Health privilege denied!", "App.xaml.cs", "RequestPermissionSensorAsync");
                 Application.Current.Quit();
             }
         }

@@ -36,10 +36,12 @@ namespace SensorFeedback.Services
             }
             catch (NotSupportedException)
             {
+                Logger.Error("Locator is not supported on this device!", "LocationService.cs", "LocationService");
                 Application.Current.Exit();
             }
             catch (UnauthorizedAccessException)
             {
+                Logger.Error("Locator - unauthorized access!", "LocationService.cs", "LocationService");
                 Application.Current.Exit();
             }
         }
@@ -82,18 +84,17 @@ namespace SensorFeedback.Services
         /// <param name="disposing">Indicates whether the method call comes from a Dispose method or from a finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (!_disposed)
             {
-                return;
-            }
+                if (disposing)
+                {
+                    Stop();
+                    _locator.Dispose();
+                }
 
-            if (disposing)
-            {
-                Stop();
-                _locator.Dispose();
+                _locator = null;
+                _disposed = true;
             }
-
-            _disposed = true;
         }
 
         /// <summary>
@@ -148,6 +149,12 @@ namespace SensorFeedback.Services
         /// </summary>
         public void Stop()
         {
+            if(_locator == null)
+            {
+                Logger.Error("Locator is null!", "LocationService.cs", "Stop");
+                return;
+            }
+            
             if (_started)
             {   
                 _locator.ServiceStateChanged -= OnServiceStateChanged;

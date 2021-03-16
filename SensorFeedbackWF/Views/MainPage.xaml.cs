@@ -31,9 +31,10 @@ namespace SensorFeedbackWF.Views
         private bool _isAnimateRingActive = false;
 
         // Communication services
-        private MessagePortService _mpService;
+        private MessagePortService _mpService = null;
         private RemotePort _remotePortService = null;
         private const string _localPort = "27072";
+        // Not needed for now because we don't send anything from the WF to the Main App
         // private const string _remotePort = "27071";
         // private const string _remoteAppId = "de.ugoe.SensorFeedback";
         private bool _trustedCommunication = true;
@@ -64,41 +65,17 @@ namespace SensorFeedbackWF.Views
                 await ReceiveIconSettings(message);
             });
 
-            // Used to debug - don't remove before the final version
-            MessagingCenter.Subscribe<FeedbackService, String>(this, "printMe", async (sender, str) =>
-            {
-                await printMe(str);
-            });
-
-            // Used to debug - don't remove before the final version
-            MessagingCenter.Subscribe<MessagePortService, Color>(this, "printMe2", async (sender, col) =>
-            {
-                await printMe2(col);
-            });
-        }
-
-        // Used to debug - don't remove before the final version
-        private Task printMe(string str)
-        {
-            DebugLabel.Text = str;
-
-            return Task.CompletedTask;
-        }
-
-        // Used to debug - don't remove before the final version
-        private Task printMe2(Color color)
-        {
-            DebugLabel.TextColor = color;
-
-            return Task.CompletedTask;
         }
 
         private void InitializeServices()
         {
-            _mpService = new MessagePortService(_localPort, _trustedCommunication);
-            _mpService.Open();
-            // Not needed for now because we don't send anything from WF to the Main App
-            //_remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
+            if(_mpService == null)
+            {
+                _mpService = new MessagePortService(_localPort, _trustedCommunication);
+                _mpService.Open();
+            }
+            // Not needed for now because we don't send anything from the WF to the Main App
+            // if(_remotePortService == null) _remotePortService = new RemotePort(_remoteAppId, _remotePort, _trustedCommunication);
         }
 
         // Update time to be displayed.
@@ -212,11 +189,11 @@ namespace SensorFeedbackWF.Views
             string colorStr = message.GetItem("barColor").ToString();
             string backgroundStr = message.GetItem("backgroundColor").ToString();
 
-                // Set default values
-                bool parsingSuccessful = true;
+            // Set default values
+            bool parsingSuccessful = true;
 
-                // Try to parse booleans
-                if (!bool.TryParse(isVisibleStr, out bool isVisible))
+            // Try to parse booleans
+            if (!bool.TryParse(isVisibleStr, out bool isVisible))
                 parsingSuccessful = false;
 
             if (!double.TryParse(valueStr, out double barValue))
@@ -233,8 +210,8 @@ namespace SensorFeedbackWF.Views
             }
             else
             {
-                DebugLabel.Text = "FailedRingSettings";
-                DebugLabel.TextColor = Color.Red;
+                //DebugLabel.Text = "FailedRingSettings";
+                //DebugLabel.TextColor = Color.Red;
             }
 
             return Task.CompletedTask;
@@ -265,8 +242,8 @@ namespace SensorFeedbackWF.Views
             {
                 if (disposing)
                 {
-                    _mpService.Dispose();
-                    _remotePortService.Dispose();
+                    if(_mpService != null) _mpService.Dispose();
+                    if(_remotePortService != null) _remotePortService.Dispose();
                 }
                 _mpService = null;
                 _remotePortService = null;

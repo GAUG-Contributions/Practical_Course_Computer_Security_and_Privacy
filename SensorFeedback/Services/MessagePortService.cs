@@ -45,7 +45,7 @@ namespace SensorFeedback.Services
         /// </remarks>
         public void Open()
         {
-            if (!_localPort.Listening)
+            if (_localPort != null && !_localPort.Listening)
             {
                 _localPort.MessageReceived += OnMessageReceived;
                 _localPort.Listen();
@@ -86,7 +86,22 @@ namespace SensorFeedback.Services
         /// </remarks>
         public void Send(Bundle message, string remoteAppId, string remotePort)
         {
-            _localPort.Send(message, remoteAppId, remotePort, _localPort.Trusted);
+            try
+            {
+                _localPort.Send(message, remoteAppId, remotePort, _localPort.Trusted);
+            }
+            catch (InvalidOperationException)
+            {
+                Logger.Error("Invalid operation!", "MessagePortService.cs", "Send");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Logger.Error("Access not authorized!", "MessagePortService.cs", "Send");
+            }
+            catch (OutOfMemoryException)
+            {
+                Logger.Error("Out of memory!", "MessagePortService.cs", "Send");
+            }
         }
 
         /// <summary>
@@ -94,7 +109,7 @@ namespace SensorFeedback.Services
         /// </summary>
         public void Close()
         {
-            if (_localPort.Listening)
+            if (_localPort != null && _localPort.Listening)
             {
                 _localPort.MessageReceived -= OnMessageReceived;
                 _localPort.StopListening();
@@ -116,21 +131,20 @@ namespace SensorFeedback.Services
         /// <param name="disposing">Indicates whether the method call comes from a Dispose method or from a finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (_disposed)
+            if (!_disposed)
             {
-                return;
-            }
-
-            if (disposing)
-            {
-                if (_localPort != null)
+                if (disposing)
                 {
-                    Close();
-                    _localPort.Dispose();
+                    if (_localPort != null)
+                    {
+                        Close();
+                        _localPort.Dispose();
+                    }
                 }
-            }
 
-            _disposed = true;
+                _localPort = null;
+                _disposed = true;
+            }
         }
 
         // The Main app is currently not receiving anything from the WF

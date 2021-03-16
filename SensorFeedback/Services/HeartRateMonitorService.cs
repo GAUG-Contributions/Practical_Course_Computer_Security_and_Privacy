@@ -24,10 +24,12 @@ namespace SensorFeedback.Services
             }
             catch (NotSupportedException)
             {
+                Logger.Error("Heart rate monitor sensor is not supported on this device!", "HeartRateMonitorService.cs", "HeartRateMonitorService");
                 Application.Current.Exit();
             }
             catch (UnauthorizedAccessException)
             {
+                Logger.Error("Heart rate monitor - unauthorized access!", "HeartRateMonitorService.cs", "HeartRateMonitorService");
                 Application.Current.Exit();
             }
         }
@@ -72,7 +74,10 @@ namespace SensorFeedback.Services
         /// </remarks>
         public void Stop()
         {
-            _sensor.Stop();
+            if (_sensor != null)
+                _sensor.Stop();
+            else
+                Logger.Error("Heart rate monitor sensor is null!", "HeartRateMonitorService.cs", "Stop");
         }
 
         /// <summary>

@@ -23,10 +23,12 @@ namespace SensorFeedback.Services
             }
             catch (NotSupportedException)
             {
+                Logger.Error("Pedometer sensor is not supported on this device!", "ActivityService.cs", "ActivityService");
                 Application.Current.Exit();
             }
             catch (UnauthorizedAccessException)
             {
+                Logger.Error("Pedometer - unauthorized access!", "ActivityService.cs", "ActivityService");
                 Application.Current.Exit();
             }
         }
@@ -71,7 +73,10 @@ namespace SensorFeedback.Services
         /// </remarks>
         public void Stop()
         {
-            _sensor.Stop();
+            if (_sensor != null)
+                _sensor.Stop();
+            else
+                Logger.Error("Pedometer sensor is null!", "ActivityService.cs", "Stop");
         }
 
         /// <summary>

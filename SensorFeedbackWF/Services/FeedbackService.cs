@@ -103,7 +103,6 @@ namespace SensorFeedbackWF.Services
         // Parse the received strings to their appropriate types
         private void ParseStrings(string cStr, ref ColorFeedback c, string vStr, ref VisualFeedback v, string vibStr, ref bool vib, string sStr, ref bool s)
         {
-
             // Parse color string, if failed assign Error
             if (!Enum.TryParse(cStr, out c))
                 c = ColorFeedback.Error;
@@ -134,7 +133,6 @@ namespace SensorFeedbackWF.Services
             // Notifications have their own vibration and sound
             if (c != ColorFeedback.NoFeedback && v != VisualFeedback.NoFeedback && v != VisualFeedback.Notification)
                 ProcessVibrationAndSound(vibration, sound);
-
         }
 
         private void ProcessColorRing(ColorFeedback c)

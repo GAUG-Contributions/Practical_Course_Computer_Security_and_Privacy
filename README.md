@@ -6,6 +6,7 @@ This repository contains several projects:
 - **SensorFeedbackWF**: Watch Face project. Receives feedback mesages from the main app, and generates visual, haptic and/or sonor feedback in different forms. 
 - **Monitoring**: archived project, first attempt for this course. Attempted to monitor installed apps to detect sensor usage.
 - **Report**: Report for this project, in LaTeX.
+- **Presentation**: Powerpoint presentation for this project.
 
 ## Application Architecture
 The basic structure of the project (Watch Face + App) is as follows:

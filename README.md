@@ -1,5 +1,11 @@
 # Lab Course on Computer Security and Privacy - WiSe 2020/2021
 
+## Supervisor: Alexander Richter
+
+## Team members: 
+- Mehmed Mustafa
+- Chris Warin
+
 ## Table Of Contents
 This repository contains several projects:
 - **SensorFeedback**: Main Application project. Handles sensors activation and forwards feedback messages to the associated Watch Face, depending on user feedback preferences.
